@@ -24,3 +24,15 @@ const receiveErrors =(errors)=>{
         errors: errors
     });
 }
+
+export const signup=(user)=>(dispatch)=>{
+    return sessionUtil.signup(user).then((Cuser)=>dispatch(receiveCurrentUser(Cuser)))
+}
+
+export const login = user =>dispatch=>{
+    return sessionUtil.login(user).then((user)=>dispatch(receiveCurrentUser(user)))
+}
+
+export const logout =()=>dispatch=>{
+    return sessionUtil.logout().then(()=>dispatch(logoutCurrentUser()))
+}
