@@ -14,6 +14,7 @@ class Home extends React.Component{
     render(){
         return(
             <>
+                <h1>{this.props.currentUser}</h1>
                 <NavLink to={`/account/login`}><button>Login!</button></NavLink> 
                 
             </>
