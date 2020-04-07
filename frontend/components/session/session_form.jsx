@@ -56,6 +56,7 @@ class SessionForm extends React.Component{
                         <input type="submit" value="Sign in"/>
                     </form>
                 <NavLink to="/account/register">Create a new account</NavLink>
+                <br/>
                 <button onClick={this.demoUserLogin.bind(this)}>Demo Login</button>
                 </div>
             </section>
