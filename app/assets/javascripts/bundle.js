@@ -232,6 +232,29 @@ var App = function App() {
 
 /***/ }),
 
+/***/ "./frontend/components/home/dropdownUser.jsx":
+/*!***************************************************!*\
+  !*** ./frontend/components/home/dropdownUser.jsx ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var DropDownUser = function DropDownUser(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: props.dropdownVisible ? "dropdown" : "dropdownShown"
+  }, props.items);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (DropDownUser);
+
+/***/ }),
+
 /***/ "./frontend/components/home/home.jsx":
 /*!*******************************************!*\
   !*** ./frontend/components/home/home.jsx ***!
@@ -244,6 +267,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _dropdownUser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dropdownUser */ "./frontend/components/home/dropdownUser.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -269,15 +293,23 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var Home = /*#__PURE__*/function (_React$Component) {
   _inherits(Home, _React$Component);
 
   var _super = _createSuper(Home);
 
   function Home(props) {
+    var _this;
+
     _classCallCheck(this, Home);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.state = {
+      dropdownVisible: false
+    };
+    _this.handleClickMenu = _this.handleClickMenu.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(Home, [{
@@ -287,26 +319,38 @@ var Home = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "handleClickMenu",
-    value: function handleClickMenu(e) {}
+    value: function handleClickMenu(e) {
+      console.log("pressed");
+      var show = !this.state.dropdownVisible;
+      this.setState({
+        dropdownVisible: show
+      });
+    }
   }, {
     key: "render",
     value: function render() {
       var hoverItems = ["My Profile", "My Fictions", "Log Out"].map(function (ele, idx) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "userHover",
           key: idx
         }, ele);
-      }); //debugger
+      });
+      hoverItems.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "userHover",
+        key: hoverItems.length,
+        onClick: this.handleLogout.bind(this)
+      }, "Logout")); //debugger
 
       if (this.props.currentUser) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          onClick: this.handleClickMenu,
           className: "userContainer"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.props.currentUser.username, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "down_arrow"
-        }, " \u02EC")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-          className: "dropdown"
-        }, hoverItems), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          onClick: this.handleLogout.bind(this)
-        }, "Logout"));
+        }, " \u02EC"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dropdownUser__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          dropdownVisible: this.state.dropdownVisible,
+          items: hoverItems
+        })));
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
           to: "/account/login"

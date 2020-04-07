@@ -39,3 +39,16 @@
     color: red;
 }
 
+.dropdownShown{
+    display: inline-block;
+    position: relative;
+    right: 53%;
+    top: 35px;
+}
+
+.userHover:hover{
+    color: red;
+}
+
+
+
