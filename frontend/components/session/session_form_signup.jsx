@@ -9,7 +9,9 @@ class SessionFormSignup extends React.Component {
         this.state = {
             username: "",
             email: "",
-            password: ""
+            password: "",
+            Gender: "Female",
+            birth: ""
         }
 
         this.handleOnSubmit = this.handleOnSubmit.bind(this);
@@ -18,11 +20,13 @@ class SessionFormSignup extends React.Component {
     handleOnChange(type) {
         return (e) => {
             this.setState({ [type]: e.target.value })
+            //debugger
         }
     }
 
     handleOnSubmit(e) {
         e.preventDefault();
+        //debugger
         this.props.processForm(this.state).then((res) => {
             // debugger
             this.props.history.push('/');
@@ -53,6 +57,19 @@ class SessionFormSignup extends React.Component {
                         <br />
                         <label htmlFor="password">Password</label>
                         <input onChange={this.handleOnChange("password")} type="text" value={this.state.password} />
+                        <br/>
+                        <label htmlFor="gender">Gender</label>
+                        <select onChange={this.handleOnChange("gender")}id="gender" placeholder="Select a Gender" value={this.state.gender}>
+                            {/* <option disabled="disabled" selected="selected">Select your gender</option> */}
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+
+                        <label htmlFor="birth">Date of birth:</label>
+                        <input onChange={this.handleOnChange("birth")} type="date" id="birth"/>
+
+                        <br/>
 
                         <input type="submit" value="Register"/>
                     </form>

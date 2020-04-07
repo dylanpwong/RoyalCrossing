@@ -8,7 +8,7 @@ import TopNav from './top_nav'
 const App = ()=>{
     return(
         <>
-            <h1>Royal Crossing</h1>
+            <h1>Royal Crossing {'\u2716'}</h1>
             <TopNav >
             <Route  exact path="/" component={HomeContainer}/>
             </TopNav>
