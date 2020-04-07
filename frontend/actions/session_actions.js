@@ -39,3 +39,7 @@ export const login = user =>dispatch=>{
 export const logout =()=>dispatch=>{
     return sessionUtil.logout().then(()=>dispatch(logoutCurrentUser()))
 }
+
+export const demoLogin = () =>dispatch=>{
+    return sessionUtil.demoLogin().then((res)=>dispatch(receiveCurrentUser(res)))
+}

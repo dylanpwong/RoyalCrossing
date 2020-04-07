@@ -21,3 +21,11 @@ export const logout = ()=>{
         url: '/api/session'
     })
 }
+
+export const demoLogin=()=>{
+    return $.ajax({
+        method: "POST",
+        url: '/api.session',
+        data: {email: 'demo@gmail.com',password: '123456'}
+    })
+}
