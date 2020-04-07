@@ -11,7 +11,6 @@ const sessionErrorsReducer=(state=[],action)=>{
             return action.errors;
         case RECEIVE_CURRENT_USER:
             return [];
-
          default:
             return state;
     }

@@ -13,6 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+ .reset{
+     /* height: 100%;
+     width: 100%;
+     margin: 0px; */
+     /* background-color: skyblue;*/
+ } 
 .userMenuNav{
     color:#8ea3b6;
     display: inline-block;
@@ -44,11 +51,54 @@
     position: relative;
     right: 53%;
     top: 35px;
+    background-color: rgb(210, 227, 241);
 }
 
 .userHover:hover{
     color: red;
 }
 
+.credentialsForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    left: 48%;
+    top: -19px;
+    background-color: #e6e6e6;
+    width: 53%;
+    height: 850px;
+}
 
+.formcontainer{
+    position: relative;
+    top: 33%;
+}
 
+.formcontainer input[type=text]{
+    display: block;
+    height: 20px;
+    border-radius: 9%;
+}
+
+.formcontainer input[type=submit]{
+   border-radius: 5%;
+    font-size: 30px;
+    margin:20px;
+    background-color: #4d6c82;
+}
+
+.formcontainer input[type=submit]:hover{
+    background-color: #6d97b4;
+}
+
+.formLogoHeader{
+    font-size: 300%;
+    margin: 0;
+    font-family: fantasy;
+    font-weight: bold;
+}
+
+.errorMsg{
+    color: red;
+}

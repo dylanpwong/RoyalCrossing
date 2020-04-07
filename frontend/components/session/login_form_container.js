@@ -4,8 +4,9 @@ import SessionForm from "./session_form"
 
 
 const mapStateToProps=(state)=>{
+    //debugger
     return({
-        erros: state.errors.session,
+        errors: state.errors.session,
         formType: 'login'
     })
 }

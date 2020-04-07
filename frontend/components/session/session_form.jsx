@@ -22,25 +22,37 @@ class SessionForm extends React.Component{
 
     handleOnSubmit(e){
         e.preventDefault();
-        this.props.processForm(this.state);
-        this.props.history.push('/')
+        this.props.processForm(this.state).then((res)=>{
+           // debugger
+            this.props.history.push('/');
+        },(error)=>{
+           // debugger
+           // console.log(errors.error)
+        });
         
     }
 
     render(){   
         return(
             <>
-            <h1>{this.props.formType}</h1>
-                <form onSubmit={this.handleOnSubmit}>
-                    <label htmlFor="email">Email Address</label>
-                    <input onChange={this.handleOnChange("email")}id="email" type="text" value={this.state.email}/>
-                    <br/>
-                    <label htmlFor="password">Password</label>
-                    <input onChange={this.handleOnChange("password")} type="text" value={this.state.password}/>
+            <section className="credentialsForm">
+            <h1 className="formLogoHeader">Royal Crossing</h1>
+            <h1 className="errorMsg">{this.props.errors[0]}</h1>
+            <div className="formcontainer">
+                <h1>{this.props.formType}</h1>
+                    <form onSubmit={this.handleOnSubmit}>
+                        <label htmlFor="email">Email Address</label>
+                        <input onChange={this.handleOnChange("email")}id="email" type="text" value={this.state.email}/>
+                        <br/>
+                        <label htmlFor="password">Password</label>
+                        <input onChange={this.handleOnChange("password")} type="text" value={this.state.password}/>
+                        <br/>
 
                         <input type="submit" value="Sign in"/>
-                </form>
+                    </form>
                 <NavLink to="/account/register">Create a new account</NavLink>
+                </div>
+            </section>
             </>
         )
     }

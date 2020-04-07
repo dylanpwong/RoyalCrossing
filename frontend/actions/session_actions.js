@@ -6,6 +6,7 @@ export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 export const LOGOUT_USER = 'LOGOUT_USER';
 
 const receiveCurrentUser=(currentUser)=>{
+   // debugger
     return({
         type: RECEIVE_CURRENT_USER,
         user: currentUser
@@ -19,18 +20,20 @@ const logoutCurrentUser=()=>{
 }
 
 const receiveErrors =(errors)=>{
+    //debugger
     return ({
         type: RECEIVE_ERRORS,
-        errors: errors
+        errors: Object.values(errors.responseJSON)
     });
 }
 
 export const signup=(user)=>(dispatch)=>{
-    return sessionUtil.signup(user).then((Cuser)=>dispatch(receiveCurrentUser(Cuser)))
+    return sessionUtil.signup(user).then((Cuser)=>dispatch(receiveCurrentUser(Cuser)),(error)=>dispatch(receiveErrors(error)))
 }
 
 export const login = user =>dispatch=>{
-    return sessionUtil.login(user).then((user)=>dispatch(receiveCurrentUser(user)))
+    return sessionUtil.login(user).then((user)=> dispatch(receiveCurrentUser(user)),(error)=>{
+        return dispatch(receiveErrors(error))})
 }
 
 export const logout =()=>dispatch=>{

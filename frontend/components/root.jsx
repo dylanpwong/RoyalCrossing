@@ -9,6 +9,7 @@ import SignupContainer from './session/signup_form_container'
 const Root = ({store}) =>{
     return(
         <>
+        <div className="reset">
         <Provider store={store}>
             <HashRouter>
                 <Switch>
@@ -18,6 +19,7 @@ const Root = ({store}) =>{
                 </Switch>
             </HashRouter>
         </Provider>
+        </div>
         </>
     );
 }
