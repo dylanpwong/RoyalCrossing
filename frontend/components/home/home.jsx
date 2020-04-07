@@ -20,6 +20,10 @@ class Home extends React.Component{
         this.setState({dropdownVisible: show});
     }
 
+    handleMyProfile(e){
+        
+    }
+
 
     render(){
         const hoverItems = ["My Profile", "My Fictions", "Log Out"].map((ele,idx)=>{

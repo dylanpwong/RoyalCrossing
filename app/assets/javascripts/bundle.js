@@ -341,6 +341,9 @@ var Home = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "handleMyProfile",
+    value: function handleMyProfile(e) {}
+  }, {
     key: "render",
     value: function render() {
       var hoverItems = ["My Profile", "My Fictions", "Log Out"].map(function (ele, idx) {
