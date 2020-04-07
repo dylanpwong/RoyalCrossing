@@ -4,7 +4,7 @@ const DropDownUser = (props)=>{
 
     return(
       
-            <ul className={props.dropdownVisible ? "dropdown" : "dropdownShown"}>
+            <ul className={props.dropdownVisible ? "dropdownShown" : "dropdown"}>
                 {props.items}
             </ul>
        

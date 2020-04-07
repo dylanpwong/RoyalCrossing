@@ -38,6 +38,7 @@ class SessionFormSignup extends React.Component {
     render() {
         return (
             <>
+                <div className="backgrounImg">
                 <section className="credentialsForm">
                     <h1 className="formLogoHeader">Royal Crossing</h1>
                     <h1 className="errorMsg">{this.props.errors[0]}</h1>
@@ -58,6 +59,7 @@ class SessionFormSignup extends React.Component {
                     <NavLink to="/account/login">Have an Accont Log in!</NavLink>
                 </div>
                 </section>
+                </div>
             </>
         )
     }
