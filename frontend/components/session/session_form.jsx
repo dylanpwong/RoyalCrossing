@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 
 
 
@@ -23,13 +23,15 @@ class SessionForm extends React.Component{
     handleOnSubmit(e){
         e.preventDefault();
         this.props.processForm(this.state);
+        this.props.history.push('/')
+        
     }
 
-    render(){
+    render(){   
         return(
             <>
             <h1>{this.props.formType}</h1>
-                <form >
+                <form onSubmit={this.handleOnSubmit}>
                     <label htmlFor="email">Email Address</label>
                     <input onChange={this.handleOnChange("email")}id="email" type="text" value={this.state.email}/>
                     <br/>

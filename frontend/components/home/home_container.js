@@ -6,8 +6,9 @@ import Home from "./home"
 
 
 const mapStateToProps=(state)=>{
+    //debugger
     return({
-        currentUser = state.entities.users[state.session.id]
+        currentUser: state.entities.users[state.session.id]
     })
 }
 

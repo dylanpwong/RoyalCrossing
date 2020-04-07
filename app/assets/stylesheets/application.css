@@ -13,3 +13,29 @@
  *= require_tree .
  *= require_self
  */
+.userMenuNav{
+    color:#8ea3b6;
+    display: inline-block;
+    position: relative;
+    left: 85%;
+    top: -63px;
+
+}
+.down_arrow{
+    font-size: 200%;
+    position: relative;
+    top: 8px;
+    left: 0%;
+    margin-left: 5px;
+}
+
+.userContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.dropdown{
+    display: none;
+    color: red;
+}
+

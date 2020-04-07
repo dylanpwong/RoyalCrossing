@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect,useHistory } from 'react-router-dom';
 
 
 
@@ -24,13 +24,16 @@ class SessionFormSignup extends React.Component {
     handleOnSubmit(e) {
         e.preventDefault();
         this.props.processForm(this.state);
+        
+        // let history= useHistory();
+        // history.push("/");
     }
 
     render() {
         return (
             <>
                 <h1>{this.props.formType}</h1>
-                <form >
+                <form onSubmit={this.handleOnSubmit}>
                     <label htmlFor="username">Username</label>
                     <input onChange={this.handleOnChange("username")} type="text" id="username" value={this.state.username}/>
                     <br/>

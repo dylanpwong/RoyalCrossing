@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Api::UsersController < ApplicationController
 
     def show
         @user = User.find(params[:id])
@@ -10,18 +10,18 @@ class UsersController < ApplicationController
     end
 
     def create
-        @user = Usern.new(users_params)
+        @user = User.new(users_params)
 
         if(@user.save)
-            login(@user)
+            login!(@user)
             render :show
         else
-            render json: @users.errors.full_messages, status: 401
+            render json: @user.errors.full_messages, status: 401
         end
     end
 
 
     def users_params
-        params.require(user).permit(:username,:password,:email)
+        params.require(:user).permit(:username,:password,:email)
     end
 end
