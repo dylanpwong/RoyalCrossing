@@ -173,3 +173,49 @@
     text-decoration: none;
     color: #8ea3b6;
 }
+
+.mainNav{
+    background-color: rgb(61, 61, 180);
+    width: 100%;
+    height: 20px;
+}
+
+/*Users Show stuff */
+.mainContentwrapper{
+    background-image: url('https://images.unsplash.com/photo-1571757767119-68b8dbed8c97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80');
+    height: 700px;
+   background-position: center;
+   background-size: cover;
+   padding: 0px 15px;
+}
+.UsersShowSection{
+    background-color: #eff3f8;
+    width: 100%;
+    height: 700px;
+}
+
+.columnName{
+    
+}
+td{
+    width: 300px;
+}
+
+.profileTmp{
+    background-image: url('https://www.wallpaperflare.com/static/904/926/480/anime-kono-subarashii-sekai-ni-shukufuku-wo-megumin-sorcerer-wallpaper.jpg');
+    background-size: cover;
+    height: 165px;
+}
+.userSplashContainer{
+    background-color: white;
+}
+.userStatsContainer{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+.profileName{
+    font-weight: 300;
+    font-size: 36px;
+    font-family: Sans,sans-serif;
+}

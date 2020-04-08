@@ -6,8 +6,9 @@ import UsersShow from "./users_show"
 
 
 const mapStateToProps=(state,ownProps)=>{
+   // debugger
     return({
-        user: state.users[ownProps.match.params.userId]
+        user: state.entities.users[ownProps.match.params.userId]
     })
 }
 

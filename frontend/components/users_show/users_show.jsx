@@ -1,4 +1,5 @@
 import React from 'react'
+import PersonalInfo from './personal_info'
 
 
 
@@ -12,8 +13,13 @@ class UsersShow extends React.Component{
 
 
     render(){
+       // debugger
         return(
-            <h1>hello</h1>
+            <>
+            <section className="UsersShowSection">
+            <PersonalInfo user={this.props.user}/>
+            </section>
+            </>
         )
     }
 }

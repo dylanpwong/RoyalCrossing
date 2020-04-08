@@ -29,13 +29,14 @@ class Home extends React.Component{
         // const hoverItems = ["My Profile", "My Fictions", "Log Out"].map((ele,idx)=>{
         //     return <li className="userHover" key={idx}>{ele}</li>
         // });
-        const hoverItems =[];
-        hoverItems.push(<li key={1}><NavLink className="userNav userHover"to={`/profile/${this.props.currentUser.id}`}>My Profile</NavLink></li>)
-        hoverItems.push(<li key={2}><NavLink className="userNav userHover" to="/my/fictions">My Fiction</NavLink></li>)
-        hoverItems.push(<li  className="userHover"key={3} onClick={this.handleLogout.bind(this)}>Logout</li>)
+       
 
         //debugger
         if(this.props.currentUser){
+            const hoverItems = [];
+            hoverItems.push(<li key={1}><NavLink className="userNav userHover" to={`/profile/${this.props.currentUser.id}`}>My Profile</NavLink></li>)
+            hoverItems.push(<li key={2}><NavLink className="userNav userHover" to="/my/fictions">My Fiction</NavLink></li>)
+            hoverItems.push(<li className="userHover" key={3} onClick={this.handleLogout.bind(this)}>Logout</li>)
             return(
                 <>
                     <div onClick={this.handleClickMenu}className="userContainer">
