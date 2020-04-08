@@ -6,10 +6,18 @@ import SessionFormSignup from "./session_form_signup"
 
 
 const mapStateToProps=(state)=>{
-    return({
-        formType: 'signup',
-        errors: state.errors.session
-    })
+    if(state.errors.session.length ==0){
+        return({
+            formType: 'Registration',
+            errors: state.errors.session
+        })
+    }else{
+        state.errors.session= [];
+        return ({
+            formType: 'Registration',
+            errors: state.errors.session
+        })
+    }
 }
 
 const mapDispatchToProps = dispatch=>{

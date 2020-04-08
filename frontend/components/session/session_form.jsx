@@ -37,21 +37,27 @@ class SessionForm extends React.Component{
         this.handleOnSubmit(e);
     }
 
+    errorEraser(){
+        
+    }
+
     render(){   
         return(
             <>
             <div className="backgrounImg">
             <section className="credentialsForm">
             <h1 className="formLogoHeader">Royal Crossing</h1>
-            <h1 className="errorMsg">{this.props.errors[0]}</h1>
             <div className="formcontainer">
-                <h1>{this.props.formType}</h1>
+                <div className='errorsLogin'>
+                    <h3 className="errorMsg">{this.props.errors[0]}</h3>
+                </div>
+                <h1 className='SignInColor'>{this.props.formType}</h1>
                     <form onSubmit={this.handleOnSubmit}>
                         <label htmlFor="email">Email Address</label>
-                        <input onChange={this.handleOnChange("email")}id="email" type="text" value={this.state.email}/>
+                        <input className='loginInputs'onChange={this.handleOnChange("email")}id="email" type="text" value={this.state.email}/>
                         <br/>
                         <label htmlFor="password">Password</label>
-                        <input onChange={this.handleOnChange("password")} type="text" value={this.state.password}/>
+                        <input className='loginInputs'onChange={this.handleOnChange("password")} type="text" value={this.state.password}/>
                         <br/>
 
                         <input type="submit" value="Sign in"/>

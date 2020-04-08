@@ -69,7 +69,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding-left: 20px;
+    padding-left: 21px;
+    padding-right: 21px;
     position: relative;
     left: 60%;
     top: -1px;
@@ -83,22 +84,59 @@
     top: 33%;
 }
 
-.formcontainer input[type=text], input[type=password]{
-    display: block;
+.formcontainer input[type=text]{
+    display: inline-block;
     font-size: 170%;
     border-radius: 9%;
-    width: 200%;
+    width: 100%;
+}
+.pass-connector{
+    display: inline-flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.pass-connector input[type=password]{
+    font-size: 170%;
+}
+
+.formcontainer input[type=password]{
+    display: inline-block;
+}
+
+.formcontainer .passAgain{
+    margin-left: 15px;
+}
+
+.formcontainer select{
+    display: inline-block;
+    font-size: 150%;
+    border-radius: 9%;
+    width: 100%;
+}
+
+.formcontainer input[type=date]{
+    display: inline-block;
+    width: 95%;
+    font-size: 150%;
+    margin-left: 15px;
 }
 
 .formcontainer input[type=submit]{
-   border-radius: 5%;
+    display: inline-block;
+    border-radius: 5%;
     font-size: 30px;
     margin:20px;
+    color: white;
     background-color: #4d6c82;
+    width: 90%;
+    box-shadow: 3px 3px 5px 1px rgba(0,0,0,.4);
 }
+
 
 .formcontainer input[type=submit]:hover{
     background-color: #6d97b4;
+    cursor: pointer;
 }
 
 .formLogoHeader{
@@ -109,5 +147,29 @@
 }
 
 .errorMsg{
-    color: red;
+   
+    color: #dc3545;
+}
+
+.passwordsError{
+    color: #dc3545;
+}
+
+.errorsLogin{
+    display: flex;
+    justify-content: center;
+}
+
+.SignInColor{
+    color: #2f8599;
+    font-family: Lato,sans-serif;
+}
+
+.formcontainer form > .loginInputs{
+    width: 145%
+}
+
+.userNav{
+    text-decoration: none;
+    color: #8ea3b6;
 }

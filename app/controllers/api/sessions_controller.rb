@@ -11,7 +11,7 @@ class Api::SessionsController < ApplicationController
 
             render "api/users/show"
         else
-            render json: { error: ["No User with that username or password"]}, status: 422
+            render json: { error: ["Invalid email address or password"]}, status: 422
         end
     end
 
