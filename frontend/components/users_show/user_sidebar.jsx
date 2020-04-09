@@ -13,18 +13,18 @@ class UserSidebar extends React.Component{
        
         return(
             <div className="sidebarBg">
-                <div>
-                    <NavLink to="/supa"><i className="fas fa-user-circle"></i> Overview</NavLink>
+                <div className = 'userlinks'>
+                    <NavLink className="RemoveTextDec sidebarLinksStyle" to="/supa"><i className="fas fa-user-circle"></i> Overview</NavLink>
                 </div>
-                <div>
-                    <NavLink to="/supa">Fictions</NavLink>
+                <div className='userlinks'>
+                    <NavLink className="RemoveTextDec sidebarLinksStyle" to="/my/fictions"><i className="fas fa-book"></i> Fictions</NavLink>
                 </div>
 
-                <div>
-                    <NavLink to="/supa">Reviews</NavLink>
+                <div className='userlinks'>
+                    <NavLink className="RemoveTextDec sidebarLinksStyle" to="/my/reviews"><i className="far fa-eye"></i> Reviews</NavLink>
                 </div>
-                <div>
-                    <NavLink to="/supa">Favorites</NavLink>
+                <div className='userlinks'>
+                    <NavLink className="RemoveTextDec sidebarLinksStyle" to="/my/favorties"><i className="fas fa-star"></i> Favorites</NavLink>
                 </div>
             </div>
         );

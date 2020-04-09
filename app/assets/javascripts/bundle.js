@@ -1051,10 +1051,10 @@ var Table = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       joined: _this.getDate.bind(_assertThisInitialized(_this))(),
-      Last_Active: "",
+      Last_Active: _this.props.user.lastActive,
       Gender: props.user.gender,
       Location: "N/A",
-      bio: ""
+      bio: "N/A"
     };
     return _this;
   }
@@ -1083,6 +1083,7 @@ var Table = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       //const joined = this.getDate.bind(this)();
       //"2020-04-09T01:51:40.291Z"
+      //debugger
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "personalinfoPage"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
@@ -1224,17 +1225,35 @@ var UserSidebar = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sidebarBg"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "userlinks"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        className: "RemoveTextDec sidebarLinksStyle",
         to: "/supa"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-user-circle"
-      }), " Overview")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/supa"
-      }, "Fictions")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/supa"
-      }, "Reviews")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/supa"
-      }, "Favorites")));
+      }), " Overview")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "userlinks"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        className: "RemoveTextDec sidebarLinksStyle",
+        to: "/my/fictions"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-book"
+      }), " Fictions")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "userlinks"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        className: "RemoveTextDec sidebarLinksStyle",
+        to: "/my/reviews"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "far fa-eye"
+      }), " Reviews")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "userlinks"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        className: "RemoveTextDec sidebarLinksStyle",
+        to: "/my/favorties"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-star"
+      }), " Favorites")));
     }
   }]);
 
@@ -1491,8 +1510,10 @@ var sessionReducer = function sessionReducer() {
 
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
+      action.user.lastActive = new Date();
       return {
-        id: action.user.id
+        id: action.user.id,
+        lastActive: action.user.lastActive
       };
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["LOGOUT_USER"]:
@@ -1528,6 +1549,7 @@ var userReducer = function userReducer() {
 
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
+      action.user.lastActive = new Date();
       return Object.assign({}, state, _defineProperty({}, action.user.id, action.user));
 
     default:

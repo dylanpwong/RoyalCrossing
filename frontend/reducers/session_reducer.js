@@ -10,7 +10,8 @@ const sessionReducer=(state=nullSession,action)=>{
     switch(action.type){
 
         case RECEIVE_CURRENT_USER:
-            return {id: action.user.id}
+            action.user.lastActive = new Date;
+            return {id: action.user.id,lastActive: action.user.lastActive}
 
             case LOGOUT_USER:
                 return nullSession;

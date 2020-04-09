@@ -227,13 +227,24 @@ td{
 }
 .table-sidebarContainer{
     display: flex;
+    align-items: flex-start;
 }
 .sidebarBg{
     margin-right: 5px;
     margin-left: 10px;
-    margin-top: 10px;
+    margin-top: 20px;
     background-color: white;
-    width: 100px;
+    width: fit-content;
+    height: fit-content;
+}
+
+.userlinks{
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    width: 170px;
+    height: 50px;
+   
 }
 .sidebarBg > div{
 
@@ -246,7 +257,8 @@ td{
     background-color: white;
     margin: 20px;
     width: 100%;
-    height: 200px;
+    height: 220px;
+    padding: 20px;
 }
 
 .personalInfoBlock{
@@ -254,10 +266,22 @@ td{
 }
 
 tr{
-    border: 1px solid lightgrey;
+    border-top: 1px solid lightgrey;
     width: 100%;
+    
+}
+td{
+    padding: 10px;
 }
 table {
     margin: 0;
   border-collapse: collapse;
+  border-spacing: 0 15px;
+}
+.RemoveTextDec{
+    text-decoration: none;
+}
+
+.sidebarLinksStyle{
+    color: black;
 }

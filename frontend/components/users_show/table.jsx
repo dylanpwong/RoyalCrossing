@@ -7,10 +7,10 @@ class Table extends React.Component{
         super(props);
         this.state={
             joined: this.getDate.bind(this)(),
-            Last_Active: "",
+            Last_Active: this.props.user.lastActive,
             Gender: props.user.gender,
             Location: "N/A",
-            bio: ""
+            bio: "N/A"
         }
     }
 
@@ -34,7 +34,7 @@ class Table extends React.Component{
     render(){   
         //const joined = this.getDate.bind(this)();
         //"2020-04-09T01:51:40.291Z"
-       
+       //debugger
         return(
         <div className="personalinfoPage">
                 <h1 className="personalInfoBlock"> <i className="fas fa-user"></i> Personal Infomation</h1>
@@ -44,6 +44,7 @@ class Table extends React.Component{
                         <td >Joined:</td>
                          <td>{this.state.joined}</td>
                     </tr>
+        
                     <tr>
                         <td>Gender:</td>
                         <td>{this.state.Gender}</td>
