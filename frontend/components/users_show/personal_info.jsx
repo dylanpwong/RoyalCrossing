@@ -3,6 +3,7 @@
 import React from 'react'
 import Table from './table';
 import UserShowSplash from './user_show_splash';
+import UserSidebar from './user_sidebar';
 
 class PersonalInfo extends React.Component{
     constructor(props){
@@ -15,8 +16,10 @@ class PersonalInfo extends React.Component{
             <>
                 <div className="pseronal information">
                     <UserShowSplash user={this.props.user}/>
-                    <h1> Personal Infomation</h1>
-                    <Table/>
+                    <div className="table-sidebarContainer">
+                        <UserSidebar/>
+                        <Table user={this.props.user}/>
+                    </div>
                 </div>
             </>
         )

@@ -15,7 +15,7 @@ class Home extends React.Component{
         this.props.logout();
     }
     handleClickMenu(e){
-        console.log("pressed");
+        //console.log("pressed");
         let show = !this.state.dropdownVisible;
         this.setState({dropdownVisible: show});
     }
@@ -41,7 +41,8 @@ class Home extends React.Component{
                 <>
                     <div onClick={this.handleClickMenu}className="userContainer">
                         <h1 >{this.props.currentUser.username} </h1>
-                        <i className="down_arrow"> ˬ</i>
+                        {/* <i className="down_arrow"> ˬ</i> */}
+                        <i className="fa fa-angle-down down_arrow2"></i>
                         <DropDownUser dropdownVisible={this.state.dropdownVisible} items={hoverItems}/>
                    </div>
                 
