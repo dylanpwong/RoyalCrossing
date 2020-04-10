@@ -8,7 +8,8 @@ class Home extends React.Component{
             dropdownVisible: false
         }
 
-        this.handleClickMenu=this.handleClickMenu.bind(this)
+        this.handleClickMenu=this.handleClickMenu.bind(this);
+        this.handleMyProfile = this.handleMyProfile.bind(this);
     }
 
     handleLogout(e){
@@ -21,7 +22,8 @@ class Home extends React.Component{
     }
 
     handleMyProfile(e){
-        
+        e.preventDefault();
+        this.props.history.push(`/profile/${this.props.currentUser.id}`);
     }
 
 
@@ -34,8 +36,8 @@ class Home extends React.Component{
         //debugger
         if(this.props.currentUser){
             const hoverItems = [];
-            hoverItems.push(<li className="userLiContainer userHover"key={1}><NavLink className="userNav" to={`/profile/${this.props.currentUser.id}`}><div className="userDropEle"><i className="far fa-user userDropdownIcons"></i> <div className="userdropText">My Profile</div></div></NavLink></li>)
-            hoverItems.push(<li className="userLiContainer userHover" key={2}><NavLink className="userNav" to="/my/fictions"><div className="userDropEle"><i className="fas fa-pencil-alt userDropdownIcons"></i> <div className="userdropText">My Fiction</div></div></NavLink></li>)
+            hoverItems.push(<li onClick={this.handleMyProfile} className="userLiContainer userHover"key={1}><NavLink  className="userNav" to={`/profile/${this.props.currentUser.id}`}><div className="userDropEle"><i className="far fa-user userDropdownIcons"></i> <div className="userdropText">My Profile</div></div></NavLink></li>)
+            hoverItems.push(<li  className="userLiContainer userHover" key={2}><NavLink className="userNav" to="/my/fictions"><div className="userDropEle"><i className="fas fa-pencil-alt userDropdownIcons"></i> <div className="userdropText">My Fiction</div></div></NavLink></li>)
             hoverItems.push(<li className="userLiContainer userHover" key={3} onClick={this.handleLogout.bind(this)}> <div className="userDropEle"><i className="fas fa-key userDropdownIcons"></i> <div className="userdropText">Logout</div></div></li>)
             return(
                 <>

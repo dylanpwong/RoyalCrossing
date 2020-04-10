@@ -372,22 +372,43 @@ var MyFictions = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(MyFictions);
 
   function MyFictions(props) {
+    var _this;
+
     _classCallCheck(this, MyFictions);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.state = {
+      stories: []
+    };
+    return _this;
   }
 
   _createClass(MyFictions, [{
     key: "test",
     value: function test() {
-      this.props.getMyStories(this.props.currentId).then(function (res) {}, function (error) {});
+      this.props.getMyStories(this.props.currentId).then(function (res) {
+        debugger;
+      }, function (error) {});
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.props.getMyStories(this.props.currentId).then(function (res) {
+        //debugger
+        _this2.setState({
+          stories: Object.values(res.stories)
+        });
+      });
     }
   }, {
     key: "render",
     value: function render() {
       //debugger
-      this.test.bind(this)();
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "title"));
+      //this.test.bind(this)();
+      if (this.state.stories.length === 0) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, " ");
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.state.stories[0].title));
     }
   }]);
 
@@ -410,9 +431,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_story_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../actions/story_actions */ "./frontend/actions/story_actions.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _myFictions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./myFictions */ "./frontend/components/fictions/myFictions/myFictions.jsx");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
+ // class MyFictionsContainer extends React.Component{
+//     constructor(props){
+//         super(props);
+//     }
+//     componentDidMount(){
+//         this.props.getMyStories
+//     }
+//     render(){
+//         return(
+//             <MyFictions/>
+//         )
+//     }
+// }
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
@@ -511,6 +547,7 @@ var Home = /*#__PURE__*/function (_React$Component) {
       dropdownVisible: false
     };
     _this.handleClickMenu = _this.handleClickMenu.bind(_assertThisInitialized(_this));
+    _this.handleMyProfile = _this.handleMyProfile.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -530,7 +567,10 @@ var Home = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "handleMyProfile",
-    value: function handleMyProfile(e) {}
+    value: function handleMyProfile(e) {
+      e.preventDefault();
+      this.props.history.push("/profile/".concat(this.props.currentUser.id));
+    }
   }, {
     key: "render",
     value: function render() {
@@ -541,6 +581,7 @@ var Home = /*#__PURE__*/function (_React$Component) {
       if (this.props.currentUser) {
         var hoverItems = [];
         hoverItems.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          onClick: this.handleMyProfile,
           className: "userLiContainer userHover",
           key: 1
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {

@@ -80,6 +80,7 @@
     padding-left: 10px;
 }
 .userdropText{
+    color: #aaafb7;
     margin-left: 10px;
 }
 
@@ -95,6 +96,7 @@
 
 .userHover:hover{
     background-color: #3a424b;
+    cursor: pointer;
 }
 
 .credentialsForm{
