@@ -116,6 +116,7 @@
 .formcontainer{
     position: relative;
     top: 33%;
+    width: 100%;
 }
 
 .formcontainer input[type=text]{

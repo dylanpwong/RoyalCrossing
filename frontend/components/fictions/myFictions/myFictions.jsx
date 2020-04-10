@@ -1,4 +1,5 @@
 import React from 'react'
+import MyFictionBlock from './myFiction_block';
 
 
 
@@ -29,9 +30,14 @@ class MyFictions extends React.Component{
         //debugger
         //this.test.bind(this)();
         if(this.state.stories.length === 0) return(<> </>);
+
+        const myStories = this.state.stories.map((ele,idx)=>{
+            //debugger
+            return <MyFictionBlock key ={ele.id} story={ele}/>
+        })
         return(
             <>
-                <h1>{this.state.stories[0].title}</h1>
+                {myStories}
             </>
         )
     }
