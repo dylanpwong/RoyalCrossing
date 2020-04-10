@@ -34,9 +34,9 @@ class Home extends React.Component{
         //debugger
         if(this.props.currentUser){
             const hoverItems = [];
-            hoverItems.push(<li key={1}><NavLink className="userNav userHover" to={`/profile/${this.props.currentUser.id}`}>My Profile</NavLink></li>)
-            hoverItems.push(<li key={2}><NavLink className="userNav userHover" to="/my/fictions">My Fiction</NavLink></li>)
-            hoverItems.push(<li className="userHover" key={3} onClick={this.handleLogout.bind(this)}>Logout</li>)
+            hoverItems.push(<li className="userLiContainer userHover"key={1}><NavLink className="userNav" to={`/profile/${this.props.currentUser.id}`}><div className="userDropEle"><i className="far fa-user userDropdownIcons"></i> <div className="userdropText">My Profile</div></div></NavLink></li>)
+            hoverItems.push(<li className="userLiContainer userHover" key={2}><NavLink className="userNav" to="/my/fictions"><div className="userDropEle"><i className="fas fa-pencil-alt userDropdownIcons"></i> <div className="userdropText">My Fiction</div></div></NavLink></li>)
+            hoverItems.push(<li className="userLiContainer userHover" key={3} onClick={this.handleLogout.bind(this)}> <div className="userDropEle"><i className="fas fa-key userDropdownIcons"></i> <div className="userdropText">Logout</div></div></li>)
             return(
                 <>
                     <div onClick={this.handleClickMenu}className="userContainer">
@@ -53,7 +53,7 @@ class Home extends React.Component{
         }else{
             return(
                 <>
-                    <NavLink to={`/account/login`}><button>Login!</button></NavLink> 
+                    <NavLink className='loginStyle RemoveTextDec' to={`/account/login`}><i className="fas fa-sign-in-alt"></i> Log in</NavLink> 
                 </>
             )
             }       

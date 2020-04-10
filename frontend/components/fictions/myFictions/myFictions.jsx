@@ -9,11 +9,9 @@ class MyFictions extends React.Component{
 
     test(){
         this.props.getMyStories(this.props.currentId).then((res)=>{
-            debugger;
-            console.log(res);
+          
         },(error)=>{
-            debugger;
-            console.log(error)
+            
         });
     }
 

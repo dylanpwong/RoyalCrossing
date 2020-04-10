@@ -54,11 +54,37 @@
 }
 
 .dropdownShown{
-    display: inline-block;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-around;
     position: relative;
-    right: 53%;
+    padding-left: 0px;
+    right: 66%;
     top: 35px;
-    background-color: rgb(210, 227, 241);
+    background-color: #2e343b;
+    list-style-type: none;
+    width: fit-content;
+    height: fit-content;
+    /* width: 210px;
+    height: 114px; */
+}
+.userLiContainer{
+    width: 210px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    
+}
+.userDropEle{
+    display: flex;
+    padding-left: 10px;
+}
+.userdropText{
+    margin-left: 10px;
+}
+
+.userDropdownIcons{
+    margin-left: 5px;
 }
 
 .down_arrow2{
@@ -68,7 +94,7 @@
 }
 
 .userHover:hover{
-    color: red;
+    background-color: #3a424b;
 }
 
 .credentialsForm{
@@ -172,18 +198,22 @@
 }
 
 .formcontainer form > .loginInputs{
-    width: 145%
+    width: 100%
 }
 
 .userNav{
     text-decoration: none;
-    color: #8ea3b6;
+    color: #aaafb7;
 }
 
 .mainNav{
     background-color: rgb(61, 61, 180);
     width: 100%;
     height: 20px;
+}
+
+.loginStyle{
+    color: rgb(123, 177, 248);
 }
 
 /*Users Show stuff */

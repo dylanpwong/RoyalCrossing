@@ -380,13 +380,7 @@ var MyFictions = /*#__PURE__*/function (_React$Component) {
   _createClass(MyFictions, [{
     key: "test",
     value: function test() {
-      this.props.getMyStories(this.props.currentId).then(function (res) {
-        debugger;
-        console.log(res);
-      }, function (error) {
-        debugger;
-        console.log(error);
-      });
+      this.props.getMyStories(this.props.currentId).then(function (res) {}, function (error) {});
     }
   }, {
     key: "render",
@@ -547,22 +541,42 @@ var Home = /*#__PURE__*/function (_React$Component) {
       if (this.props.currentUser) {
         var hoverItems = [];
         hoverItems.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "userLiContainer userHover",
           key: 1
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-          className: "userNav userHover",
+          className: "userNav",
           to: "/profile/".concat(this.props.currentUser.id)
-        }, "My Profile")));
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "userDropEle"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "far fa-user userDropdownIcons"
+        }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "userdropText"
+        }, "My Profile")))));
         hoverItems.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "userLiContainer userHover",
           key: 2
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-          className: "userNav userHover",
+          className: "userNav",
           to: "/my/fictions"
-        }, "My Fiction")));
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "userDropEle"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-pencil-alt userDropdownIcons"
+        }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "userdropText"
+        }, "My Fiction")))));
         hoverItems.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-          className: "userHover",
+          className: "userLiContainer userHover",
           key: 3,
           onClick: this.handleLogout.bind(this)
-        }, "Logout"));
+        }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "userDropEle"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-key userDropdownIcons"
+        }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "userdropText"
+        }, "Logout"))));
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           onClick: this.handleClickMenu,
           className: "userContainer"
@@ -574,8 +588,11 @@ var Home = /*#__PURE__*/function (_React$Component) {
         })));
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+          className: "loginStyle RemoveTextDec",
           to: "/account/login"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Login!")));
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-sign-in-alt"
+        }), " Log in"));
       }
     }
   }]);
