@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {formet: :json} do
     resources :users
+    get '/users/:id/stories', to: 'users#show_stories', as: 'custom_route'
     resource :session, only:[:create,:destroy]
     resources :stories, only:[:create,:destroy,:edit,:index,:show]
     resources :chapters,only:[:create,:destroy,:edit,:show]

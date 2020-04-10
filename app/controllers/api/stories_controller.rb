@@ -29,7 +29,7 @@ class Api::StoriesController < ApplicationController
 
     private
 
-    def stories_params{
+    def stories_params
         params.require(:story).permit(:title,:synopsis)
-    }
+    end
 end

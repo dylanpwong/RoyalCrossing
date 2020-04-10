@@ -1,4 +1,5 @@
-import * as story_util from '../util/story_api_util'
+import * as story_util from '../util/story_api_util';
+import * as my_story_util from'../util/my_story_util';
 export const RECEIVE_STORY = "RECEIVE_STORY";
 export const RECEIVE_STORIES = "RECEIVE_STORIES";
 export const DELETE_STORY = "DELETE_STORY";
@@ -29,5 +30,12 @@ export const getStory = (storyId)=>dispatch=>{
 }
 
 export const getStories = ()=>dispatch=>{
-    return story_util.fetchStories().then((res)=>dispatch(receiveStory(res)))
+    return story_util.fetchStories().then((res)=>{
+        //debugger
+        return dispatch(receiveStory(res))}
+        )
+}
+
+export const getMyStories = (userId)=>dispatch=>{
+    return my_story_util.fetchMyStory(userId).then((res)=>dispatch(receiveStories(res)))
 }

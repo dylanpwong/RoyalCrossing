@@ -6,6 +6,7 @@ import LoginContainer from './session/login_form_container'
 import TopNav from './top_nav';
 import UserShowContainer from './users_show/users_show_container'
 import { AuthRoute } from '../util/route_util';
+import myFictions_container from './fictions/myFictions/myFictions_container';
 
 const App = ()=>{
     return(
@@ -18,6 +19,7 @@ const App = ()=>{
             <section className="mainNav"></section> {/*the main nav*/}
             <div className="mainContentwrapper">{/*wraps main content on page*/}
             <AuthRoute path="/profile/:userId" component={UserShowContainer}/>
+            <AuthRoute path="/my/fictions" component={myFictions_container}/>
             {/* <Route path="/profile/:userId" component={UserShowContainer}/> */}
             </div>
         </> 

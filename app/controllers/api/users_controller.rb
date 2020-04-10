@@ -9,6 +9,21 @@ class Api::UsersController < ApplicationController
         end
     end
 
+    def show_stories
+        @user = User.find(params[:id])
+        if(@user)
+            @my_stories= @user.stories
+            if(@my_stories)
+                render  "api/users/showStories"
+            else
+                render json: ["You have no stories written"]
+            end
+           
+        else
+            render json: ["No user found!"]
+        end
+    end
+
     def create
         @user = User.new(users_params)
 
