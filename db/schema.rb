@@ -10,10 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_09_031144) do
+ActiveRecord::Schema.define(version: 2020_04_09_201310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chapters", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "content"
+    t.text "pre_note"
+    t.text "post_note"
+    t.integer "story_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["story_id"], name: "index_chapters_on_story_id"
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "genres_joins", force: :cascade do |t|
+    t.integer "genre_id"
+    t.integer "story_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "stories", force: :cascade do |t|
+    t.string "title", null: false
+    t.integer "author_id", null: false
+    t.text "synopsis"
+    t.integer "genre_ids", default: [], array: true
+    t.integer "chapter_ids", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_stories_on_author_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username", null: false

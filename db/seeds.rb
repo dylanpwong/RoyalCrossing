@@ -5,3 +5,24 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+User.destroy_all
+Story.destroy_all
+Genre.destroy_all
+Genres_join.destroy_all
+Chapter.destroy_all
+
+password = BCrypt::Password.create("123456")
+user1 = User.create(username: :demouser,email: "demo@gmail.com",password_digest: password,gender: :male,location: "NY")
+
+romance = Genre.create(name: :romance)
+action = Genre.create(name: :action)
+comedy = Genre.create(name: :comedy)
+horror= Genre.create(name: :horror)
+
+synopsis1 = "Murdered by Numbers is a fun game"
+
+story1 = Story.create(title: "Mystic Mountain",author_id: user1.id,synopsis: synopsis1)
+
+genreJoin1 = Genres_join.create(genre_id: romance.id,story_id: story1.id);
+genreJoin2 = Genres_join.create(genre_id: comedy.id,story_id: story1.id)

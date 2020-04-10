@@ -9,6 +9,10 @@
 #  session_token   :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  gender          :string
+#  birth           :date
+#  bio             :string
+#  location        :string
 #
 class User < ApplicationRecord
     validates :username,presence: true, uniqueness: true

@@ -213,6 +213,62 @@ var demoLogin = function demoLogin() {
 
 /***/ }),
 
+/***/ "./frontend/actions/story_actions.js":
+/*!*******************************************!*\
+  !*** ./frontend/actions/story_actions.js ***!
+  \*******************************************/
+/*! exports provided: RECEIVE_STORY, RECEIVE_STORIES, DELETE_STORY, receiveStory, receiveStories, deleteStory, getStory, getStories */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_STORY", function() { return RECEIVE_STORY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_STORIES", function() { return RECEIVE_STORIES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_STORY", function() { return DELETE_STORY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveStory", function() { return receiveStory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveStories", function() { return receiveStories; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteStory", function() { return deleteStory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getStory", function() { return getStory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getStories", function() { return getStories; });
+/* harmony import */ var _util_story_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/story_api_util */ "./frontend/util/story_api_util.jsx");
+
+var RECEIVE_STORY = "RECEIVE_STORY";
+var RECEIVE_STORIES = "RECEIVE_STORIES";
+var DELETE_STORY = "DELETE_STORY";
+var receiveStory = function receiveStory(story) {
+  return {
+    type: RECEIVE_STORY,
+    story: story
+  };
+};
+var receiveStories = function receiveStories(stories) {
+  return {
+    type: RECEIVE_STORIES,
+    stories: stories
+  };
+};
+var deleteStory = function deleteStory() {
+  return {
+    type: DELETE_STORY
+  };
+};
+var getStory = function getStory(storyId) {
+  return function (dispatch) {
+    return _util_story_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchStory"](storyId).then(function (res) {
+      return dispatch(receiveStory(res));
+    });
+  };
+};
+var getStories = function getStories() {
+  return function (dispatch) {
+    return _util_story_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchStories"]().then(function (res) {
+      return dispatch(receiveStory(res));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/components/app.jsx":
 /*!*************************************!*\
   !*** ./frontend/components/app.jsx ***!
@@ -1399,10 +1455,13 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _user_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user_reducer */ "./frontend/reducers/user_reducer.js");
+/* harmony import */ var _story_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./story_reducer */ "./frontend/reducers/story_reducer.js");
+
 
 
 var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  users: _user_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+  users: _user_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  stories: _story_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
 
@@ -1525,6 +1584,40 @@ var sessionReducer = function sessionReducer() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (sessionReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/story_reducer.js":
+/*!********************************************!*\
+  !*** ./frontend/reducers/story_reducer.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_story_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/story_actions */ "./frontend/actions/story_actions.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var StoryReducer = function StoryReducer() {
+  var storyState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions_story_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_STORIES"]:
+      return Object.assign({}, storyState, action.stories);
+
+    case _actions_story_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_STORY"]:
+      return Object.assign({}, storyState, _defineProperty({}, action.story.id, action.story));
+
+    default:
+      return storyState;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (StoryReducer);
 
 /***/ }),
 
@@ -1678,6 +1771,42 @@ var demoLogin = function demoLogin() {
     data: {
       email: 'demo@gmail.com',
       password: '123456'
+    }
+  });
+};
+
+/***/ }),
+
+/***/ "./frontend/util/story_api_util.jsx":
+/*!******************************************!*\
+  !*** ./frontend/util/story_api_util.jsx ***!
+  \******************************************/
+/*! exports provided: fetchStories, fetchStory, createStory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchStories", function() { return fetchStories; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchStory", function() { return fetchStory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createStory", function() { return createStory; });
+var fetchStories = function fetchStories() {
+  return $.ajax({
+    method: 'GET',
+    url: '/api/stories'
+  });
+};
+var fetchStory = function fetchStory(storyId) {
+  return $.ajax({
+    method: 'GET',
+    url: "/api/stories/".concat(storyId)
+  });
+};
+var createStory = function createStory(story) {
+  return $.ajax({
+    method: "POST",
+    url: '/api/stories',
+    data: {
+      story: story
     }
   });
 };
