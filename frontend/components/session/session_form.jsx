@@ -44,27 +44,38 @@ class SessionForm extends React.Component{
     render(){   
         return(
             <>
-            <div className="backgrounImg">
+            <div className="backgroundImg">
             <section className="credentialsForm">
             <h1 className="formLogoHeader">Royal Crossing</h1>
+                <h1 className='SignInColor'>{this.props.formType}</h1>
+            <button className="demoLogin" onClick={this.demoUserLogin.bind(this)}>Demo Login</button>
+            <button className='githubButton'>GitHub</button>
+
+            <div className="login-divider"> 
+               <span className='solid'>
+                 or
+               </span>
+            </div>
             <div className="formcontainer">
                 <div className='errorsLogin'>
                     <h3 className="errorMsg">{this.props.errors[0]}</h3>
                 </div>
-                <h1 className='SignInColor'>{this.props.formType}</h1>
                     <form onSubmit={this.handleOnSubmit}>
-                        <label htmlFor="email">Email Address</label>
-                        <input className='loginInputs'onChange={this.handleOnChange("email")}id="email" type="text" value={this.state.email}/>
-                        <br/>
-                        <label htmlFor="password">Password</label>
+                        <div className="formLabelInputs"> 
+                            <label className="loginLabels" htmlFor="email">Email Address:</label>
+                            <input className='loginInputs'onChange={this.handleOnChange("email")}id="email" type="text" value={this.state.email}/>
+                       </div>
+
+                        <div className='formLabelInputs'>
+                        <label  className="loginLabels" htmlFor="password">Password:</label>
                         <input className='loginInputs'onChange={this.handleOnChange("password")} type="text" value={this.state.password}/>
-                        <br/>
+                        </div>
 
                         <input type="submit" value="Sign in"/>
                     </form>
-                <NavLink to="/account/register">Create a new account</NavLink>
+                <NavLink className="RemoveTextDec" to="/account/register">Create a new account</NavLink>
                 <br/>
-                <button onClick={this.demoUserLogin.bind(this)}>Demo Login</button>
+                
                 </div>
             </section>
             </div>

@@ -10,7 +10,7 @@ class SessionFormSignup extends React.Component {
             username: "",
             email: "",
             password: "",
-            Gender: "Female",
+            Gender: "Male",
             birth: "",
             passwordAgain: "",
             errors: ""
@@ -49,7 +49,7 @@ class SessionFormSignup extends React.Component {
     render() {
         return (
             <>
-                <div className="backgrounImg">
+                <div className="backgroundImg">
                 <section className="credentialsForm">
                     <h1 className="formLogoHeader">Royal Crossing</h1>
                      
@@ -79,8 +79,9 @@ class SessionFormSignup extends React.Component {
 
                         <div className='pass-connector'>
                             <label htmlFor="gender">Gender</label>
-                            <select onChange={this.handleOnChange("gender")}id="gender" placeholder="Select a Gender" value={this.state.gender}>
+                            <select value="select a gender" onChange={this.handleOnChange("gender")}id="gender" placeholder="Select a Gender" value={this.state.gender}>
                                 {/* <option disabled="disabled" selected="selected">Select your gender</option> */}
+                                <option disabled='disabled' value="Not Valid">Select Your Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                                 <option value="Other">Other</option>

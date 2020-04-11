@@ -10,27 +10,30 @@ class MyFictionBlock extends React.Component{
     render(){
         return(
             <>
-            <div>
-                <div></div> {/*picture*/}
-                <div>
-                    <h3>{this.props.story.title}</h3>
+            <div className='fictionBlockContainer'>
+                <div className="fictionBlock">
+                    <div className='defaultCover'></div> {/*picture*/}
+                    <div>
+                        <h3 className="fictionTitle">{this.props.story.title}</h3>
 
-                    <div> {/* the favorites/follows/ratings comments view*/}
-                        <div>
-                            <p>10</p> {/*placeHolder*/}
-                            <p>favorites</p>
+                        <div> {/* the favorites/follows/ratings comments view*/}
+                            <div className="followersFavoritesAmount"> 
+                                <div>10</div> {/*placeHolder*/}
+                                <div>favorites</div>
+                            </div>
                         </div>
-                    </div>
 
-                    <nav>{/*links to show pages, and add chapter*/}
+                        
+
+                    </div>
+                </div>
+                    <nav className="fictionShowButtons">{/*links to show pages, and add chapter*/}
                         <ul>
-                            <li>Page</li>
-                            <li>DashBoard</li>
-                            <li>Add Chapter</li>
+                            <button className="showButton">Page</button>
+                            <button className="showButton">DashBoard</button>
+                            <button className="showButton">Add Chapter</button>
                         </ul>
                     </nav>
-
-                </div>
             </div>
             </>
         )

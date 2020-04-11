@@ -1,0 +1,89 @@
+.fictionsBox{
+    background-color: white;
+    /* width: fit-content;
+    height: fit-content; */
+
+    width: 100%;
+    height: fit-content;
+    padding: 20px;
+}
+
+.fictionsShowContainer{
+    background-color: #eff3f8;
+    width: 100%;
+    min-height: 700px;
+    display: flex;
+    padding: 10px 10px;
+}
+
+.fictionsShowbar{
+    background-color: white;
+    width: 212.5px;
+    height: 120px;
+}
+
+.FictionsHeader{
+    display: flex;
+    justify-content: space-between;
+    height: 50.33px;
+    width: 657.5px;
+    border-bottom: 1px solid lightgrey;
+    padding: 6px 0px 14px;
+    box-sizing: border-box;
+}
+
+.fictionWord{
+    color: #e26a6a;
+    margin-left: 10px;
+}
+.iconWordConatainer{
+    display: flex;
+    align-items: center;
+}
+
+.iconPlacer{
+    top: 20px;
+}
+.newStoryButton{
+    width: 98.78px;
+    height: 29.33px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: white;
+    background-color: #e26a6a;
+}
+
+.newStoryButton:hover{
+    background-color: #ce4c4c;
+}
+
+.defaultCover{
+    background-image: url('https://www.wallpaperflare.com/static/904/926/480/anime-kono-subarashii-sekai-ni-shukufuku-wo-megumin-sorcerer-wallpaper.jpg');
+    width: 79.58px;
+    height: 119.38px;
+    background-size: cover;
+}
+
+.fictionBlock{
+    display: flex;
+    padding: 15px 15px;
+}
+.fictionTitle{
+    /* padding-left: 15px; */
+    padding-left: 10%;
+    color: #e26a6a;
+}
+
+.fictionShowButtons{
+   
+}
+.followersFavoritesAmount{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.showButton{
+    width: 33%;
+    height: 34px;
+}

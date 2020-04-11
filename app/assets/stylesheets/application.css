@@ -21,11 +21,21 @@
      /* background-color: skyblue;*/
  } 
 
- .backgrounImg{
+ .fantasyStyle{
+     font-family: fantasy;
+ }
+
+ .topContainer{
+     display: inline;
+ }
+
+ .backgroundImg{
     background-image: url("https://images.unsplash.com/photo-1519638399535-1b036603ac77?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjIxMTIzfQ&dpr=2&auto=format&fit=crop&w=416&h=312&q=60");
    /* background-image: url("https://images.unsplash.com/photo-1536365480814-1072b4655d02?ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80"); */
     background-position: center;
    background-size: cover;
+   width: 100vw;
+   height: 100vh;
  }
 .userMenuNav{
     color:#8ea3b6;
@@ -57,9 +67,9 @@
     display: inline-flex;
     flex-direction: column;
     justify-content: space-around;
-    position: relative;
+    position: absolute;
     padding-left: 0px;
-    right: 66%;
+    right: 0%;
     top: 35px;
     background-color: #2e343b;
     list-style-type: none;
@@ -106,16 +116,16 @@
     padding-left: 21px;
     padding-right: 21px;
     position: relative;
-    left: 60%;
+    left: 67vw;
     top: -1px;
     background-color: #e6e6e6;
-    width: 40%;
-    height: 850px;
+    width: 30%;
+    height: 100vh;
 }
 
 .formcontainer{
     position: relative;
-    top: 33%;
+    
     width: 100%;
 }
 
@@ -124,6 +134,10 @@
     font-size: 170%;
     border-radius: 9%;
     width: 100%;
+    margin-top: 7px;
+}
+.formLabelInputs{
+    margin-bottom: 1em;
 }
 .pass-connector{
     display: inline-flex;
@@ -143,6 +157,11 @@
     margin-left: 15px;
 }
 
+.loginLabels{
+    color: #707070;
+    font-size: 16px;
+}
+
 .formcontainer select{
     display: inline-block;
     font-size: 150%;
@@ -159,11 +178,14 @@
 
 .formcontainer input[type=submit]{
     display: inline-block;
-    border-radius: 5%;
-    font-size: 30px;
+    border-radius: .25rem;
+    font-size: 16px;
+    height: 2.5em;
+    width: 100%;
     margin:20px;
     color: white;
     background-color: #4d6c82;
+    border: 1px solid #4d6c82;
     width: 90%;
     box-shadow: 3px 3px 5px 1px rgba(0,0,0,.4);
 }
@@ -198,6 +220,8 @@
 .SignInColor{
     color: #2f8599;
     font-family: Lato,sans-serif;
+    font-size: 1.5rem;
+    font-weight: 300;
 }
 
 .formcontainer form > .loginInputs{
@@ -217,7 +241,70 @@
 
 .loginStyle{
     color: rgb(123, 177, 248);
+    position: relative;
+    top: 12px;
 }
+.demoLogin{
+    font-size: 30px;
+    width: 100%;
+    height: 50px;
+    color: white;
+    background-color: #ea5f5f;
+    border: 1px solid #ea5f5f;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-bottom: 10px;
+     box-shadow: 3px 3px 5px 1px rgba(0,0,0,.4);
+    box-sizing: border-box;
+}
+.githubButton{
+    font-size: 30px;
+    width: 100%;
+    height: 50px;
+    color: white;
+    background-color: #395288;
+    border: 1px solid #395288;
+    box-shadow: 3px 3px 5px 1px rgba(0,0,0,.4);
+    border-radius: 3px;
+}
+.login-divider{
+    line-height: .5;
+    text-align:  center;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+.login-divider span:before{
+    box-sizing: border-box;
+    content: "";
+    position: absolute;
+    height: 5px;
+    border-bottom: 1px solid #707070;
+    bottom: 50%;
+    width: 20%;
+    right: 53%;
+    margin-right: 15px;
+
+}
+.solid{
+    font-family: sans-serif;
+    font-size: 16px;
+    position: relative;
+    display: inline-block;
+    width: 3000%;
+    color: #707070;
+}
+.solid:after{
+    box-sizing: border-box;
+    content: "";
+    position: absolute;
+    height: 5px;
+    border-bottom: 1px solid #707070;
+    bottom: 50%;
+    width: 20%;
+    margin-left: 15px;
+    left: 53%;
+}
+
 
 /*Users Show stuff */
 .mainContentwrapper{
@@ -292,6 +379,7 @@ td{
     width: 100%;
     height: 220px;
     padding: 20px;
+    color: #666
 }
 
 .personalInfoBlock{
@@ -318,3 +406,4 @@ table {
 .sidebarLinksStyle{
     color: black;
 }
+

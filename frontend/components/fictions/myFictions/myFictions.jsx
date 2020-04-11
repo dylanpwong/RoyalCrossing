@@ -37,7 +37,23 @@ class MyFictions extends React.Component{
         })
         return(
             <>
-                {myStories}
+                <div className="fictionsShowContainer">{/*outer Show fiction page */}
+
+                    <div className="fictionsShowbar">{/* sidebar stuffs*/}
+
+                    </div>
+
+                    <div className="fictionsBox">{/* this will hold fictions*/}
+                        <div>
+                            <div className='FictionsHeader'>
+                                <div className='iconWordConatainer'> <i className="iconPlacer"className="fas fa-pen"></i> <h3 className ='fictionWord'> Fictions</h3> </div>
+                                <button className="newStoryButton"> <i className="fas fa-plus"></i>{' New Story'}</button>
+                            </div>
+                            {myStories}
+                        </div>
+                    </div>
+
+                </div>
             </>
         )
     }

@@ -11,10 +11,12 @@ import myFictions_container from './fictions/myFictions/myFictions_container';
 const App = ()=>{
     return(
         <>
-            <h1><NavLink className="userNav" to="/"> Royal Crossing</NavLink></h1>
+            <div className="topContainer">{/* the top container */}
+            <h1><NavLink className="userNav fantasyStyle" to="/"> Royal Crossing</NavLink></h1>
             <TopNav > {/* user Menu Nav, the top right dropdown*/}
                 <Route   path="/" component={HomeContainer}/>
             </TopNav>
+            </div>
 
             <section className="mainNav"></section> {/*the main nav*/}
             <div className="mainContentwrapper">{/*wraps main content on page*/}
