@@ -6,14 +6,21 @@
     width: 100%;
     height: fit-content;
     padding: 20px;
+    position: relative;
+    top: 4rem;
+    margin: 15px;
 }
 
 .fictionsShowContainer{
     background-color: #eff3f8;
     width: 100%;
-    min-height: 700px;
+    min-height: 90%;
     display: flex;
-    padding: 10px 10px;
+    padding: 10px 15px;
+    position: relative;
+    top: 5%;
+    overflow: scroll;
+    left: -.5%;
 }
 
 .fictionsShowbar{
@@ -26,10 +33,11 @@
     display: flex;
     justify-content: space-between;
     height: 50.33px;
-    width: 657.5px;
+    
     border-bottom: 1px solid lightgrey;
     padding: 6px 0px 14px;
     box-sizing: border-box;
+    /* margin: 0 !important; */
 }
 
 .fictionWord{
@@ -59,23 +67,37 @@
 
 .defaultCover{
     background-image: url('https://www.wallpaperflare.com/static/904/926/480/anime-kono-subarashii-sekai-ni-shukufuku-wo-megumin-sorcerer-wallpaper.jpg');
-    width: 79.58px;
-    height: 119.38px;
+    background-position: center;
+    width: 15%;
+    /* height: 119.38px; */
+
     background-size: cover;
 }
 
 .fictionBlock{
     display: flex;
     padding: 15px 15px;
+    border-bottom: 1px solid lightgray;
 }
 .fictionTitle{
     /* padding-left: 15px; */
-    padding-left: 10%;
+    /* padding-left: 10%; */
     color: #e26a6a;
 }
 
-.fictionShowButtons{
+.fictionShowButtons ul{
+    display: flex;
+    /* padding: 10px; */
+    padding: 0px;
+    width: 100%;
    
+}
+.SingleFictionHolder{
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 30px;
 }
 .followersFavoritesAmount{
     display:flex;
@@ -86,4 +108,21 @@
 .showButton{
     width: 33%;
     height: 34px;
+}
+.pageButton{
+    
+    background-color: #67809F;
+    border: 1px solid #67809F;
+    font: 14px sans-serif;
+}
+.dashButton{
+    
+    background-color: #525E64;
+    border: 1px solid #525E64;
+    font: 14px sans-serif;
+}
+.addChapterButton{
+background-color: #67809F;
+border: 1px solid #67809F;
+    font: 14px sans-serif;
 }

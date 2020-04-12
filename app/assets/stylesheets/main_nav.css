@@ -5,9 +5,10 @@
     display: flex;
     position: absolute;
     background-color: #444D58;
-    width: 100vw;
+    width: 98%;
     height: 51px;
     z-index: 2;
+    top: 10%;
     /* vertical-align: middle; */
 }
 

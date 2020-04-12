@@ -12,6 +12,7 @@ import MainNav from './mainNav/main_nav';
 const App = ()=>{
     return(
         <>
+            <div className='AppHolder'>
             <div className="topContainer">{/* the top container */}
             <h1><NavLink className="userNav fantasyStyle" to="/"> Royal Crossing</NavLink></h1>
             <TopNav > {/* user Menu Nav, the top right dropdown*/}
@@ -19,13 +20,17 @@ const App = ()=>{
             </TopNav>
             </div>
 
+            <div className='BackgroundFixed'></div>
             {/* <section className="mainNav"></section> the main nav */}
             {/* <MainNav/> */}
-            <div className="mainContentwrapper">{/*wraps main content on page*/}
-            <Route path="/" component={MainNav}/>
-            <AuthRoute path="/profile/:userId" component={UserShowContainer}/>
-            <AuthRoute path="/my/fictions" component={myFictions_container}/>
-            {/* <Route path="/profile/:userId" component={UserShowContainer}/> */}
+            <div className='BelowHeader'>
+                <Route path="/" component={MainNav}/>
+                <div className="mainContentwrapper">{/*wraps main content on page*/}
+                <AuthRoute path="/profile/:userId" component={UserShowContainer}/>
+                <AuthRoute path="/my/fictions" component={myFictions_container}/>
+                {/* <Route path="/profile/:userId" component={UserShowContainer}/> */}
+                </div>
+            </div>
             </div>
         </> 
     )
