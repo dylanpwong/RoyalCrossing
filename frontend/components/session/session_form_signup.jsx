@@ -10,7 +10,7 @@ class SessionFormSignup extends React.Component {
             username: "",
             email: "",
             password: "",
-            Gender: "Male",
+            gender: "Male",
             birth: "",
             passwordAgain: "",
             errors: ""
@@ -46,39 +46,62 @@ class SessionFormSignup extends React.Component {
         // history.push("/");
     }
 
+    demoUserLogin(){
+        const user={
+            email: "demo@gmail.com",
+            password: "123456"
+        }
+        this.props.loginDemoUser(user).then((res)=>{
+           // debugger
+            this.props.history.push("/");
+        })
+    }
+
     render() {
         return (
             <>
                 <div className="backgroundImg">
                 <section className="credentialsForm">
                     <h1 className="formLogoHeader">Royal Crossing</h1>
-                     
+                <h1 className='SignInColor'>{this.props.formType}</h1>
+                <button className="demoLogin" onClick={this.demoUserLogin.bind(this)}>Demo Login</button>
+                <button className='githubButton'>GitHub</button>
+
+                        <div className="login-divider">
+                            <span className='solid'>
+                                or
+                            </span>
+                        </div>
+
                 <div className="formcontainer">
                     <div className="errorsLogin">
                         <h1 className="errorMsg">{this.props.errors[0]}</h1>
                         <h1 className='passwordsError'>{this.state.errors}</h1>
                     </div>
-                <h1 className='SignInColor'>{this.props.formType}</h1>
                     <form onSubmit={this.handleOnSubmit}>
-                        <label htmlFor="username">Username:</label>
-                        <input onChange={this.handleOnChange("username")} type="text" id="username" value={this.state.username}/>
-                        <br/>
-                        <label  htmlFor="email">Email Address:</label>
-                        <input onChange={this.handleOnChange("email")} id="email" type="text" value={this.state.email} />
-                        <br />
+                        <div className="formLabelInputs"> 
+                            <label className="loginLabels"htmlFor="username">Username:</label>
+                            <input  onChange={this.handleOnChange("username")} type="text" id="username" value={this.state.username}/>
+                        </div>
+
+                        <div className="formLabelInputs"> 
+                            <label  className="loginLabels" htmlFor="email">Email Address:</label>
+                            <input onChange={this.handleOnChange("email")} id="email" type="text" value={this.state.email} />
+                        </div>
+
                         <div className="pass-connector">
-                            <label  htmlFor="password">Password:</label>
+                            <label  className="loginLabels" htmlFor="password">Password:</label>
                             <input id="password" onChange={this.handleOnChange("password")} type="password" value={this.state.password} />
                         </div>
 
                         <div className="pass-connector">
-                            <label className='passAgain' htmlFor="passwordAgain">Password again:</label>
+                            <label className='passAgain loginLabels' htmlFor="passwordAgain">Password again:</label>
                             <input className='passAgain'onChange={this.handleOnChange("passwordAgain")} type="password" value={this.state.passwordAgain} />
                         </div>
                         <br/>
 
                         <div className='pass-connector'>
-                            <label htmlFor="gender">Gender</label>
+                            <label className="loginLabels" htmlFor="gender">Gender</label>
                             <select value="select a gender" onChange={this.handleOnChange("gender")}id="gender" placeholder="Select a Gender" value={this.state.gender}>
                                 {/* <option disabled="disabled" selected="selected">Select your gender</option> */}
                                 <option disabled='disabled' value="Not Valid">Select Your Gender</option>
@@ -89,8 +112,11 @@ class SessionFormSignup extends React.Component {
                         </div>
 
                         <div className="pass-connector">
-                        <label className='passAgain' htmlFor="birth">Date of birth:</label>
-                        <input onChange={this.handleOnChange("birth")} type="date" id="birth"/>
+                        <label className='loginLabels passAgain' htmlFor="birth"> Date of birth:</label>
+                        <div className="dateIconAligner">
+                                        <i className="fa fa-calendar dateicon"></i>
+                            <input onChange={this.handleOnChange("birth")} type="date" id="birth"/>
+                        </div>
                         </div>
                         <br/>
 

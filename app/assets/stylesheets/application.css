@@ -19,6 +19,8 @@
      width: 100%;
      margin: 0px; */
      /* background-color: skyblue;*/
+     width: 100vw;
+     height: 100vh;
  } 
 
  .fantasyStyle{
@@ -75,6 +77,7 @@
     list-style-type: none;
     width: fit-content;
     height: fit-content;
+    z-index: 5;
     /* width: 210px;
     height: 114px; */
 }
@@ -131,7 +134,11 @@
 
 .formcontainer input[type=text]{
     display: inline-block;
-    font-size: 170%;
+    /* font-size: 170%; */
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    height: 35px;
     border-radius: 9%;
     width: 100%;
     margin-top: 7px;
@@ -173,7 +180,7 @@
     display: inline-block;
     width: 95%;
     font-size: 150%;
-    margin-left: 15px;
+    /* margin-left: 15px; */
 }
 
 .formcontainer input[type=submit]{
@@ -189,6 +196,9 @@
     width: 90%;
     box-shadow: 3px 3px 5px 1px rgba(0,0,0,.4);
 }
+.navColorSignin{
+    color: rgb(0,86,179);
+}
 
 
 .formcontainer input[type=submit]:hover{
@@ -201,6 +211,14 @@
     margin: 0;
     font-family: fantasy;
     font-weight: bold;
+}
+.dateIconAligner{
+    display: flex;
+    margin-left: 15px;
+}
+
+.dateicon{
+    font-size: 209%;
 }
 
 .errorMsg{
@@ -309,10 +327,17 @@
 /*Users Show stuff */
 .mainContentwrapper{
     background-image: url('https://images.unsplash.com/photo-1571757767119-68b8dbed8c97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80');
-    height: 700px;
+    /* height: 700px; */
+    height: 100vh;
+    width: 103vw;
+    /* width: 121vh; */
+    position: absolute;
+    bottom: -10%;
+    /* display: inline-block; */
    background-position: center;
    background-size: cover;
-   padding: 0px 40px;
+   margin: 0;
+   /* padding: 0px 40px; */
 }
 .UsersShowSection{
     background-color: #eff3f8;

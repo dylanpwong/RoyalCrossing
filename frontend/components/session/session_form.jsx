@@ -73,7 +73,7 @@ class SessionForm extends React.Component{
 
                         <input type="submit" value="Sign in"/>
                     </form>
-                <NavLink className="RemoveTextDec" to="/account/register">Create a new account</NavLink>
+                <NavLink className="RemoveTextDec navColorSignin" to="/account/register">Create a new account</NavLink>
                 <br/>
                 
                 </div>

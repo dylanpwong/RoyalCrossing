@@ -1,4 +1,4 @@
-import { signup } from "../../actions/session_actions"
+import { signup, login } from "../../actions/session_actions"
 import { connect } from "react-redux"
 //import SessionForm from "./session_form"
 import SessionFormSignup from "./session_form_signup"
@@ -22,7 +22,8 @@ const mapStateToProps=(state)=>{
 
 const mapDispatchToProps = dispatch=>{
     return({
-        processForm: (user)=>dispatch(signup(user))
+        processForm: (user)=>dispatch(signup(user)),
+        loginDemoUser: (user)=>dispatch(login(user))
     })
 }
 

@@ -1,0 +1,36 @@
+.MainNavbar{
+    padding-right: 15px;
+    padding-left: 15px;
+    margin: 0px auto;
+    display: flex;
+    position: absolute;
+    background-color: #444D58;
+    width: 100vw;
+    height: 51px;
+    z-index: 2;
+    /* vertical-align: middle; */
+}
+
+.navElementsMenu{
+    display: flex;
+    align-items: center;
+
+}
+.navEle{
+    display: inline-block;
+    color: #BCC2CB;
+    padding: 16px 18px 15px;
+    font: 16px sans-serif;
+}
+
+.navEle:hover{
+    background-color: rgb(88, 100, 116);
+    cursor: pointer;
+}
+.RemoveBullets{
+    list-style: none;
+}
+.MainNavUL{
+    /* position: static; */
+    
+}
