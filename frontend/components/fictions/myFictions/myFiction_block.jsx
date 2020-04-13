@@ -1,9 +1,17 @@
 import React from'react'
+import { withRouter } from 'react-router-dom'
 
 
 class MyFictionBlock extends React.Component{
     constructor(props){
         super(props)
+        this.toStoryShow = this.toStoryShow.bind(this)
+    }
+
+
+    toStoryShow(){
+        //debugger
+        this.props.history.push(`/fiction/${this.props.story.id}`)
     }
 
 
@@ -26,7 +34,7 @@ class MyFictionBlock extends React.Component{
                         
                     <div className="fictionShowButtons">{/*links to show pages, and add chapter*/}
                         <ul>
-                            <button className="showButton pageButton">Page</button>
+                            <button onClick={this.toStoryShow}className="showButton pageButton">Page</button>
                             <button className="showButton dashButton">DashBoard</button>
                             <button className="showButton addChapterButton">Add Chapter</button>
                         </ul>
@@ -40,4 +48,4 @@ class MyFictionBlock extends React.Component{
     }
 }
 
-export default MyFictionBlock
+export default withRouter(MyFictionBlock)

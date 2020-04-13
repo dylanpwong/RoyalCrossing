@@ -8,3 +8,9 @@
 #         json.genres story.genres
 #     end
 # end
+
+ json.extract! @story, :id,:title,:synopsis
+ json.author @story.user
+ json.photoUrl url_for(@story.photo)
+ json.genres @story.genres
+

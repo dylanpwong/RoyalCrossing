@@ -8,6 +8,9 @@ import UserShowContainer from './users_show/users_show_container'
 import { AuthRoute } from '../util/route_util';
 import myFictions_container from './fictions/myFictions/myFictions_container';
 import MainNav from './mainNav/main_nav';
+import HomePage from './home/home_page';
+import home_page_container from './home/home_page_container';
+import show_fictions_container from './fictions/show_fictions/show_fictions_container';
 
 const App = ()=>{
     return(
@@ -26,6 +29,8 @@ const App = ()=>{
             <div className='BelowHeader'>
                 <Route path="/" component={MainNav}/>
                 <div className="mainContentwrapper">{/*wraps main content on page*/}
+                <Route exact path ="/" component={home_page_container}/>
+                <Route path="/fiction/:storyId" component={show_fictions_container}/>
                 <AuthRoute path="/profile/:userId" component={UserShowContainer}/>
                 <AuthRoute path="/my/fictions" component={myFictions_container}/>
                 {/* <Route path="/profile/:userId" component={UserShowContainer}/> */}

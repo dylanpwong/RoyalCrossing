@@ -1,5 +1,6 @@
 import * as story_util from '../util/story_api_util';
 import * as my_story_util from'../util/my_story_util';
+import * as any_story_util from '../util/story_util';
 export const RECEIVE_STORY = "RECEIVE_STORY";
 export const RECEIVE_STORIES = "RECEIVE_STORIES";
 export const DELETE_STORY = "DELETE_STORY";
@@ -23,6 +24,10 @@ export const deleteStory=()=>{
     return({
         type: DELETE_STORY,
     })
+}
+
+export  const getAnyStory = (storyId)=> dispatch =>{
+    return any_story_util.fetchAStory(storyId).then((res)=>dispatch(receiveStory(res)))
 }
 
 export const getStory = (storyId)=>dispatch=>{

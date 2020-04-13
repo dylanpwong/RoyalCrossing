@@ -11,10 +11,27 @@
     margin: 15px;
 }
 
+button{
+    cursor: pointer;
+}
+.singleFictionShow{
+    background-color: #eff3f8;
+    width: 100%;
+    /* min-height: 90%; */
+    height: 90%;
+    /* display: flex; */
+    padding-top: 30px;
+    position: relative;
+    top: 5%;
+    overflow: scroll;
+    left: -.5%;
+}
+
 .fictionsShowContainer{
     background-color: #eff3f8;
     width: 100%;
-    min-height: 90%;
+    /* min-height: 90%; */
+    height: 90%;
     display: flex;
     padding: 10px 15px;
     position: relative;
@@ -125,4 +142,68 @@
 background-color: #67809F;
 border: 1px solid #67809F;
     font: 14px sans-serif;
+}
+.fictionHeader{
+    width: 100%;
+    height: 25%;
+}
+
+.HeaderBg{
+    width: 100%;
+    height: 100%;
+    background-color: #2a3642;
+    padding: 0px 30px;
+}
+.showTitle{
+    font-size: 30px;
+    color: white;
+    font-family: sans-serif;
+    font-weight: 300;
+    /* display: inline-block; */
+   
+    width: fit-content;
+    margin: 0;
+}
+.showTitleBlock{
+ position: relative;
+    top: -148%;
+    right: -24%;
+}
+.cover{
+    margin-top: 3%;
+    width :20%;
+    height:170%;
+    background-size: auto;
+    
+    /* display: inline-block; */
+}
+
+.byAuthor{
+    margin-top:10px;
+    color: white;
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: 300;
+}
+.showBelowHeader{
+    /* display: block; */
+    width: 100%;
+    height: 100%;
+}
+.showLeftSide{
+    width: 66%;
+    height: 100%;
+    padding-left: 15px;
+    
+}
+.showSynposisContainer{
+    width:100%;
+    height: 40%;
+    background-color: white;
+    padding-left: 30%;
+    box-sizing: border-box;
+}
+.synposisContentContainer{
+    width: 100%;
+    height: 100%;
 }

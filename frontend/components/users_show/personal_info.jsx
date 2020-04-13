@@ -12,6 +12,7 @@ class PersonalInfo extends React.Component{
 
 
     render(){
+       // debugger
         return(
             <>
                 <div className="pseronal information">
@@ -20,6 +21,7 @@ class PersonalInfo extends React.Component{
                         <UserSidebar/>
                         <Table user={this.props.user}/>
                     </div>
+                    {/* <img src={`${this.props.user.photoUrl}`}alt=""/> */}
                 </div>
             </>
         )
