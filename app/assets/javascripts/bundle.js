@@ -242,6 +242,7 @@ var RECEIVE_STORY = "RECEIVE_STORY";
 var RECEIVE_STORIES = "RECEIVE_STORIES";
 var DELETE_STORY = "DELETE_STORY";
 var receiveStory = function receiveStory(story) {
+  //debugger
   return {
     type: RECEIVE_STORY,
     story: story
@@ -744,13 +745,15 @@ var ShowFiction = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      if (Object.values(this.props.stories).length == 0) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null); //    debugger
+      if (Object.values(this.props.stories).length == 0) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null); //debugger
 
-      var genres = this.props.story.genres.map(function (ele) {
+      var genresList = this.props.story.genres.map(function (ele) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "RemoveListStyle genreItem",
           key: ele.id
         }, ele.name);
       });
+      var genres = genresList.length > 4 ? genresList.slice(0, 5) : genresList;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "singleFictionShow"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -775,9 +778,13 @@ var ShowFiction = /*#__PURE__*/function (_React$Component) {
         className: "showSynposisContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "synposisContentContainer"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "genreList"
-      }, genres)), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TableOfContents__WEBPACK_IMPORTED_MODULE_1__["default"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " "));
+      }, genres), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "SynopsisBlock"
+      }, this.props.story.synopsis)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "TableOfContentsContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TableOfContents__WEBPACK_IMPORTED_MODULE_1__["default"], null))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " "));
     }
   }]);
 
@@ -2936,7 +2943,13 @@ var fetchStory = function fetchStory(storyId) {
     method: 'GET',
     url: "/api/stories/".concat(storyId)
   });
-};
+}; // export const fetchAStory = (storyId) => {
+//     return $.ajax({
+//         method: 'GET',
+//         url: `/api/stories/${storyId}`
+//     })
+// }   
+
 var createStory = function createStory(story) {
   return $.ajax({
     method: "POST",

@@ -7,6 +7,8 @@ export const DELETE_STORY = "DELETE_STORY";
 
 
 export const receiveStory= (story)=>{
+
+    //debugger
     return({
         type: RECEIVE_STORY,
         story: story

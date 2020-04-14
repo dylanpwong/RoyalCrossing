@@ -17,10 +17,11 @@ class ShowFiction extends React.Component{
 
     render(){
         if(Object.values(this.props.stories).length == 0 ) return(<></>)
-    //    debugger
-       const genres = this.props.story.genres.map((ele)=>{
-           return <li key={ele.id}>{ele.name}</li>;
+       //debugger
+       const genresList = this.props.story.genres.map((ele)=>{
+           return <li className="RemoveListStyle genreItem"key={ele.id}>{ele.name}</li>;
        })
+       const genres = (genresList.length>4)? genresList.slice(0,5) : genresList;
         return(
             <div className='singleFictionShow'>
                 <div className='fictionHeader'> {/**fic header */}
@@ -36,13 +37,19 @@ class ShowFiction extends React.Component{
                     <div className="showLeftSide">{/**left side */}
                         <div className="showSynposisContainer">
                             <div className="synposisContentContainer">
+                                <ul className="genreList">
+                                    {genres}
+                                </ul>
+                            <div className="SynopsisBlock">
+                                {this.props.story.synopsis}
+                            </div>
+                        </div>
 
-                            </div>
-                            <div className="genreList">
-                                {genres}
-                            </div>
-                        </div> {/* fic synopsis*/}
-                        <TableOfContents/>
+                        <div className="TableOfContentsContainer">
+                            
+                            <TableOfContents/>
+                        </div>
+                    </div> 
                     </div>
                 </div>
                 <div> {/**right Side */}

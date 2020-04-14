@@ -9,7 +9,10 @@
 #     end
 # end
 
- json.extract! @story, :id,:title,:synopsis
+#  json.extract! @story, :id,:title,:synopsis
+ json.id @story.id
+ json.title @story.title
+ json.synopsis @story.synopsis
  json.author @story.user
  json.photoUrl url_for(@story.photo)
  json.genres @story.genres
