@@ -191,9 +191,10 @@ border: 1px solid #67809F;
     height: 100%;
 }
 .showLeftSide{
-    width: 66%;
+    width: 70%;
     height: 100%;
     padding-left: 15px;
+    box-sizing: border-box;
     
 }
 .showSynposisContainer{

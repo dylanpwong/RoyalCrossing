@@ -68,9 +68,11 @@ class SessionFormSignup extends React.Component {
                 <button className='githubButton'>GitHub</button>
 
                         <div className="login-divider">
-                            <span className='solid'>
-                                or
-                            </span>
+                            <div className='orWrapper'>{/**wrapper for or */}
+                                <span className='solid'>
+                                    or
+                                </span>
+                            </div>
                         </div>
 
                 <div className="formcontainer">

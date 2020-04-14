@@ -40,16 +40,16 @@ class ShowFiction extends React.Component{
                                 <ul className="genreList">
                                     {genres}
                                 </ul>
-                            <div className="SynopsisBlock">
-                                {this.props.story.synopsis}
-                            </div>
-                        </div>
+                                <div className="SynopsisBlock">
+                                    {this.props.story.synopsis}
+                                </div>
+                             </div>
 
+                        </div> 
                         <div className="TableOfContentsContainer">
-                            
+
                             <TableOfContents/>
                         </div>
-                    </div> 
                     </div>
                 </div>
                 <div> {/**right Side */}

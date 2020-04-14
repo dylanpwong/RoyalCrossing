@@ -297,10 +297,17 @@ body{
     border-radius: 3px;
 }
 .login-divider{
+    display: flex;
+    justify-content: center;
     line-height: .5;
     text-align:  center;
     margin-top: 2em;
     margin-bottom: 2em;
+}
+
+.orWrapper{
+    width: fit-content;
+    height: fit-content;
 }
 .login-divider span:before{
     box-sizing: border-box;

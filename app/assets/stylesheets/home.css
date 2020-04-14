@@ -61,7 +61,7 @@
     width: 50%;
     height: 30%;
     position: relative;
-    top: 35%;
+    top: 35%; /* 42*/
     z-index: 1;
     padding-left: 10%;
     display: flex;

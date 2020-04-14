@@ -52,9 +52,11 @@ class SessionForm extends React.Component{
             <button className='githubButton'>GitHub</button>
 
             <div className="login-divider"> 
+             <div className='orWrapper'>
                <span className='solid'>
                  or
                </span>
+               </div>
             </div>
             <div className="formcontainer">
                 <div className='errorsLogin'>
