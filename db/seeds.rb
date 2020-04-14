@@ -25,6 +25,6 @@ synopsis1 = "Deep in the mountains laid a mystic scroll, that would grant great 
 
 story1 = Story.create(title: "Mystic Mountain",author_id: user1.id,synopsis: synopsis1)
 story1.photo.attach(io: File.open("/users/dylan/Documents/pictures/megumin.jpg"), filename: "megumin.jpg");
-
+# story1.photo.attach(io: File.open(Rails.root,"app/assets/images/megumin.jpg"), filename: "megumin.jpg");
 genreJoin1 = Genres_join.create(genre_id: romance.id,story_id: story1.id);
-genreJoin2 = Genres_join.create(genre_id: comedy.id,story_id: story1.id)
+genreJoin2 = Genres_join.create(genre_id: comedy.id,story_id: story1.id);
