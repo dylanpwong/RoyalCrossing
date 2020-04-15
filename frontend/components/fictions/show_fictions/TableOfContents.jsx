@@ -50,8 +50,8 @@ class TableOfContents extends React.Component{
             }
             chapterItems.push(
                 <div key ={index+ 1}className="chapterNameword">
-                    <NavLink className="RemoveTextDec sansSerifChapterName chapterTitleStyle"to={`/fictions${myChapters[index].story_id}/chapters/${myChapters[index].id}`}>{myChapters[index].title}</NavLink>
-                    <div className="sansSerifChapterName">{this.getDate(myChapters[index])}</div>
+                    <NavLink className="RemoveTextDec sansSerifChapterName chapterTitleStyle"to={`/fiction/${myChapters[index].story_id}/chapters/${myChapters[index].chapter_number}`}>{myChapters[index].title}</NavLink>
+                    <div className="sansSerifChapterName chapterTitleStyle">{this.getDate(myChapters[index])}</div>
                 </div>
             )
         }
