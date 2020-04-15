@@ -16,7 +16,7 @@ password = BCrypt::Password.create("123456")
 user1 = User.create(username: :demouser,email: "demo@gmail.com",password_digest: password,gender: :male,location: "NY")
 
 # user1.photo.attach(io: File.open("/users/dylan/Documents/pictures/megumin.jpg"), filename: "megumin.jpg")
-user1.photo.attach(io: open("https://royal-crossing-dev.s3.amazonaws.com/megumin.jpg"), filename: "megumin.jpg");
+user1.photo.attach(io: open("https://royal-crossing-dev.s3.amazonaws.com/prinny.jpg"), filename: "megumin.jpg");
 romance = Genre.create(name: :romance)
 action = Genre.create(name: :action)
 comedy = Genre.create(name: :comedy)
@@ -29,3 +29,8 @@ story1 = Story.create(title: "Mystic Mountain",author_id: user1.id,synopsis: syn
 story1.photo.attach(io: open("https://royal-crossing-dev.s3.amazonaws.com/megumin.jpg"), filename: "megumin.jpg");
 genreJoin1 = Genres_join.create(genre_id: romance.id,story_id: story1.id);
 genreJoin2 = Genres_join.create(genre_id: comedy.id,story_id: story1.id);
+
+content1= "Long ago we traveled to unknown lands traveling for ages, to find the ancient stone, that would unlock the gifts."
+preNote= "Thanks for stopping by"
+postNote="Thanks for Reading"
+chapter1 = Chapter.create(title: "The Travel", content: content1,pre_note: preNote,post_note: postNote,story_id: story1.id)

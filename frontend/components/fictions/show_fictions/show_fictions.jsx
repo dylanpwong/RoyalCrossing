@@ -2,6 +2,7 @@
 import React from 'react';
 import TableOfContents from './TableOfContents';
 import { getStories } from '../../../actions/story_actions';
+import ShowAuthorBox from './show_author_box';
 
 
 class ShowFiction extends React.Component{
@@ -16,8 +17,9 @@ class ShowFiction extends React.Component{
 
 
     render(){
+        //debugger
         if(Object.values(this.props.stories).length == 0 ) return(<></>)
-       //debugger
+    //    debugger
        const genresList = this.props.story.genres.map((ele)=>{
            return <li className="RemoveListStyle genreItem"key={ele.id}>{ele.name}</li>;
        })
@@ -48,12 +50,12 @@ class ShowFiction extends React.Component{
                         </div> 
                         <div className="TableOfContentsContainer">
 
-                            <TableOfContents/>
+                            <TableOfContents chapters = {this.props.story.chapters}/>
                         </div>
                     </div>
-                </div>
-                <div> {/**right Side */}
-
+                    <div className='AuthorBox'> {/*right Side */}
+                        <ShowAuthorBox author={this.props.story.author}/>
+                    </div>
                 </div>
             </div>
         )

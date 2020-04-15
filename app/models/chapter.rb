@@ -15,7 +15,7 @@ class Chapter < ApplicationRecord
     validates :title, presence: true
 
 
-    belongs_to :story_id,
+    belongs_to :story,
     primary_key: :id,
     foreign_key: :story_id,
     class_name: :Story
