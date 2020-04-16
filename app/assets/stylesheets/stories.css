@@ -86,8 +86,8 @@ button{
 }
 
 .defaultCover{
-    background-image: url('https://www.wallpaperflare.com/static/904/926/480/anime-kono-subarashii-sekai-ni-shukufuku-wo-megumin-sorcerer-wallpaper.jpg');
-    background-position: center;
+    /* background-image: url('https://www.wallpaperflare.com/static/904/926/480/anime-kono-subarashii-sekai-ni-shukufuku-wo-megumin-sorcerer-wallpaper.jpg');
+    background-position: center; */
     width: 15%;
     /* height: 119.38px; */
 
@@ -378,6 +378,9 @@ border: 1px solid #67809F;
     /* height: fit-content; */
     /* display: block; */
 }
+.fictionButton:hover{
+    background-color: rgb(36, 89, 136);
+}
 .showTitleForChapterStory{
     font-size: 24px;
     color: white;
@@ -395,6 +398,13 @@ border: 1px solid #67809F;
     background-color:white;
     padding: 12px  20px 15px
 }
+.NextChaptersContainerBottom{
+    display: flex;
+    padding: 10px 0px;
+    border-bottom: 1px lightgrey solid;
+    border-top: 1px solid lightgrey;
+
+}
 .NextChaptersContainer{
     display: flex;
     justify-content: space-between;
@@ -407,9 +417,200 @@ border: 1px solid #67809F;
     background-color: #337AB7;
     width: 20%;
     color:white;
+    height: 3em;
+    font-family: sans-serif;
     /* height: 100%; */
 }
 .chapterContent{
     margin-top: 3%;
     border-bottom: lightgray 1px solid;
+    color: rgba(0,0,0,0.8);
+    font-family: sans-serif;
+}
+.fictionIndexButton{
+     background-color: #337AB7;
+    width: 20%;
+    color:white;
+    font-family:sans-serif;
+}
+.prevNextButtonStyle2{
+background-color: #337AB7;
+    width: 33%;
+    color:white;
+    font-family: sans-serif;
+}
+.fictionIndexButton2{
+  background-color: #337AB7;
+    width: 33%;
+    height: 3em;
+    color:white;
+    font-family:sans-serif;
+}
+.preNoteContainer{
+    margin-top: 15px;
+    background-color: #f2f2f2;
+    border: 0;
+    padding: 16px 10px;
+}
+.preNoteContent{
+    font-family: sans-serif;
+    color: rgba(0,0,0,0.8);
+    padding: 10px 15px;
+}
+.postNoteContainer{
+    margin-bottom: 15px;
+    margin-top: 15px;
+    background-color: #f2f2f2;
+    border: 0;
+    padding: 16px 10px;
+}
+.NoteCon{
+    font-family: sans-serif;
+    color: rgba(0,0,0,0.8);
+}
+.chapterContentContainer button:hover{
+    background-color: rgb(36, 89, 136);
+}
+.createContainer{
+    background-color: white;
+    padding: 12px 20px 15px;
+    min-height: 100%;
+}
+.createWrapper{
+    background-color: #eff3f8;
+    width: 100%;
+    /* min-height: 90%; */
+    height: 90%;
+    /* display: flex; */
+    padding: 30px;
+    /* padding-bottom: 30px; */
+    position: relative;
+    top: 5%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    /* box-sizing:border-box; */
+    left: -.5%;
+    box-sizing: border-box;
+}
+
+.SubFicHeader{
+    color: #e26a6a;
+    font-family: sans-serif;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 1em;
+}
+.theFictionCreate{
+    height: 100%;
+}
+.smallHeader{
+    font-family: sans-serif;
+    color: #525e64;
+    font-weight: 700;
+    border-bottom: 1px lightgrey solid;
+}
+.CreateFictionReadme{
+    background-color: #f5f5f5;
+    margin-bottom: 15px;
+}
+
+.createForm{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+    padding-left: 10%;
+    /* min-height: 90%; */
+    /* overflow: hidden; */
+}
+.titleInputsCreateFiction{
+    display: flex;
+    height: 2em;
+    margin: 3%;
+    width: 90%;
+    /* border-bottom: 1px solid lightgray; */
+    /* position: relative; */
+    /* width: 100%; */
+    /* flex-grow: 1; */
+    /* width: 100%; */
+    /* flex-grow: 1; */
+}
+.titleInputsCreateFictionSnyp{
+    display: flex;
+    /* height: 80%; */
+    margin: 3%;
+    width: 90%;
+}
+
+.inputForStoryCreation{
+    /* display: flex; */
+    /* flex-grow: 1; */
+    /* width: 100%; */
+    /* box-sizing: border-box; */
+    flex-grow: 1;
+}
+.inputForStoryCreationSnyp{
+    /* width: 100% */
+    flex-grow: 1;
+    font-size: 14px;
+    /* min-height: 30%; */
+}
+.alignLabels{
+    display: inline-block;
+    width: 15%;
+    text-align: right;
+}
+.storyTitleinput{
+    background-color: #f3f6f9;
+    border-color: #f3f6f9;  
+    font-size: 14px;
+}
+
+.checkboxCreate{
+    display: flex;
+    flex-direction: row-reverse;
+    font-size: 2em;
+}
+
+.checkboxCreate input{
+    height: 3em;
+    width: 3em;
+    background-color: #e6e6e6;
+}
+.genresContainer{
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+}
+
+.FirstChapterContainer{
+    display: flex;
+    flex-direction:  column;
+    width: 100%;
+}
+.alignLabelsChapter{
+    display: inline-block;
+    width: 15%;
+    text-align: right;
+}
+.submitContainer{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.submitForStory{
+    background-color: #3598DC;
+    color: white;
+    height: 2em;
+    font-size: 14px;
+    font-family: sans-serif;
+    margin-top: 2%;
+
+}
+.cheeseBorder{
+    width: 111%;
+    height: 1px;
+    margin-left: -11%;
+    box-sizing: border-box;
+    border: .5px solid lightgray;
 }

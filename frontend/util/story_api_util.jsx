@@ -13,6 +13,12 @@ export const fetchStory=(storyId)=>{
         url: `/api/stories/${storyId}`
     })
 }
+export const fetchGenres=()=>{
+    return $.ajax({
+        method: 'GET',
+        url: '/api/genres'
+    })
+}
 
 // export const fetchAStory = (storyId) => {
 //     return $.ajax({

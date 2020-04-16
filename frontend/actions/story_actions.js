@@ -4,7 +4,7 @@ import * as any_story_util from '../util/story_util';
 export const RECEIVE_STORY = "RECEIVE_STORY";
 export const RECEIVE_STORIES = "RECEIVE_STORIES";
 export const DELETE_STORY = "DELETE_STORY";
-
+export const RECEIVE_GENRES = "RECEIVE_GENRES"
 
 export const receiveStory= (story)=>{
 
@@ -27,6 +27,23 @@ export const deleteStory=()=>{
         type: DELETE_STORY,
     })
 }
+
+export const receiveGenres=(genres)=>{
+    return({
+        type: RECEIVE_GENRES,
+        genres: genres
+    })
+}
+
+export const fetchGenres =()=>dispatch=>{
+    return story_util.fetchGenres().then((res)=> dispatch(receiveGenres(res)))
+}
+
+export const createAStory=(data)=>dispatch=>{
+    return story_util.createStory(data).then((res)=>dispatch(receiveStory(res)))
+}
+
+
 
 export  const getAnyStory = (storyId)=> dispatch =>{
     return any_story_util.fetchAStory(storyId).then((res)=>dispatch(receiveStory(res)))

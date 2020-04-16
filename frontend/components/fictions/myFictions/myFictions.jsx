@@ -9,6 +9,8 @@ class MyFictions extends React.Component{
         this.state={
             stories: []
         }
+
+        this.newStoryHandler=this.newStoryHandler.bind(this);
     }
 
     test(){
@@ -24,6 +26,10 @@ class MyFictions extends React.Component{
             //debugger
             this.setState({stories: Object.values(res.stories)})
         })
+    }
+
+    newStoryHandler(){
+        this.props.history.push("/fictions/submission")
     }
 
     render(){
@@ -47,7 +53,7 @@ class MyFictions extends React.Component{
                         <div>
                             <div className='FictionsHeader'>
                                 <div className='iconWordConatainer'> <i className="iconPlacer"className="fas fa-pen"></i> <h3 className ='fictionWord'> Fictions</h3> </div>
-                                <button className="newStoryButton"> <i className="fas fa-plus"></i>{' New Story'}</button>
+                                <button onClick={this.newStoryHandler}className="newStoryButton"> <i className="fas fa-plus"></i>{' New Story'}</button>
                             </div>
                             {myStories}
                         </div>

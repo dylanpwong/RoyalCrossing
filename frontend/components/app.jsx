@@ -12,6 +12,7 @@ import HomePage from './home/home_page';
 import home_page_container from './home/home_page_container';
 import show_fictions_container from './fictions/show_fictions/show_fictions_container';
 import chapters_container from './fictions/chapters/chapters_container';
+import createFiction_container from './fictions/myFictions/createFiction/createFiction_container';
 
 const App = ()=>{
     return(
@@ -33,6 +34,7 @@ const App = ()=>{
                 <Route exact path ="/" component={home_page_container}/>
                 <Route exact path="/fiction/:storyId" component={show_fictions_container}/>
                 <Route exact path="/fiction/:storyId/chapters/:chapterId" component={chapters_container}/>
+                <Route exact path="/fictions/submission" component={createFiction_container}/>
                 <AuthRoute exact path="/profile/:userId" component={UserShowContainer}/>
                 <AuthRoute exact path="/my/fictions" component={myFictions_container}/>
                 {/* <Route path="/profile/:userId" component={UserShowContainer}/> */}

@@ -217,7 +217,7 @@ var demoLogin = function demoLogin() {
 /*!*******************************************!*\
   !*** ./frontend/actions/story_actions.js ***!
   \*******************************************/
-/*! exports provided: RECEIVE_STORY, RECEIVE_STORIES, DELETE_STORY, receiveStory, receiveStories, deleteStory, getAnyStory, getStory, getStories, getMyStories */
+/*! exports provided: RECEIVE_STORY, RECEIVE_STORIES, DELETE_STORY, RECEIVE_GENRES, receiveStory, receiveStories, deleteStory, receiveGenres, fetchGenres, createAStory, getAnyStory, getStory, getStories, getMyStories */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -225,9 +225,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_STORY", function() { return RECEIVE_STORY; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_STORIES", function() { return RECEIVE_STORIES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_STORY", function() { return DELETE_STORY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_GENRES", function() { return RECEIVE_GENRES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveStory", function() { return receiveStory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveStories", function() { return receiveStories; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteStory", function() { return deleteStory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveGenres", function() { return receiveGenres; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchGenres", function() { return fetchGenres; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createAStory", function() { return createAStory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAnyStory", function() { return getAnyStory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getStory", function() { return getStory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getStories", function() { return getStories; });
@@ -241,6 +245,7 @@ __webpack_require__.r(__webpack_exports__);
 var RECEIVE_STORY = "RECEIVE_STORY";
 var RECEIVE_STORIES = "RECEIVE_STORIES";
 var DELETE_STORY = "DELETE_STORY";
+var RECEIVE_GENRES = "RECEIVE_GENRES";
 var receiveStory = function receiveStory(story) {
   //debugger
   return {
@@ -257,6 +262,26 @@ var receiveStories = function receiveStories(stories) {
 var deleteStory = function deleteStory() {
   return {
     type: DELETE_STORY
+  };
+};
+var receiveGenres = function receiveGenres(genres) {
+  return {
+    type: RECEIVE_GENRES,
+    genres: genres
+  };
+};
+var fetchGenres = function fetchGenres() {
+  return function (dispatch) {
+    return _util_story_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchGenres"]().then(function (res) {
+      return dispatch(receiveGenres(res));
+    });
+  };
+};
+var createAStory = function createAStory(data) {
+  return function (dispatch) {
+    return _util_story_api_util__WEBPACK_IMPORTED_MODULE_0__["createStory"](data).then(function (res) {
+      return dispatch(receiveStory(res));
+    });
   };
 };
 var getAnyStory = function getAnyStory(storyId) {
@@ -314,6 +339,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _home_home_page_container__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./home/home_page_container */ "./frontend/components/home/home_page_container.jsx");
 /* harmony import */ var _fictions_show_fictions_show_fictions_container__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./fictions/show_fictions/show_fictions_container */ "./frontend/components/fictions/show_fictions/show_fictions_container.jsx");
 /* harmony import */ var _fictions_chapters_chapters_container__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./fictions/chapters/chapters_container */ "./frontend/components/fictions/chapters/chapters_container.jsx");
+/* harmony import */ var _fictions_myFictions_createFiction_createFiction_container__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./fictions/myFictions/createFiction/createFiction_container */ "./frontend/components/fictions/myFictions/createFiction/createFiction_container.jsx");
+
 
 
 
@@ -360,6 +387,10 @@ var App = function App() {
     exact: true,
     path: "/fiction/:storyId/chapters/:chapterId",
     component: _fictions_chapters_chapters_container__WEBPACK_IMPORTED_MODULE_12__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    exact: true,
+    path: "/fictions/submission",
+    component: _fictions_myFictions_createFiction_createFiction_container__WEBPACK_IMPORTED_MODULE_13__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["AuthRoute"], {
     exact: true,
     path: "/profile/:userId",
@@ -435,6 +466,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -459,21 +491,59 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var ChaptersShow = /*#__PURE__*/function (_React$Component) {
   _inherits(ChaptersShow, _React$Component);
 
   var _super = _createSuper(ChaptersShow);
 
   function ChaptersShow(props) {
+    var _this;
+
     _classCallCheck(this, ChaptersShow);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.toFictionPage = _this.toFictionPage.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(ChaptersShow, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchStory(this.props.storyId);
+    }
+  }, {
+    key: "preNote",
+    value: function preNote() {
+      // debugger
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "preNoteContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "ANoteCon"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-sticky-note"
+      }), "  ", "A NOTE FROM ", this.props.story.author.username.toUpperCase()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "preNoteContent"
+      }, this.props.chapter.pre_note));
+    }
+  }, {
+    key: "postNote",
+    value: function postNote() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "postNoteContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "ANoteCon"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-sticky-note"
+      }), "  ", "A NOTE FROM ", this.props.story.author.username.toUpperCase()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "preNoteContent"
+      }, this.props.chapter.post_note));
+    }
+  }, {
+    key: "toFictionPage",
+    value: function toFictionPage() {
+      // debugger
+      this.props.history.push("/fiction/".concat(this.props.story.id));
     }
   }, {
     key: "render",
@@ -497,6 +567,7 @@ var ChaptersShow = /*#__PURE__*/function (_React$Component) {
       }, this.props.story.title, " by ", this.props.story.author.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "showTitleForChapterTitle"
       }, this.props.chapter.title), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.toFictionPage,
         className: "fictionButton"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-book"
@@ -512,27 +583,22 @@ var ChaptersShow = /*#__PURE__*/function (_React$Component) {
         className: "fas fa-less-than"
       }), " Previous Chapter"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "prevNextButtonStyle"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      }, "Next Chapter", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-greater-than"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-greater-than"
-      }), " Next Chapter")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), " ")), this.preNote.bind(this)(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "chapterContent"
-      }, this.props.chapter.content), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "NextChaptersContainer"
+      }, this.props.chapter.content), this.postNote.bind(this)(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "NextChaptersContainerBottom"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "prevNextButtonStyle"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-less-than"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-less-than"
-      }), " Previous Chapter"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "prevNextButtonStyle"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-greater-than"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-greater-than"
-      }), " Next Chapter")))));
+        className: "prevNextButtonStyle2"
+      }, " Previous Chapter"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.toFictionPage,
+        className: "fictionIndexButton2"
+      }, "Fiction Index"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "prevNextButtonStyle2"
+      }, "Next Chapter")))));
     }
   }]);
 
@@ -540,6 +606,317 @@ var ChaptersShow = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (ChaptersShow);
+
+/***/ }),
+
+/***/ "./frontend/components/fictions/myFictions/createFiction/createChapter.jsx":
+/*!*********************************************************************************!*\
+  !*** ./frontend/components/fictions/myFictions/createFiction/createChapter.jsx ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var CreateChapter = /*#__PURE__*/function (_React$Component) {
+  _inherits(CreateChapter, _React$Component);
+
+  var _super = _createSuper(CreateChapter);
+
+  function CreateChapter(props) {
+    _classCallCheck(this, CreateChapter);
+
+    return _super.call(this, props);
+  }
+
+  _createClass(CreateChapter, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "FirstChapterContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "titleInputsCreateFiction "
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "alignLabelsChapter",
+        htmlFor: "title"
+      }, "Chapter \xA0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        onChange: this.props.onChangeInp('chapterTitle'),
+        className: "inputForStoryCreation storyTitleinput",
+        type: "text",
+        placeholder: "Title of Chapter",
+        id: "title"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "cheeseBorder"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "titleInputsCreateFictionSnyp"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "alignLabelsChapter",
+        htmlFor: "content"
+      }, "Chapter Content \xA0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        onChange: this.props.onChangeInp('content'),
+        className: "inputForStoryCreationSnyp",
+        id: "content",
+        cols: "30",
+        rows: "10"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "cheeseBorder"
+      }));
+    }
+  }]);
+
+  return CreateChapter;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (CreateChapter);
+
+/***/ }),
+
+/***/ "./frontend/components/fictions/myFictions/createFiction/createFiction.jsx":
+/*!*********************************************************************************!*\
+  !*** ./frontend/components/fictions/myFictions/createFiction/createFiction.jsx ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _createChapter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./createChapter */ "./frontend/components/fictions/myFictions/createFiction/createChapter.jsx");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+ // import { debug } from 'webpack';
+
+var CreateFiction = /*#__PURE__*/function (_React$Component) {
+  _inherits(CreateFiction, _React$Component);
+
+  var _super = _createSuper(CreateFiction);
+
+  function CreateFiction(props) {
+    var _this;
+
+    _classCallCheck(this, CreateFiction);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      synopsis: "",
+      storyTitle: "",
+      chapterTitle: "",
+      content: ""
+    };
+    _this.submitHandler = _this.submitHandler.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(CreateFiction, [{
+    key: "onChangeInp",
+    value: function onChangeInp(type) {
+      var _this2 = this;
+
+      // debugger
+      return function (e) {
+        _this2.setState(_defineProperty({}, type, e.target.value));
+      };
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.getGenres();
+    }
+  }, {
+    key: "submitHandler",
+    value: function submitHandler(e) {
+      e.preventDefault();
+      debugger;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      // debugger
+      if (Object.values(this.props.genres).length === 0) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, " ");
+      } // debugger
+
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "createWrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "createContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "SubFicHeader"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-book"
+      }), " \xA0 SUBMIT YOUR FICTION"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "CreateFictionReadme"
+      }, "To Submit your Fiction please fill out the input fields below!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "theFictionCreate"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "smallHeader"
+      }, "THE FICTION"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.submitHandler,
+        className: "createForm"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "titleInputsCreateFiction "
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "alignLabels",
+        htmlFor: "title"
+      }, "Title \xA0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "inputForStoryCreation storyTitleinput",
+        placeholder: "Title Of Fiction",
+        onChange: this.onChangeInp("storyTitle"),
+        type: "text",
+        value: this.state.storyTitle,
+        id: "title"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "cheeseBorder"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "titleInputsCreateFictionSnyp"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "alignLabels",
+        htmlFor: "synopsis"
+      }, "Synopsis \xA0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        className: "inputForStoryCreationSnyp",
+        onChange: this.onChangeInp("synopsis"),
+        id: "synopsis",
+        cols: "30",
+        rows: "10",
+        value: this.state.synopsis
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "cheeseBorder"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "genresContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "checkboxCreate"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "romance"
+      }, this.props.genres.romance.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox",
+        value: "romance",
+        id: "romance"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "checkboxCreate"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "horror"
+      }, this.props.genres.horror.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox",
+        id: "horror"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "checkboxCreate"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "comedy"
+      }, this.props.genres.comedy.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox",
+        id: "comedy"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "checkboxCreate"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "action"
+      }, this.props.genres.action.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox",
+        id: "action"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_createChapter__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        onChangeInp: this.onChangeInp.bind(this)
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "submitContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "submitForStory",
+        type: "submit",
+        value: "Submit"
+      })))))));
+    }
+  }]);
+
+  return CreateFiction;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (CreateFiction);
+
+/***/ }),
+
+/***/ "./frontend/components/fictions/myFictions/createFiction/createFiction_container.jsx":
+/*!*******************************************************************************************!*\
+  !*** ./frontend/components/fictions/myFictions/createFiction/createFiction_container.jsx ***!
+  \*******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_story_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../actions/story_actions */ "./frontend/actions/story_actions.js");
+/* harmony import */ var _createFiction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./createFiction */ "./frontend/components/fictions/myFictions/createFiction/createFiction.jsx");
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    author: state.entities.users[state.session.id],
+    genres: state.entities.genres
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    createAStory: function createAStory(data) {
+      return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_1__["createAStory"])(data));
+    },
+    getGenres: function getGenres() {
+      return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_1__["fetchGenres"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_createFiction__WEBPACK_IMPORTED_MODULE_2__["default"]));
 
 /***/ }),
 
@@ -604,13 +981,15 @@ var MyFictionBlock = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      // debugger
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "fictionBlockContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "fictionBlock"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "defaultCover"
-      }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "defaultCover",
+        src: this.props.story.photoUrl
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "SingleFictionHolder"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
         className: "fictionTitle"
@@ -689,6 +1068,7 @@ var MyFictions = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       stories: []
     };
+    _this.newStoryHandler = _this.newStoryHandler.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -710,6 +1090,11 @@ var MyFictions = /*#__PURE__*/function (_React$Component) {
           stories: Object.values(res.stories)
         });
       });
+    }
+  }, {
+    key: "newStoryHandler",
+    value: function newStoryHandler() {
+      this.props.history.push("/fictions/submission");
     }
   }, {
     key: "render",
@@ -739,6 +1124,7 @@ var MyFictions = /*#__PURE__*/function (_React$Component) {
       }, "className", "fas fa-pen")), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
         className: "fictionWord"
       }, " Fictions"), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.newStoryHandler,
         className: "newStoryButton"
       }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-plus"
@@ -2914,12 +3300,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _user_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user_reducer */ "./frontend/reducers/user_reducer.js");
 /* harmony import */ var _story_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./story_reducer */ "./frontend/reducers/story_reducer.js");
+/* harmony import */ var _genres_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./genres_reducer */ "./frontend/reducers/genres_reducer.js");
+
 
 
 
 var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   users: _user_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
-  stories: _story_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
+  stories: _story_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  genres: _genres_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
 
@@ -2942,6 +3331,36 @@ var ErrorsRoot = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   session: _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (ErrorsRoot);
+
+/***/ }),
+
+/***/ "./frontend/reducers/genres_reducer.js":
+/*!*********************************************!*\
+  !*** ./frontend/reducers/genres_reducer.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_story_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/story_actions */ "./frontend/actions/story_actions.js");
+
+
+var GenresReducer = function GenresReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_story_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_GENRES"]:
+      return Object.assign({}, state, action.genres);
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (GenresReducer);
 
 /***/ }),
 
@@ -3259,13 +3678,14 @@ var demoLogin = function demoLogin() {
 /*!******************************************!*\
   !*** ./frontend/util/story_api_util.jsx ***!
   \******************************************/
-/*! exports provided: fetchStories, fetchStory, createStory */
+/*! exports provided: fetchStories, fetchStory, fetchGenres, createStory */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchStories", function() { return fetchStories; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchStory", function() { return fetchStory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchGenres", function() { return fetchGenres; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createStory", function() { return createStory; });
 var fetchStories = function fetchStories() {
   return $.ajax({
@@ -3277,6 +3697,12 @@ var fetchStory = function fetchStory(storyId) {
   return $.ajax({
     method: 'GET',
     url: "/api/stories/".concat(storyId)
+  });
+};
+var fetchGenres = function fetchGenres() {
+  return $.ajax({
+    method: 'GET',
+    url: '/api/genres'
   });
 }; // export const fetchAStory = (storyId) => {
 //     return $.ajax({

@@ -16,11 +16,13 @@ class MyFictionBlock extends React.Component{
 
 
     render(){
+        // debugger
         return(
             <>
             <div className='fictionBlockContainer'>
                 <div className="fictionBlock">
-                    <div className='defaultCover'></div> {/*picture*/}
+                    {/* <div className='defaultCover'></div> picture */}
+                    <img className='defaultCover'src={this.props.story.photoUrl}></img>
                     <div className='SingleFictionHolder'>
                         <h3 className="fictionTitle">{this.props.story.title}</h3>
 
