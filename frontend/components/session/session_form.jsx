@@ -41,6 +41,9 @@ class SessionForm extends React.Component{
         
     }
 
+    github(){
+        window.open("https://github.com/dylanpwong/RoyalCrossing/tree/master","_blank")
+    }
     render(){   
         return(
             <>
@@ -49,7 +52,7 @@ class SessionForm extends React.Component{
             <h1 className="formLogoHeader">Royal Crossing</h1>
                 <h1 className='SignInColor'>{this.props.formType}</h1>
             <button className="demoLogin" onClick={this.demoUserLogin.bind(this)}>Demo Login</button>
-            <button className='githubButton'>GitHub</button>
+            <button className='githubButton' onClick={this.github}>GitHub</button>
 
             <div className="login-divider"> 
              <div className='orWrapper'>

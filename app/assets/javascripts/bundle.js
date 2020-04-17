@@ -217,7 +217,7 @@ var demoLogin = function demoLogin() {
 /*!*******************************************!*\
   !*** ./frontend/actions/story_actions.js ***!
   \*******************************************/
-/*! exports provided: RECEIVE_STORY, RECEIVE_STORIES, DELETE_STORY, RECEIVE_GENRES, receiveStory, receiveStories, deleteStory, receiveGenres, fetchGenres, createAStory, getAnyStory, getStory, getStories, getMyStories */
+/*! exports provided: RECEIVE_STORY, RECEIVE_STORIES, DELETE_STORY, RECEIVE_GENRES, RECEIVE_CHAPTER, receiveStory, receiveStories, deleteStory, receiveGenres, createChapter, fetchGenres, createAStory, getAnyStory, getStory, getStories, getMyStories */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -226,10 +226,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_STORIES", function() { return RECEIVE_STORIES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_STORY", function() { return DELETE_STORY; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_GENRES", function() { return RECEIVE_GENRES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_CHAPTER", function() { return RECEIVE_CHAPTER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveStory", function() { return receiveStory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveStories", function() { return receiveStories; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteStory", function() { return deleteStory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveGenres", function() { return receiveGenres; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createChapter", function() { return createChapter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchGenres", function() { return fetchGenres; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createAStory", function() { return createAStory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAnyStory", function() { return getAnyStory; });
@@ -239,6 +241,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util_story_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/story_api_util */ "./frontend/util/story_api_util.jsx");
 /* harmony import */ var _util_my_story_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/my_story_util */ "./frontend/util/my_story_util.js");
 /* harmony import */ var _util_story_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util/story_util */ "./frontend/util/story_util.jsx");
+/* harmony import */ var _util_chapter_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/chapter_util */ "./frontend/util/chapter_util.jsx");
+
 
 
 
@@ -246,6 +250,7 @@ var RECEIVE_STORY = "RECEIVE_STORY";
 var RECEIVE_STORIES = "RECEIVE_STORIES";
 var DELETE_STORY = "DELETE_STORY";
 var RECEIVE_GENRES = "RECEIVE_GENRES";
+var RECEIVE_CHAPTER = "RECEIVE_CHAPTER";
 var receiveStory = function receiveStory(story) {
   //debugger
   return {
@@ -268,6 +273,21 @@ var receiveGenres = function receiveGenres(genres) {
   return {
     type: RECEIVE_GENRES,
     genres: genres
+  };
+};
+
+var receiveChapter = function receiveChapter(data) {
+  return {
+    type: RECEIVE_CHAPTER,
+    chapter: data
+  };
+};
+
+var createChapter = function createChapter(data) {
+  return function (dispatch) {
+    return _util_chapter_util__WEBPACK_IMPORTED_MODULE_3__["createChapter"](data).then(function (res) {
+      return dispatch(receiveChapter(res));
+    });
   };
 };
 var fetchGenres = function fetchGenres() {
@@ -751,9 +771,11 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
       synopsis: "",
       storyTitle: "",
       chapterTitle: "",
-      content: ""
+      content: "",
+      genre_ids: []
     };
     _this.submitHandler = _this.submitHandler.bind(_assertThisInitialized(_this));
+    _this.onChangeCheck = _this.onChangeCheck.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -768,6 +790,18 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
       };
     }
   }, {
+    key: "onChangeCheck",
+    value: function onChangeCheck(type) {
+      if (type.target.checked) {
+        // const idx = this.state.genre_ids.indexOf(type.target.value)
+        this.state.genre_ids.push(type.target.value);
+      } else {
+        // debugger
+        this.state.genre_ids.splice(this.state.genre_ids.indexOf(type.target), 1);
+      } // debugger
+
+    }
+  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.getGenres();
@@ -775,8 +809,25 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "submitHandler",
     value: function submitHandler(e) {
+      var _this3 = this;
+
       e.preventDefault();
-      debugger;
+      var data = {
+        title: this.state.storyTitle,
+        synopsis: this.state.synopsis,
+        author_id: this.props.author.id,
+        genre_ids: this.state.genre_ids
+      };
+      var chapData = {
+        title: this.state.chapterTitle,
+        content: this.state.content
+      };
+      this.props.createAStory(data).then(function (res) {
+        chapData.story_id = res.story.id;
+
+        _this3.props.createChapter(chapData).then(function (res2) {// debugger;
+        });
+      }); // debugger
     }
   }, {
     key: "render",
@@ -839,30 +890,37 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "romance"
       }, this.props.genres.romance.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        onChange: this.onChangeCheck,
         type: "checkbox",
-        value: "romance",
+        value: this.props.genres.romance.id,
         id: "romance"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "checkboxCreate"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "horror"
       }, this.props.genres.horror.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        onChange: this.onChangeCheck,
         type: "checkbox",
-        id: "horror"
+        id: "horror",
+        value: this.props.genres.horror.id
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "checkboxCreate"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "comedy"
       }, this.props.genres.comedy.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        onChange: this.onChangeCheck,
         type: "checkbox",
-        id: "comedy"
+        id: "comedy",
+        value: this.props.genres.comedy.id
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "checkboxCreate"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "action"
       }, this.props.genres.action.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        onChange: this.onChangeCheck,
         type: "checkbox",
-        id: "action"
+        id: "action",
+        value: this.props.genres.action.id
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_createChapter__WEBPACK_IMPORTED_MODULE_1__["default"], {
         onChangeInp: this.onChangeInp.bind(this)
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -896,6 +954,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _createFiction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./createFiction */ "./frontend/components/fictions/myFictions/createFiction/createFiction.jsx");
 
 
+ // import { createChapter } from "../../../../util/chapter_util"
+
 
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -912,6 +972,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     getGenres: function getGenres() {
       return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_1__["fetchGenres"])());
+    },
+    createChapter: function createChapter(data) {
+      return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_1__["createChapter"])(data));
     }
   };
 };
@@ -2459,6 +2522,11 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
     key: "errorEraser",
     value: function errorEraser() {}
   }, {
+    key: "github",
+    value: function github() {
+      window.open("https://github.com/dylanpwong/RoyalCrossing/tree/master", "_blank");
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2473,7 +2541,8 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
         className: "demoLogin",
         onClick: this.demoUserLogin.bind(this)
       }, "Demo Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "githubButton"
+        className: "githubButton",
+        onClick: this.github
       }, "GitHub"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "login-divider"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2638,6 +2707,11 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "github",
+    value: function github() {
+      window.open("https://github.com/dylanpwong/RoyalCrossing/tree/master", "_blank");
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2652,6 +2726,7 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
         className: "demoLogin",
         onClick: this.demoUserLogin.bind(this)
       }, "Demo Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.github,
         className: "githubButton"
       }, "GitHub"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "login-divider"
@@ -3559,6 +3634,29 @@ var configureStore = function configureStore() {
 
 /***/ }),
 
+/***/ "./frontend/util/chapter_util.jsx":
+/*!****************************************!*\
+  !*** ./frontend/util/chapter_util.jsx ***!
+  \****************************************/
+/*! exports provided: createChapter */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createChapter", function() { return createChapter; });
+var createChapter = function createChapter(chapter) {
+  // debugger
+  return $.ajax({
+    method: "POST",
+    url: "/api/chapters",
+    data: {
+      chapter: chapter
+    }
+  });
+};
+
+/***/ }),
+
 /***/ "./frontend/util/my_story_util.js":
 /*!****************************************!*\
   !*** ./frontend/util/my_story_util.js ***!
@@ -3712,6 +3810,7 @@ var fetchGenres = function fetchGenres() {
 // }   
 
 var createStory = function createStory(story) {
+  // debugger
   return $.ajax({
     method: "POST",
     url: '/api/stories',

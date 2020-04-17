@@ -1,10 +1,13 @@
 import * as story_util from '../util/story_api_util';
 import * as my_story_util from'../util/my_story_util';
 import * as any_story_util from '../util/story_util';
+import * as chapter_util from '../util/chapter_util';
 export const RECEIVE_STORY = "RECEIVE_STORY";
 export const RECEIVE_STORIES = "RECEIVE_STORIES";
 export const DELETE_STORY = "DELETE_STORY";
 export const RECEIVE_GENRES = "RECEIVE_GENRES"
+export const RECEIVE_CHAPTER = "RECEIVE_CHAPTER";
+
 
 export const receiveStory= (story)=>{
 
@@ -33,6 +36,17 @@ export const receiveGenres=(genres)=>{
         type: RECEIVE_GENRES,
         genres: genres
     })
+}
+
+const receiveChapter=(data)=>{
+    return({
+        type: RECEIVE_CHAPTER,
+        chapter: data
+    })
+}
+
+export const createChapter=(data)=>dispatch=>{
+    return chapter_util.createChapter(data).then((res)=>dispatch(receiveChapter(res)))
 }
 
 export const fetchGenres =()=>dispatch=>{

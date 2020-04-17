@@ -1,3 +1,4 @@
+require 'open-uri'
 class Api::StoriesController < ApplicationController
 
     def index
@@ -18,6 +19,14 @@ class Api::StoriesController < ApplicationController
         @story = Story.new(stories_params)
 
         if(@story.save)
+            # debugger
+            @story.photo.attach(io: open("https://royal-crossing-dev.s3.amazonaws.com/megumin.jpg"), filename: "megumin.jpg");
+            # @story.photo.attach(io: File.open("/users/dylan/Documents/pictures/megumin.jpg"), filename: "megumin.jpg");
+            # debugger
+            params[:story][:genre_ids].each do |genre_id|
+                Genres_join.create(genre_id: genre_id,story_id: @story.id);
+            end
+            # debugger
             render :show
         else
             render json: @story.errors.full_messages, status: 422
@@ -30,6 +39,6 @@ class Api::StoriesController < ApplicationController
     private
 
     def stories_params
-        params.require(:story).permit(:title,:synopsis,:author_id)
+        params.require(:story).permit(:title,:synopsis,:author_id,:genre_ids)
     end
 end

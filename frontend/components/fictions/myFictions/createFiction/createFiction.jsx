@@ -14,9 +14,10 @@ class CreateFiction extends React.Component{
             storyTitle: "",
             chapterTitle: "",
             content: "",
-
+            genre_ids: []
         }
         this.submitHandler = this.submitHandler.bind(this);
+        this.onChangeCheck = this.onChangeCheck.bind(this);
     }
 
     onChangeInp(type){ 
@@ -26,13 +27,43 @@ class CreateFiction extends React.Component{
         }
     }
 
+    onChangeCheck(type){
+        if(type.target.checked){
+            // const idx = this.state.genre_ids.indexOf(type.target.value)
+            this.state.genre_ids.push(type.target.value)
+        }else{
+            // debugger
+            this.state.genre_ids.splice(this.state.genre_ids.indexOf(type.target),1)
+        }
+
+        // debugger
+    }
+
     componentDidMount(){
         this.props.getGenres();
     }
 
     submitHandler(e){
         e.preventDefault();
-        debugger
+        const data ={
+            title: this.state.storyTitle,
+            synopsis: this.state.synopsis,
+            author_id: this.props.author.id,
+            genre_ids: this.state.genre_ids
+        }
+        const chapData={
+            title: this.state.chapterTitle,
+            content: this.state.content,
+
+        }
+        this.props.createAStory(data).then((res)=>{
+            chapData.story_id = res.story.id;
+                this.props.createChapter(chapData).then((res2)=>{
+                    // debugger;
+                })
+            
+        })
+        // debugger
     }
 
 
@@ -80,22 +111,22 @@ class CreateFiction extends React.Component{
 
                                     <div className="checkboxCreate">
                                         <label htmlFor="romance">{this.props.genres.romance.name}</label>
-                                        <input type="checkbox" value="romance" id="romance"/>
+                                        <input onChange={this.onChangeCheck}type="checkbox" value={this.props.genres.romance.id} id="romance"/>
                                     </div>
 
                                     <div className="checkboxCreate">
                                         <label htmlFor="horror">{this.props.genres.horror.name}</label>
-                                        <input type="checkbox" id="horror" />
+                                        <input onChange={this.onChangeCheck}type="checkbox" id="horror" value={this.props.genres.horror.id} />
                                     </div>
 
                                     <div className="checkboxCreate">
                                         <label htmlFor="comedy">{this.props.genres.comedy.name}</label>
-                                        <input type="checkbox" id="comedy" />
+                                        <input onChange={this.onChangeCheck}type="checkbox" id="comedy" value={this.props.genres.comedy.id}/>
                                     </div>
 
                                     <div className="checkboxCreate">
                                         <label htmlFor="action">{this.props.genres.action.name}</label>
-                                        <input type="checkbox" id="action" />
+                                        <input onChange={this.onChangeCheck}type="checkbox" id="action" value={this.props.genres.action.id} />
                                     </div>
 
                                 </div>

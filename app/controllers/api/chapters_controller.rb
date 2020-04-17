@@ -16,6 +16,9 @@ class Api::ChaptersController < ApplicationController
         @chapter = Chapter.new(chapters_params)
 
         if(@chapter.save)
+            myStory = Story.find(params[:chapter][:story_id])
+            @chapter.chapter_number = myStory.chapters.length + 1
+             @chapter.save
             render 'api/chapters/show'
         else
             render @chapter.errors.full_messages, status: 422
