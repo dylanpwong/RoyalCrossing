@@ -825,7 +825,9 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
       this.props.createAStory(data).then(function (res) {
         chapData.story_id = res.story.id;
 
-        _this3.props.createChapter(chapData).then(function (res2) {// debugger;
+        _this3.props.createChapter(chapData).then(function (res2) {
+          // debugger;
+          _this3.props.history.push('/');
         });
       }); // debugger
     }
@@ -1160,11 +1162,35 @@ var MyFictions = /*#__PURE__*/function (_React$Component) {
       this.props.history.push("/fictions/submission");
     }
   }, {
+    key: "noStoriesRender",
+    value: function noStoriesRender() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "fictionsShowContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "fictionsShowbar"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "fictionsBox"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "FictionsHeader"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "iconWordConatainer"
+      }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", _defineProperty({
+        className: "iconPlacer"
+      }, "className", "fas fa-pen")), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        className: "fictionWord"
+      }, " Fictions"), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.newStoryHandler,
+        className: "newStoryButton"
+      }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-plus"
+      }), ' New Story')))));
+    }
+  }, {
     key: "render",
     value: function render() {
       //debugger
       //this.test.bind(this)();
-      if (this.state.stories.length === 0) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, " ");
+      if (this.state.stories.length === 0) return this.noStoriesRender.bind(this)();
       var myStories = this.state.stories.map(function (ele, idx) {
         //debugger
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_myFiction_block__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -1519,8 +1545,8 @@ var ShowFiction = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       //debugger
-      if (Object.values(this.props.stories).length == 0) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null); //    debugger
-
+      if (Object.values(this.props.stories).length == 0) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
+      debugger;
       var genresList = this.props.story.genres.map(function (ele) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           className: "RemoveListStyle genreItem",
@@ -1715,11 +1741,9 @@ var Carousel = /*#__PURE__*/function (_React$Component) {
         className: "carouselImage1"
       }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "boxContentCon"
-      }, this.loggoutContent(this.props.currentUserId)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "BoxCon"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "carouselLightlyShadedBox"
-      }))));
+      }, this.loggoutContent(this.props.currentUserId)))));
     }
   }]);
 
@@ -3775,6 +3799,12 @@ var StoryReducer = function StoryReducer() {
 
     case _actions_story_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_STORY"]:
       return Object.assign({}, storyState, _defineProperty({}, action.story.id, action.story));
+
+    case _actions_story_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CHAPTER"]:
+      var newState = Object.assign({}, storyState); // debugger
+
+      newState[action.chapter.story_id].chapters = _defineProperty({}, action.chapter.chapter_number, action.chapter);
+      return newState;
 
     default:
       return storyState;

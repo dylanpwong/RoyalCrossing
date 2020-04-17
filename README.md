@@ -1,24 +1,29 @@
-# README
+# RoyalCrossing
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Royal Crossing is a story sharing site powered by postgres db, rails backend, and react redux front end. 
 
-Things you may want to cover:
+__link__: https://royalcrossing.herokuapp.com/#/
 
-* Ruby version
 
-* System dependencies
+## Features
 
-* Configuration
+1. User Sign Up and Sign In
+2. Displays Stories
+3. Create Stories
+4. View Stories
+5. View Chapters
+6. Show Users page
 
-* Database creation
 
-* Database initialization
+## Showing A story
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+## Creating A Story
+The create story feature was tricky in a sense that when a User creates a story they must also create the first chapter of the story as well.
 
-* Deployment instructions
 
-* ...
+
+
+
+
+

@@ -60,6 +60,7 @@ class CreateFiction extends React.Component{
             chapData.story_id = res.story.id;
                 this.props.createChapter(chapData).then((res2)=>{
                     // debugger;
+                    this.props.history.push('/')
                 })
             
         })

@@ -1,3 +1,4 @@
+require 'open-uri'
 class Api::UsersController < ApplicationController
 
     def show
@@ -29,6 +30,8 @@ class Api::UsersController < ApplicationController
 
         if(@user.save)
             login!(@user)
+            @user.photo.attach(io: open("https://royal-crossing-dev.s3.amazonaws.com/prinny.jpg"), filename: "megumin.jpg");
+
             render :show
         else
             render json: {errors: @user.errors.full_messages}, status: 401

@@ -56,11 +56,15 @@
 
 .carouselLightlyShadedBox{
     position: absolute;
-    background-color: black;
-    opacity: 50%;
-    bottom :65%;
+    /* background-color: black; */
+    /* opacity: 50%; */
+    background-color: rgba(0,0,0,0.5);
+    /* bottom :65%; */
     width: 50%;
-    height:25%;
+    height: 14em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .enjoy{
     
@@ -73,8 +77,8 @@
     font-family: sans-serif;
 }
 .shadedBoxContent{
-    width: 50%;
-    height: 30%;
+    width: 70%;
+    height: 50%;
     position: relative;
     /* top: 35%; 42 */
     z-index: 1;

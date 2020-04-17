@@ -60,14 +60,15 @@ class Carousel extends React.Component{
             <div className="InsidecarouselContainer">
                 <div className="carouselImage1"> {/**image */}
                     <div className="boxContentCon">
-                        {this.loggoutContent(this.props.currentUserId)}
+                        <div className="carouselLightlyShadedBox">
+                            {this.loggoutContent(this.props.currentUserId)}
+                        </div> 
                     </div>
 
-                    <div className="BoxCon">
-                        <div className="carouselLightlyShadedBox">{/**lightly shadded box */}
-                            </div> 
+                    {/* <div className="BoxCon"> */}
+                        {/* <div className="carouselLightlyShadedBox"></div>  */}
 
-                        </div>
+                        {/* </div> */}
                     {/* <button className='transistionButton'>Transistion</button> */}
                 </div>
             </div>

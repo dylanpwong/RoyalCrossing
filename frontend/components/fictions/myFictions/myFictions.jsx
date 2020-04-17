@@ -32,10 +32,32 @@ class MyFictions extends React.Component{
         this.props.history.push("/fictions/submission")
     }
 
+    noStoriesRender(){
+        return(
+            <div className="fictionsShowContainer">{/*outer Show fiction page */}
+
+                <div className="fictionsShowbar">{/* sidebar stuffs*/}
+
+                </div>
+
+                <div className="fictionsBox">{/* this will hold fictions*/}
+                    <div>
+                        <div className='FictionsHeader'>
+                            <div className='iconWordConatainer'> <i className="iconPlacer" className="fas fa-pen"></i> <h3 className='fictionWord'> Fictions</h3> </div>
+                            <button onClick={this.newStoryHandler} className="newStoryButton"> <i className="fas fa-plus"></i>{' New Story'}</button>
+                        </div>
+                        {/* {myStories} */}
+                    </div>
+                </div>
+
+            </div>
+        )
+    }
+
     render(){
         //debugger
         //this.test.bind(this)();
-        if(this.state.stories.length === 0) return(<> </>);
+        if(this.state.stories.length === 0) return(this.noStoriesRender.bind(this)());
 
         const myStories = this.state.stories.map((ele,idx)=>{
             //debugger
