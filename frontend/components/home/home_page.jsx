@@ -1,5 +1,6 @@
 import React from 'react'
 import Carousel from './carousel';
+import RecentFictions_container from './recentFictions_container';
 
 
 
@@ -16,12 +17,12 @@ class HomePage extends React.Component{
                 </div>
                 <div className="homePageBottomContent"> 
 
-                    <div className = "latestUpdatesPannel"> {/** latest Updates */}
+                    {/* <div className = "latestUpdatesPannel"> * latest Updates */}
 
-                    </div>
+                    {/* </div> */}
 
-                    <div className="trendingFictionsPannel">
-
+                    <div className="recentFictionsPannelContainer">
+                        <RecentFictions_container/>
                     </div>
                 </div>
             </div>

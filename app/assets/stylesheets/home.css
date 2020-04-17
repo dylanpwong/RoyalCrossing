@@ -32,8 +32,23 @@
     background-position: center;
     background-size: cover;
     box-sizing: border-box;
+    
     /* animation: transistionImage 5s infinite; */
     /* padding-top:160px; */
+}
+.boxContentCon{
+    /* position: absolute; */
+    width:100%;
+    height: 100%;
+    display:inline-flex;
+    align-items: center;
+}
+.BoxCon{
+    /* position: absolute; */
+    width:100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 .transistionButton{
     /* animation: transistionImage 5s infinite; */
@@ -43,7 +58,7 @@
     position: absolute;
     background-color: black;
     opacity: 50%;
-    top :20%;
+    bottom :65%;
     width: 50%;
     height:25%;
 }
@@ -61,7 +76,7 @@
     width: 50%;
     height: 30%;
     position: relative;
-    top: 35%; /* 42*/
+    /* top: 35%; 42 */
     z-index: 1;
     padding-left: 10%;
     display: flex;
@@ -80,8 +95,10 @@
 }
 .homePageBottomContent{
     /* display: block; */
-    width: 100%;
-    height: 30%;
+    /* width: 100%; */
+    /* height: 30%; */
+    flex: 1;
+    display: flex;
 }
 .latestUpdatesPannel{
     width: 50%;
@@ -92,4 +109,57 @@
     0% {top:0px; background-color: red; width: 100px;}
     100% {top: 200px; background-color: yellow; width:300px;}
 
+}
+.recentFictionsPannelContainer{
+    /* width: 100%; */
+    /* height: 100%; */
+    flex: 1;
+    display:flex;
+    box-sizing: border-box;
+    padding: 12px 20px 15px;
+}
+.storiesIndexWrapper{
+    background-color: white;
+    flex: 1;
+    box-sizing: border-box;
+    padding: 12px 20px 15px;
+    /* flex-grow:  1; */
+}
+.RecentNovels{
+    color: #E26A6A;
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: 700;
+    padding-bottom: 1.5em;
+    border-bottom: lightgray solid 1px;
+
+}
+.singleStoryBlock{
+    display: flex;
+    border-bottom: lightgray 1px solid;
+    margin-bottom: .6em;
+    box-sizing: border-box;
+    padding: 15px;
+}
+.imageForindex{
+    width: 15%;
+}
+.indexstorieschapterscon{
+    display: flex;
+    flex-direction: column;
+    margin-left: 2em;
+}
+.titleindex{
+    color: #E7505A;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    margin-bottom: 1em;
+}
+.titleindex:hover{
+    cursor: pointer;
+}
+.chapterIndex{
+    font-family: sans-serif;
+    color: #337AB7;
+    
 }

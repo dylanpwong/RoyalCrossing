@@ -68,11 +68,10 @@ export const getStory = (storyId)=>dispatch=>{
 }
 
 export const getStories = ()=>dispatch=>{
-    return story_util.fetchStories().then((res)=>{
         //debugger
-        return dispatch(receiveStory(res))}
-        )
+        return story_util.fetchStories().then((res)=>dispatch(receiveStories(res)))
 }
+
 
 export const getMyStories = (userId)=>dispatch=>{
     return my_story_util.fetchMyStory(userId).then((res)=>dispatch(receiveStories(res)))
