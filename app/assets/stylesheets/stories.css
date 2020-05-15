@@ -614,3 +614,8 @@ background-color: #337AB7;
     box-sizing: border-box;
     border: .5px solid lightgray;
 }
+.storyCreationErrors{
+    display: flex;
+    justify-content: center;
+    color: red;
+}

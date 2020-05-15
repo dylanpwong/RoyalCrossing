@@ -14,10 +14,12 @@ class CreateFiction extends React.Component{
             storyTitle: "",
             chapterTitle: "",
             content: "",
-            genre_ids: []
+            genre_ids: [],
+            errors: false
         }
         this.submitHandler = this.submitHandler.bind(this);
         this.onChangeCheck = this.onChangeCheck.bind(this);
+        this.showErrors = this.showErrors.bind(this);
     }
 
     onChangeInp(type){ 
@@ -56,15 +58,44 @@ class CreateFiction extends React.Component{
             content: this.state.content,
 
         }
-        this.props.createAStory(data).then((res)=>{
-            chapData.story_id = res.story.id;
-                this.props.createChapter(chapData).then((res2)=>{
-                    // debugger;
-                    this.props.history.push('/')
-                })
-            
-        })
+        if(this.state.synopsis==""){
+            this.setState({errors: true});
+        }else if(this.state/storyTitle==""){
+            this.setState({ errors: true });
+        }else if(this.state.chapterTitle==""){
+            this.setState({ errors: true });
+        }else if(this.state.content==""){
+            this.setState({ errors: true });
+        }else if (this.state.genre_ids.length ==0){
+            this.setState({ errors: true });
+        }else{
+            this.state.errors=false;
+            this.props.createAStory(data).then((res)=>{
+                chapData.story_id = res.story.id;
+                    this.props.createChapter(chapData).then((res2)=>{
+                        // debugger;
+                        this.props.history.push('/')
+                    })
+            })
+        }
         // debugger
+    }
+    showErrors(){
+        // console.log(this.state.errors);
+        if( this.state.errors){
+            let myDiv = document.getElementById('scrollForStory');
+            // myDiv.innerHTML = variableLongText;
+            myDiv.scrollTop = 0;
+            return(
+                <div >
+                    Please Fill In All Fields
+                </div>
+            )
+        }
+        // return(
+        //     <div>Hellos Errors</div>
+        // )
+        
     }
 
 
@@ -77,17 +108,18 @@ class CreateFiction extends React.Component{
         // debugger
         return(
             <>
-                <div className="createWrapper">
+                <div id="scrollForStory"className="createWrapper">
                     <div className="createContainer">
                         <div className="SubFicHeader">
                             <i className="fas fa-book"></i> &nbsp; SUBMIT YOUR FICTION
                         </div>
-
+                        
                         <div className="CreateFictionReadme">
                                 To Submit your Fiction please fill out the input fields below!
                         </div>
 
                         <div className='theFictionCreate'>
+                            <div className="storyCreationErrors">{this.showErrors()}</div>
                             <div className="smallHeader">
                                     THE FICTION
                             </div>

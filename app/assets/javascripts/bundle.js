@@ -772,10 +772,12 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
       storyTitle: "",
       chapterTitle: "",
       content: "",
-      genre_ids: []
+      genre_ids: [],
+      errors: false
     };
     _this.submitHandler = _this.submitHandler.bind(_assertThisInitialized(_this));
     _this.onChangeCheck = _this.onChangeCheck.bind(_assertThisInitialized(_this));
+    _this.showErrors = _this.showErrors.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -822,14 +824,53 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
         title: this.state.chapterTitle,
         content: this.state.content
       };
-      this.props.createAStory(data).then(function (res) {
-        chapData.story_id = res.story.id;
 
-        _this3.props.createChapter(chapData).then(function (res2) {
-          // debugger;
-          _this3.props.history.push('/');
+      if (this.state.synopsis == "") {
+        this.setState({
+          errors: true
         });
-      }); // debugger
+      } else if (this.state / storyTitle == "") {
+        this.setState({
+          errors: true
+        });
+      } else if (this.state.chapterTitle == "") {
+        this.setState({
+          errors: true
+        });
+      } else if (this.state.content == "") {
+        this.setState({
+          errors: true
+        });
+      } else if (this.state.genre_ids.length == 0) {
+        this.setState({
+          errors: true
+        });
+      } else {
+        this.state.errors = false;
+        this.props.createAStory(data).then(function (res) {
+          chapData.story_id = res.story.id;
+
+          _this3.props.createChapter(chapData).then(function (res2) {
+            // debugger;
+            _this3.props.history.push('/');
+          });
+        });
+      } // debugger
+
+    }
+  }, {
+    key: "showErrors",
+    value: function showErrors() {
+      // console.log(this.state.errors);
+      if (this.state.errors) {
+        var myDiv = document.getElementById('scrollForStory'); // myDiv.innerHTML = variableLongText;
+
+        myDiv.scrollTop = 0;
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Please Fill In All Fields");
+      } // return(
+      //     <div>Hellos Errors</div>
+      // )
+
     }
   }, {
     key: "render",
@@ -841,6 +882,7 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
 
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "scrollForStory",
         className: "createWrapper"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "createContainer"
@@ -853,6 +895,8 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
       }, "To Submit your Fiction please fill out the input fields below!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "theFictionCreate"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "storyCreationErrors"
+      }, this.showErrors()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "smallHeader"
       }, "THE FICTION"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.submitHandler,
