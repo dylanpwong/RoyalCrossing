@@ -19,7 +19,7 @@ class ShowFiction extends React.Component{
     render(){
         //debugger
         if(Object.values(this.props.stories).length == 0 ) return(<></>)
-       debugger
+    //    debugger
        const genresList = this.props.story.genres.map((ele)=>{
            return <li className="RemoveListStyle genreItem"key={ele.id}>{ele.name}</li>;
        })

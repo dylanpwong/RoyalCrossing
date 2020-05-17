@@ -5,13 +5,18 @@ import { withRouter } from 'react-router-dom'
 class MyFictionBlock extends React.Component{
     constructor(props){
         super(props)
-        this.toStoryShow = this.toStoryShow.bind(this)
+        this.toStoryShow = this.toStoryShow.bind(this);
+        this.toStoryDash =this.toStoryDash.bind(this);
     }
 
 
     toStoryShow(){
         //debugger
         this.props.history.push(`/fiction/${this.props.story.id}`)
+    }
+
+    toStoryDash(){
+        this.props.history.push(`/my/fiction/${this.props.story.id}`)
     }
 
 
@@ -37,7 +42,7 @@ class MyFictionBlock extends React.Component{
                     <div className="fictionShowButtons">{/*links to show pages, and add chapter*/}
                         <ul>
                             <button onClick={this.toStoryShow}className="showButton pageButton">Page</button>
-                            <button className="showButton dashButton">DashBoard</button>
+                            <button onClick={this.toStoryDash}className="showButton dashButton">DashBoard</button>
                             <button className="showButton addChapterButton">Add Chapter</button>
                         </ul>
                     </div>

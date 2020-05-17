@@ -6,8 +6,8 @@
     width: 100%;
     height: fit-content;
     padding: 20px;
-    position: relative;
-    top: 4rem;
+    /* position: relative;
+    top: 4rem; */
     margin: 15px;
 }
 
@@ -41,12 +41,18 @@ button{
     top: 5%;
     overflow: scroll;
     left: -.5%;
+    
 }
 
 .fictionsShowbar{
     background-color: white;
     width: 212.5px;
     height: 120px;
+    /* padding 20px; */
+    /* position: relative;
+    top: 4rem; */
+    margin: 15px;
+    padding-bottom: 1em;
 }
 
 .FictionsHeader{
@@ -618,4 +624,39 @@ background-color: #337AB7;
     display: flex;
     justify-content: center;
     color: red;
+}
+.showSidebar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: space-between;
+    height: 100%;
+    /* padding-bottom: 1em; */
+}
+.myBlock{
+    background-color: #525E64;
+    color: white;
+    font-family: sans-serif;
+    /* padding-left: 1em; */
+    padding: .5em 1em;
+}
+.myBlock2{
+    color: black;
+    font-family: sans-serif;
+    padding-left: 1em;
+}
+.dashNavContainer{
+    display: flex;
+    justify-content: space-between;
+}
+.dashNavBlock{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    width: 5em;
+    height: 3em;
+    border: 1px solid black;
+    box-sizing: border-box;
 }

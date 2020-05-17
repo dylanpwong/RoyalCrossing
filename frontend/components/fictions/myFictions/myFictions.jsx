@@ -1,6 +1,6 @@
 import React from 'react'
 import MyFictionBlock from './myFiction_block';
-
+import FictionsShowbar from './fictionsShowbar';
 
 
 class MyFictions extends React.Component{
@@ -68,7 +68,7 @@ class MyFictions extends React.Component{
                 <div className="fictionsShowContainer">{/*outer Show fiction page */}
 
                     <div className="fictionsShowbar">{/* sidebar stuffs*/}
-
+                        <FictionsShowbar/>
                     </div>
 
                     <div className="fictionsBox">{/* this will hold fictions*/}
