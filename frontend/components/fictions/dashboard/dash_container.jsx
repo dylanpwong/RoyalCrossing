@@ -1,5 +1,6 @@
 import { connect } from "react-redux"
 import dash from "./dash"
+import { getStory, getAnyStory } from "../../../actions/story_actions"
 
 
 

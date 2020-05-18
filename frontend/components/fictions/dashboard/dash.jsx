@@ -1,4 +1,5 @@
 import React from 'react'
+import DashShow from './dashStory';
 
 
 class dash extends React.Component{
@@ -6,7 +7,14 @@ class dash extends React.Component{
     constructor(props){
         super(props);
 
+       
+
         this.dashNav=this.dashNav.bind(this);
+        this.followersAndFavorites=this.followersAndFavorites.bind(this);
+    }
+
+    componentDidMount(){
+        this.props.fetchStory(this.props.storyId);
     }
 
     dashNav(){
@@ -28,11 +36,48 @@ class dash extends React.Component{
         )
     }
 
+    followersAndFavorites(){
+        return(
+
+        <div className="secondNavContainer">
+            <div className="secondNavHeader">
+                FOLLOWERS
+                <div className="secondNavContentContainer">
+                    <div className="iconContainer">
+                    <i className="fas fa-users"></i>
+
+                    </div>
+                    &nbsp;USERS
+                    {/*get the followers*/}
+                </div>
+            </div>
+             <div className="secondNavHeader">
+                FAVORITES
+                <div className="secondNavContentContainer">
+                    <div className="iconContainer">
+                    <i className="fas fa-star"></i>
+
+                    </div>
+                    &nbsp;USERS
+                    {/*get the followers*/}
+                </div>
+            </div>
+        </div>
+        );
+    }
+
+
+
     render(){
+        // debugger
         return(
             <>
-            <div className="singleFictionShow">
+            <div className="singleFictionShow paddingIn">
                 {this.dashNav()}
+                {this.followersAndFavorites()}
+                <div className="dashStoryContainer">
+                    <DashShow  story={this.props.story}/>
+                </div>
             </div>
             </>
         )
