@@ -1,5 +1,6 @@
 import React from 'react'
 import DashShow from './dashStory';
+import TableOfContents from '../show_fictions/TableOfContents';
 
 
 class dash extends React.Component{
@@ -11,6 +12,7 @@ class dash extends React.Component{
 
         this.dashNav=this.dashNav.bind(this);
         this.followersAndFavorites=this.followersAndFavorites.bind(this);
+        this.dashChapters=this.dashChapters.bind(this);
     }
 
     componentDidMount(){
@@ -66,7 +68,25 @@ class dash extends React.Component{
         );
     }
 
+    dashChapters() {
+        if(!this.props.story){
+            return(
+                <>
+                </>
+            )
+        }else{
 
+            return (
+                <div className="chaptersContainer">
+                    <div className="latestChapters">
+                        <i className="fas fa-file-alt"></i>
+                        &nbsp;Latest Chapters
+                    </div>
+                    <TableOfContents dash="true" chapters={this.props.story.chapters} />
+                </div>
+            )
+        }
+    }
 
     render(){
         // debugger
@@ -78,6 +98,7 @@ class dash extends React.Component{
                 <div className="dashStoryContainer">
                     <DashShow  story={this.props.story}/>
                 </div>
+                {this.dashChapters()}
             </div>
             </>
         )

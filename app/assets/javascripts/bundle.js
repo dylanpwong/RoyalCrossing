@@ -647,6 +647,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _dashStory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dashStory */ "./frontend/components/fictions/dashboard/dashStory.jsx");
+/* harmony import */ var _show_fictions_TableOfContents__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../show_fictions/TableOfContents */ "./frontend/components/fictions/show_fictions/TableOfContents.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -672,6 +673,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var dash = /*#__PURE__*/function (_React$Component) {
   _inherits(dash, _React$Component);
 
@@ -685,6 +687,7 @@ var dash = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.dashNav = _this.dashNav.bind(_assertThisInitialized(_this));
     _this.followersAndFavorites = _this.followersAndFavorites.bind(_assertThisInitialized(_this));
+    _this.dashChapters = _this.dashChapters.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -736,6 +739,24 @@ var dash = /*#__PURE__*/function (_React$Component) {
       })), "\xA0USERS")));
     }
   }, {
+    key: "dashChapters",
+    value: function dashChapters() {
+      if (!this.props.story) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "chaptersContainer"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "latestChapters"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-file-alt"
+        }), "\xA0Latest Chapters"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_show_fictions_TableOfContents__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          dash: "true",
+          chapters: this.props.story.chapters
+        }));
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       // debugger
@@ -745,7 +766,7 @@ var dash = /*#__PURE__*/function (_React$Component) {
         className: "dashStoryContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dashStory__WEBPACK_IMPORTED_MODULE_1__["default"], {
         story: this.props.story
-      }))));
+      })), this.dashChapters()));
     }
   }]);
 
@@ -797,23 +818,62 @@ var DashShow = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(DashShow);
 
   function DashShow(props) {
+    var _this;
+
     _classCallCheck(this, DashShow);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.dashHeader = _this.dashHeader.bind(_assertThisInitialized(_this));
+    _this.dashBody = _this.dashBody.bind(_assertThisInitialized(_this));
+    _this.dashChapters = _this.dashChapters.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(DashShow, [{
+    key: "dashHeader",
+    value: function dashHeader() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dashStoryHeader"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dashTitle"
+      }, this.props.story.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pageButton"
+      }, "page"));
+    }
+  }, {
+    key: "dashBody",
+    value: function dashBody() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dashBodyContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dashBody"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "dashCover",
+        src: "".concat(this.props.story.photoUrl),
+        alt: ""
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.story.synopsis), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dashBodyList"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Followers"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Favorites")))));
+    }
+  }, {
+    key: "dashChapters",
+    value: function dashChapters() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "chaptersContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "latestChapters"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-file-alt"
+      }), "\xA0Latest Chapters"));
+    }
+  }, {
     key: "render",
     value: function render() {
       // debugger
       if (!this.props.story) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
       } else {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "dashStoryHeader"
-        }, this.props.story.title, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "pageButton"
-        }, "page")));
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, this.dashHeader(), this.dashBody());
       }
     }
   }]);
@@ -1718,44 +1778,95 @@ var TableOfContents = /*#__PURE__*/function (_React$Component) {
       }
 
       var chapterItems = [];
-      chapterItems.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "chapterNameword",
-        key: 0
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "sansSerifChapterName chapNameHeader"
-      }, "Chapter Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "sansSerifChapterName"
-      }, "Release Date"))); // debugger
+
+      if (this.props.dash == "true") {
+        chapterItems.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "chapterNameword",
+          key: 0
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "sansSerifChapterName chapNameHeader"
+        }, "Chapter Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "sansSerifChapterName"
+        }, "Date"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Words"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Controls")));
+      } else {
+        chapterItems.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "chapterNameword",
+          key: 0
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "sansSerifChapterName chapNameHeader"
+        }, "Chapter Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "sansSerifChapterName"
+        }, "Release Date")));
+      } // debugger
       // let index = 1 ;
 
-      for (var index = 0; index < myChapters.length; index++) {
-        // console.log(index);
-        if (index == 7) {
-          // console.log(index);
-          break;
-        }
 
-        chapterItems.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          key: index + 1,
-          className: "chapterNameword"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-          className: "RemoveTextDec sansSerifChapterName chapterTitleStyle",
-          to: "/fiction/".concat(myChapters[index].story_id, "/chapters/").concat(myChapters[index].chapter_number)
-        }, myChapters[index].title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "sansSerifChapterName chapterTitleStyle"
-        }, this.getDate(myChapters[index]))));
+      if (this.props.dash == "true") {
+        for (var index = 0; index < myChapters.length; index++) {
+          // console.log(index);
+          if (index == 7) {
+            // console.log(index);
+            break;
+          }
+
+          chapterItems.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            key: index + 1,
+            className: "chapterNameword"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+            className: "RemoveTextDec sansSerifChapterName chapterTitleStyle",
+            to: "/fiction/".concat(myChapters[index].story_id, "/chapters/").concat(myChapters[index].chapter_number)
+          }, myChapters[index].title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "sansSerifChapterName chapterTitleStyle"
+          }, this.getDate(myChapters[index])), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, myChapters[index].content.split(" ").length), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "dashIconContainer"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "editButton"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "fas fa-edit blueDash"
+          })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "editButton"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "fas fa-trash-alt redDash "
+          })))));
+        }
+      } else {
+        for (var _index = 0; _index < myChapters.length; _index++) {
+          // console.log(index);
+          if (_index == 7) {
+            // console.log(index);
+            break;
+          }
+
+          chapterItems.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            key: _index + 1,
+            className: "chapterNameword"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+            className: "RemoveTextDec sansSerifChapterName chapterTitleStyle",
+            to: "/fiction/".concat(myChapters[_index].story_id, "/chapters/").concat(myChapters[_index].chapter_number)
+          }, myChapters[_index].title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "sansSerifChapterName chapterTitleStyle"
+          }, this.getDate(myChapters[_index]))));
+        }
       } // debugger
 
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "chaptersWrapper"
-      }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-        className: "TableOfContentsWord"
-      }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-book"
-      }), " ", ' TABLE OF CONTENTS'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "chaptersIndexContainer"
-      }, " ", chapterItems)));
+      if (this.props.dash == "true") {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "chaptersWrapper"
+        }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "chaptersIndexContainer"
+        }, " ", chapterItems)));
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "chaptersWrapper"
+        }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+          className: "TableOfContentsWord"
+        }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-book"
+        }), " ", ' TABLE OF CONTENTS'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "chaptersIndexContainer"
+        }, " ", chapterItems)));
+      }
     }
   }]);
 

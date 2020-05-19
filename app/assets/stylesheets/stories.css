@@ -698,6 +698,7 @@ background-color: #337AB7;
     padding-top: 1em;
     padding-left:1em;
     padding-right:1em;
+    margin-top:1em;
 }
 .dashStoryHeader{
     display: flex;
@@ -705,4 +706,63 @@ background-color: #337AB7;
     border-bottom: 1px solid lightgray;
     padding-bottom: 1em;
     color: #666666;
+    align-items: center;
+}
+.pageButton{
+    border: 1px solid black;
+    border-radius: 2em;
+    background-color: white;
+    padding: .5em;
+    display: flex;
+    align-items: center;
+    height: fit-content;
+}
+.dashTitle{
+    padding:.5em;
+    font-weight: bolder;
+    font-size: 2em;
+}
+.dashBodyContainer{
+    background: white;
+    margin-bottom: 1em;
+}
+.dashBody{
+    display: flex;
+}
+.dashCover{
+    margin-top: 3%;
+    /* width :20%;
+    height:170%; */
+    height: 15em;
+    background-size: auto;
+    border: 3px white solid;
+    position: relative;
+    z-index: 1;
+    /* display: inline-block; */
+}
+.latestChapters{
+    color: #666666;
+
+}
+.chaptersContainer{
+    margin-top: 1em;
+    background-color: white;
+}
+.blueDash{
+    color: lightblue;
+}
+.redDash{
+    color: red;
+}
+.editButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e1e5ec;
+    min-width: 3em;
+    min-height: 3em;
+    border-radius: 3em;
+}
+.dashIconContainer{
+    display: flex;
 }
