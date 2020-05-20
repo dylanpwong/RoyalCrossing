@@ -361,6 +361,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fictions_chapters_chapters_container__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./fictions/chapters/chapters_container */ "./frontend/components/fictions/chapters/chapters_container.jsx");
 /* harmony import */ var _fictions_myFictions_createFiction_createFiction_container__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./fictions/myFictions/createFiction/createFiction_container */ "./frontend/components/fictions/myFictions/createFiction/createFiction_container.jsx");
 /* harmony import */ var _fictions_dashboard_dash_container__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./fictions/dashboard/dash_container */ "./frontend/components/fictions/dashboard/dash_container.jsx");
+/* harmony import */ var _fictions_chapters_chapter_new_container__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./fictions/chapters/chapter_new_container */ "./frontend/components/fictions/chapters/chapter_new_container.jsx");
+
 
 
 
@@ -417,6 +419,10 @@ var App = function App() {
     exact: true,
     path: "/my/fiction/:storyId",
     component: _fictions_dashboard_dash_container__WEBPACK_IMPORTED_MODULE_14__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    exact: true,
+    path: "/fiction/chapter/new/:storyId",
+    component: _fictions_chapters_chapter_new_container__WEBPACK_IMPORTED_MODULE_15__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["AuthRoute"], {
     exact: true,
     path: "/profile/:userId",
@@ -429,6 +435,198 @@ var App = function App() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
+
+/***/ }),
+
+/***/ "./frontend/components/fictions/chapters/chapter_new.jsx":
+/*!***************************************************************!*\
+  !*** ./frontend/components/fictions/chapters/chapter_new.jsx ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var ChapterNew = /*#__PURE__*/function (_React$Component) {
+  _inherits(ChapterNew, _React$Component);
+
+  var _super = _createSuper(ChapterNew);
+
+  function ChapterNew(props) {
+    var _this;
+
+    _classCallCheck(this, ChapterNew);
+
+    _this = _super.call(this, props); // (: content,: title,: pre_note,: post_note,: story_id)
+
+    _this.state = {
+      content: "",
+      title: "",
+      pre_note: "",
+      post_note: "",
+      story_id: ""
+    };
+    _this.createChapterForm = _this.createChapterForm.bind(_assertThisInitialized(_this));
+    _this.changeInp = _this.changeInp.bind(_assertThisInitialized(_this));
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(ChapterNew, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.state.story_id = this.props.storyId;
+    }
+  }, {
+    key: "changeInp",
+    value: function changeInp(type) {
+      var _this2 = this;
+
+      return function (event) {
+        event.preventDefault();
+        var value = event.target.value;
+
+        _this2.setState(_defineProperty({}, type, value));
+      };
+    }
+  }, {
+    key: "onSubmit",
+    value: function onSubmit(event) {
+      event.preventDefault();
+      this.props.createChaper(this.state);
+    }
+  }, {
+    key: "createChapterForm",
+    value: function createChapterForm() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "FirstChapterContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.onSubmit
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "titleInputsCreateFiction "
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "alignLabelsChapter",
+        htmlFor: "title"
+      }, "Chapter \xA0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        onChange: this.changeInp("title"),
+        className: "inputForStoryCreation storyTitleinput",
+        type: "text",
+        placeholder: "Title of Chapter",
+        id: "title"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "cheeseBorder"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "alignLabelsChapter",
+        htmlFor: "preNote"
+      }, "Pre-chapter author note \xA0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        onChange: this.changeInp("pre_note"),
+        className: "inputForStoryCreationSnyp",
+        id: "preNote",
+        cols: "30",
+        rows: "10"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "titleInputsCreateFictionSnyp"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "alignLabelsChapter",
+        htmlFor: "content"
+      }, "Chapter Content \xA0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        onChange: this.changeInp("content"),
+        className: "inputForStoryCreationSnyp",
+        id: "content",
+        cols: "30",
+        rows: "10"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "cheeseBorder"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "alignLabelsChapter",
+        htmlFor: "postNote"
+      }, "Post-chapter author note \xA0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        onChange: this.changeInp("pre_note"),
+        className: "inputForStoryCreationSnyp",
+        id: "postNote",
+        cols: "30",
+        rows: "10"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "submit",
+        value: "Publish Chapter"
+      })));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log("In create Chapter");
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "singleFictionShow"
+      }, this.createChapterForm()));
+    }
+  }]);
+
+  return ChapterNew;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (ChapterNew);
+
+/***/ }),
+
+/***/ "./frontend/components/fictions/chapters/chapter_new_container.jsx":
+/*!*************************************************************************!*\
+  !*** ./frontend/components/fictions/chapters/chapter_new_container.jsx ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _chapter_new__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chapter_new */ "./frontend/components/fictions/chapters/chapter_new.jsx");
+/* harmony import */ var _actions_story_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/story_actions */ "./frontend/actions/story_actions.js");
+
+
+
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    storyId: ownProps.match.params.storyId
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    createChapter: function createChapter(data) {
+      return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_2__["createChapter"])(data));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_chapter_new__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 /***/ }),
 
@@ -837,7 +1035,7 @@ var DashShow = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "dashTitle"
       }, this.props.story.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "pageButton"
+        className: "pageButton2"
       }, "page"));
     }
   }, {
@@ -1447,6 +1645,7 @@ var MyFictionBlock = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.toStoryShow = _this.toStoryShow.bind(_assertThisInitialized(_this));
     _this.toStoryDash = _this.toStoryDash.bind(_assertThisInitialized(_this));
+    _this.toNewChapter = _this.toNewChapter.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -1460,6 +1659,11 @@ var MyFictionBlock = /*#__PURE__*/function (_React$Component) {
     key: "toStoryDash",
     value: function toStoryDash() {
       this.props.history.push("/my/fiction/".concat(this.props.story.id));
+    }
+  }, {
+    key: "toNewChapter",
+    value: function toNewChapter() {
+      this.props.history.push("/fiction/chapter/new/".concat(this.props.story.id));
     }
   }, {
     key: "render",
@@ -1487,6 +1691,7 @@ var MyFictionBlock = /*#__PURE__*/function (_React$Component) {
         onClick: this.toStoryDash,
         className: "showButton dashButton"
       }, "DashBoard"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.toNewChapter,
         className: "showButton addChapterButton"
       }, "Add Chapter")))))));
     }
@@ -1781,7 +1986,7 @@ var TableOfContents = /*#__PURE__*/function (_React$Component) {
 
       if (this.props.dash == "true") {
         chapterItems.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "chapterNameword",
+          className: "chapterNameword titleWords",
           key: 0
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "sansSerifChapterName chapNameHeader"
@@ -1811,7 +2016,7 @@ var TableOfContents = /*#__PURE__*/function (_React$Component) {
 
           chapterItems.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             key: index + 1,
-            className: "chapterNameword"
+            className: "chapterNameword "
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
             className: "RemoveTextDec sansSerifChapterName chapterTitleStyle",
             to: "/fiction/".concat(myChapters[index].story_id, "/chapters/").concat(myChapters[index].chapter_number)

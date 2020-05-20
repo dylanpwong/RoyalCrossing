@@ -708,7 +708,7 @@ background-color: #337AB7;
     color: #666666;
     align-items: center;
 }
-.pageButton{
+.pageButton2{
     border: 1px solid black;
     border-radius: 2em;
     background-color: white;
@@ -742,7 +742,7 @@ background-color: #337AB7;
 }
 .latestChapters{
     color: #666666;
-
+    border-bottom: 1px lightgray;
 }
 .chaptersContainer{
     margin-top: 1em;
@@ -762,7 +762,11 @@ background-color: #337AB7;
     min-width: 3em;
     min-height: 3em;
     border-radius: 3em;
+    cursor: pointer;
 }
 .dashIconContainer{
     display: flex;
+}
+.titleWords{
+    padding-right:2em;
 }

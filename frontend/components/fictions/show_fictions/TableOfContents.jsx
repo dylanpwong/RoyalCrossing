@@ -37,7 +37,7 @@ class TableOfContents extends React.Component{
         const chapterItems = [];
 
         if(this.props.dash =="true"){
-            chapterItems.push(<div className="chapterNameword" key={0}>
+            chapterItems.push(<div className="chapterNameword titleWords" key={0}>
                 <div className="sansSerifChapterName chapNameHeader">Chapter Name</div>
                 <div className="sansSerifChapterName">Date</div>
                 <div>Words</div>
@@ -60,7 +60,7 @@ class TableOfContents extends React.Component{
                     break;
                 }
                 chapterItems.push(
-                    <div key={index + 1} className="chapterNameword">
+                    <div key={index + 1} className="chapterNameword ">
                         <NavLink className="RemoveTextDec sansSerifChapterName chapterTitleStyle" to={`/fiction/${myChapters[index].story_id}/chapters/${myChapters[index].chapter_number}`}>{myChapters[index].title}</NavLink>
                         <div className="sansSerifChapterName chapterTitleStyle">{this.getDate(myChapters[index])}</div>
                         <div>{myChapters[index].content.split(" ").length}</div>

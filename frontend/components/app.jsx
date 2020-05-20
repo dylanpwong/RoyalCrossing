@@ -14,6 +14,7 @@ import show_fictions_container from './fictions/show_fictions/show_fictions_cont
 import chapters_container from './fictions/chapters/chapters_container';
 import createFiction_container from './fictions/myFictions/createFiction/createFiction_container';
 import dash_container from './fictions/dashboard/dash_container';
+import chapter_new_container from './fictions/chapters/chapter_new_container';
 
 const App = ()=>{
     return(
@@ -37,6 +38,7 @@ const App = ()=>{
                 <Route exact path="/fiction/:storyId/chapters/:chapterId" component={chapters_container}/>
                 <Route exact path="/fictions/submission" component={createFiction_container}/>
                 <Route exact path="/my/fiction/:storyId" component={dash_container}/>
+                <Route exact path="/fiction/chapter/new/:storyId" component={chapter_new_container}/>
                 <AuthRoute exact path="/profile/:userId" component={UserShowContainer}/>
                 <AuthRoute exact path="/my/fictions" component={myFictions_container}/>
                 {/* <Route path="/profile/:userId" component={UserShowContainer}/> */}

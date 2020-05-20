@@ -17,7 +17,7 @@ class DashShow extends React.Component{
                     {this.props.story.title}
                 </div>
 
-                <div className="pageButton">
+                <div className="pageButton2">
                     page
                     </div>
 

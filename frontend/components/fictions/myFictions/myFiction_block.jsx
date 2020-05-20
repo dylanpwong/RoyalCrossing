@@ -7,6 +7,7 @@ class MyFictionBlock extends React.Component{
         super(props)
         this.toStoryShow = this.toStoryShow.bind(this);
         this.toStoryDash =this.toStoryDash.bind(this);
+        this.toNewChapter=this.toNewChapter.bind(this);
     }
 
 
@@ -17,6 +18,10 @@ class MyFictionBlock extends React.Component{
 
     toStoryDash(){
         this.props.history.push(`/my/fiction/${this.props.story.id}`)
+    }
+
+    toNewChapter(){
+        this.props.history.push(`/fiction/chapter/new/${this.props.story.id}`)
     }
 
 
@@ -43,7 +48,7 @@ class MyFictionBlock extends React.Component{
                         <ul>
                             <button onClick={this.toStoryShow}className="showButton pageButton">Page</button>
                             <button onClick={this.toStoryDash}className="showButton dashButton">DashBoard</button>
-                            <button className="showButton addChapterButton">Add Chapter</button>
+                            <button onClick={this.toNewChapter}className="showButton addChapterButton">Add Chapter</button>
                         </ul>
                     </div>
 
