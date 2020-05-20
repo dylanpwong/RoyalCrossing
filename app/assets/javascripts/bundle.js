@@ -492,11 +492,14 @@ var ChapterNew = /*#__PURE__*/function (_React$Component) {
       title: "",
       pre_note: "",
       post_note: "",
-      story_id: ""
+      story_id: "",
+      creationErrors: 'false'
     };
     _this.createChapterForm = _this.createChapterForm.bind(_assertThisInitialized(_this));
     _this.changeInp = _this.changeInp.bind(_assertThisInitialized(_this));
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.errorHandler = _this.errorHandler.bind(_assertThisInitialized(_this));
+    _this.setFalse = _this.setFalse.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -520,15 +523,47 @@ var ChapterNew = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "onSubmit",
     value: function onSubmit(event) {
+      var _this3 = this;
+
       event.preventDefault();
-      this.props.createChaper(this.state);
+
+      for (var key in this.state) {
+        if (this.state[key] === "" && (key === "title" || key === "content")) {
+          this.setState({
+            creationErrors: 'true'
+          });
+          this.state.creationErrors = 'true';
+        }
+      }
+
+      if (this.state.creationErrors === 'false') {
+        this.props.createChapter(this.state).then(function (res) {
+          // debugger
+          _this3.props.history.push("/fiction/".concat(_this3.props.storyId, "/chapters/").concat(res.chapter.chapter_number));
+        }); // console.log(this.state.creationErrors);
+        // console.log("Chapter Submitted");
+      }
+    }
+  }, {
+    key: "setFalse",
+    value: function setFalse() {
+      this.state.creationErrors = 'false';
+    }
+  }, {
+    key: "errorHandler",
+    value: function errorHandler() {
+      if (this.state.creationErrors === 'true') {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "storyCreationErrors"
+        }, "Please Fill Title and Content Fields");
+      }
     }
   }, {
     key: "createChapterForm",
     value: function createChapterForm() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "FirstChapterContainer"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "FirstChapterContainer chapCreationPadding"
+      }, this.errorHandler(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.onSubmit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "titleInputsCreateFiction "
@@ -579,6 +614,8 @@ var ChapterNew = /*#__PURE__*/function (_React$Component) {
         cols: "30",
         rows: "10"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "cheeseBorder"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "chapterCreationSubContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "chapterCreationSubmit",
@@ -592,7 +629,7 @@ var ChapterNew = /*#__PURE__*/function (_React$Component) {
       console.log("In create Chapter");
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "singleFictionShow"
-      }, this.createChapterForm()));
+      }, this.createChapterForm(), this.setFalse()));
     }
   }]);
 

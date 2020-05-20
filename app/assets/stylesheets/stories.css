@@ -784,8 +784,14 @@ background-color: #337AB7;
     font-family: sans-serif;
     background-color: #708eb3;
     border-color: #67809f;
+    font-size: .5em;
 }
 .chapterCreationSubContainer{
     display: flex;
     justify-content: center;
+    font-size: 2em;
+    margin-top:1em;
+}
+.chapCreationPadding{
+    padding-bottom: 2em;
 }

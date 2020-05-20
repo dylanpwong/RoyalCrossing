@@ -17,7 +17,7 @@ class Api::ChaptersController < ApplicationController
 
         if(@chapter.save)
             myStory = Story.find(params[:chapter][:story_id])
-            # debugger
+            #debugger
             #chapter bug here
             @chapter.chapter_number = myStory.chapters.length + 1
              @chapter.save

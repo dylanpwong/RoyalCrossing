@@ -10,11 +10,14 @@ class ChapterNew extends React.Component{
             title: "",
             pre_note: "",
             post_note: "",
-            story_id:""
+            story_id:"",
+            creationErrors: 'false'
         }
         this.createChapterForm = this.createChapterForm.bind(this);
         this.changeInp =this.changeInp.bind(this);
         this.onSubmit=this.onSubmit.bind(this);
+        this.errorHandler=this.errorHandler.bind(this);
+        this.setFalse=this.setFalse.bind(this);
     }
 
     componentDidMount(){
@@ -32,14 +35,42 @@ class ChapterNew extends React.Component{
 
     onSubmit(event){
         event.preventDefault();
-        this.props.createChaper(this.state)
+        for(const key in this.state){
+            if(this.state[key] ==="" && (key ==="title" || key ==="content")){
+                this.setState({creationErrors: 'true'});
+                this.state.creationErrors = 'true';
+            }
+        }
+        if(this.state.creationErrors === 'false'){
+            this.props.createChapter(this.state).then((res)=>{
+                // debugger
+                this.props.history.push(`/fiction/${this.props.storyId}/chapters/${res.chapter.chapter_number}`);
+            })
+            // console.log(this.state.creationErrors);
+            // console.log("Chapter Submitted");
+        }
+    }
+
+    setFalse(){
+        this.state.creationErrors = 'false';
+    }
+
+    errorHandler(){
+        if(this.state.creationErrors ==='true'){
+            return (
+                <div className="storyCreationErrors">
+                    Please Fill Title and Content Fields
+                </div>
+            )
+        }
     }
 
     createChapterForm(){
         return(
 
-        <div className="FirstChapterContainer">
+        <div className="FirstChapterContainer chapCreationPadding">
             {/* <form > */}
+            {this.errorHandler()}
             <form onSubmit={this.onSubmit}>
 
             <div className="titleInputsCreateFiction ">
@@ -65,6 +96,8 @@ class ChapterNew extends React.Component{
                 <label className="alignLabelsChapter" htmlFor="postNote">Post-chapter author note &nbsp;</label>
                 <textarea onChange={this.changeInp("pre_note")} className="inputForStoryCreationSnyp" id="postNote"  cols="30" rows="10"></textarea>
             </div>
+
+            <div className="cheeseBorder"></div>
             {/* <input type="submit"/> */}
 
             {/* </form> */}
@@ -82,6 +115,7 @@ class ChapterNew extends React.Component{
             <>
             <div className='singleFictionShow'>
                 {this.createChapterForm()}
+                {this.setFalse()}
             </div>
                
             </>
