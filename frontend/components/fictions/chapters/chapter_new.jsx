@@ -49,7 +49,7 @@ class ChapterNew extends React.Component{
 
             <div className="cheeseBorder"></div>
 
-            <div>
+            <div className="titleInputsCreateFictionSnyp">
                 <label className="alignLabelsChapter" htmlFor="preNote">Pre-chapter author note &nbsp;</label>
                 <textarea onChange={this.changeInp("pre_note")} className="inputForStoryCreationSnyp"id="preNote"  cols="30" rows="10"></textarea>
             </div>
@@ -61,14 +61,17 @@ class ChapterNew extends React.Component{
 
             <div className="cheeseBorder"></div>
 
-            <div>
+            <div className="titleInputsCreateFictionSnyp">
                 <label className="alignLabelsChapter" htmlFor="postNote">Post-chapter author note &nbsp;</label>
                 <textarea onChange={this.changeInp("pre_note")} className="inputForStoryCreationSnyp" id="postNote"  cols="30" rows="10"></textarea>
             </div>
             {/* <input type="submit"/> */}
 
             {/* </form> */}
-            <input type="submit" value="Publish Chapter"/>
+            <div className="chapterCreationSubContainer">
+                <input className="chapterCreationSubmit" type="submit" value="Publish Chapter"/>
+
+            </div>
             </form>
         </div>
         )

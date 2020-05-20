@@ -770,3 +770,22 @@ background-color: #337AB7;
 .titleWords{
     padding-right:2em;
 }
+.prenoteBox{
+    width: 100%;
+    /* display: flex; */
+}
+.preNoteContainer{
+    padding-right: 3em;
+    padding-left:3em;
+    display: flex;
+}
+.chapterCreationSubmit{
+    color: white;
+    font-family: sans-serif;
+    background-color: #708eb3;
+    border-color: #67809f;
+}
+.chapterCreationSubContainer{
+    display: flex;
+    justify-content: center;
+}
