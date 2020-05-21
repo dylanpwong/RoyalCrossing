@@ -1363,7 +1363,7 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
         this.setState({
           errors: true
         });
-      } else if (this.state / storyTitle == "") {
+      } else if (this.state.storyTitle == "") {
         this.setState({
           errors: true
         });

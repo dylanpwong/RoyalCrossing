@@ -60,7 +60,7 @@ class CreateFiction extends React.Component{
         }
         if(this.state.synopsis==""){
             this.setState({errors: true});
-        }else if(this.state/storyTitle==""){
+        }else if(this.state.storyTitle==""){
             this.setState({ errors: true });
         }else if(this.state.chapterTitle==""){
             this.setState({ errors: true });
