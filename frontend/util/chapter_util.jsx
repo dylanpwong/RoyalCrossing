@@ -8,3 +8,11 @@ export const createChapter=(chapter)=>{
         data: {chapter}
     })
 }
+
+export const editChapter=(chapter)=>{
+    return $.ajax({
+        method: 'patch',
+        url: `/api/chapters/${chapter.id}`,
+        data: {chapter}
+    })
+}

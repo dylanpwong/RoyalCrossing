@@ -217,7 +217,7 @@ var demoLogin = function demoLogin() {
 /*!*******************************************!*\
   !*** ./frontend/actions/story_actions.js ***!
   \*******************************************/
-/*! exports provided: RECEIVE_STORY, RECEIVE_STORIES, DELETE_STORY, RECEIVE_GENRES, RECEIVE_CHAPTER, receiveStory, receiveStories, deleteStory, receiveGenres, createChapter, fetchGenres, createAStory, getAnyStory, getStory, getStories, getMyStories */
+/*! exports provided: RECEIVE_STORY, RECEIVE_STORIES, DELETE_STORY, RECEIVE_GENRES, RECEIVE_CHAPTER, receiveStory, receiveStories, deleteStory, receiveGenres, editChapter, createChapter, fetchGenres, createAStory, getAnyStory, getStory, getStories, getMyStories */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -231,6 +231,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveStories", function() { return receiveStories; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteStory", function() { return deleteStory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveGenres", function() { return receiveGenres; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editChapter", function() { return editChapter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createChapter", function() { return createChapter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchGenres", function() { return fetchGenres; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createAStory", function() { return createAStory; });
@@ -283,6 +284,13 @@ var receiveChapter = function receiveChapter(data) {
   };
 };
 
+var editChapter = function editChapter(data) {
+  return function (dispatch) {
+    return _util_chapter_util__WEBPACK_IMPORTED_MODULE_3__["editChapter"](data).then(function (res) {
+      return dispatch(receiveChapter(res));
+    });
+  };
+};
 var createChapter = function createChapter(data) {
   return function (dispatch) {
     return _util_chapter_util__WEBPACK_IMPORTED_MODULE_3__["createChapter"](data).then(function (res) {
@@ -4601,17 +4609,27 @@ var configureStore = function configureStore() {
 /*!****************************************!*\
   !*** ./frontend/util/chapter_util.jsx ***!
   \****************************************/
-/*! exports provided: createChapter */
+/*! exports provided: createChapter, editChapter */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createChapter", function() { return createChapter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editChapter", function() { return editChapter; });
 var createChapter = function createChapter(chapter) {
   // debugger
   return $.ajax({
     method: "POST",
     url: "/api/chapters",
+    data: {
+      chapter: chapter
+    }
+  });
+};
+var editChapter = function editChapter(chapter) {
+  return $.ajax({
+    method: 'patch',
+    url: "/api/chapters/".concat(chapter.id),
     data: {
       chapter: chapter
     }

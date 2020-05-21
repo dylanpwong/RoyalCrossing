@@ -45,6 +45,10 @@ const receiveChapter=(data)=>{
     })
 }
 
+export const editChapter=(data)=>dispatch=>{
+    return chapter_util.editChapter(data).then((res)=>dispatch(receiveChapter(res)));
+}
+
 export const createChapter=(data)=>dispatch=>{
     return chapter_util.createChapter(data).then((res)=>dispatch(receiveChapter(res)))
 }

@@ -7,3 +7,4 @@ export const fetchMyStory =(userId)=>{
         url: `/api/users/${userId}/stories`
     })
 }
+
