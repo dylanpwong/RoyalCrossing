@@ -94,7 +94,7 @@ class ChapterNew extends React.Component{
 
             <div className="titleInputsCreateFictionSnyp">
                 <label className="alignLabelsChapter" htmlFor="postNote">Post-chapter author note &nbsp;</label>
-                <textarea onChange={this.changeInp("pre_note")} className="inputForStoryCreationSnyp" id="postNote"  cols="30" rows="10"></textarea>
+                <textarea onChange={this.changeInp("post_note")} className="inputForStoryCreationSnyp" id="postNote"  cols="30" rows="10"></textarea>
             </div>
 
             <div className="cheeseBorder"></div>
@@ -110,7 +110,7 @@ class ChapterNew extends React.Component{
         )
     }
     render(){
-        console.log("In create Chapter")
+        // console.log("In create Chapter")
         return(
             <>
             <div className='singleFictionShow'>

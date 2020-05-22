@@ -370,6 +370,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fictions_myFictions_createFiction_createFiction_container__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./fictions/myFictions/createFiction/createFiction_container */ "./frontend/components/fictions/myFictions/createFiction/createFiction_container.jsx");
 /* harmony import */ var _fictions_dashboard_dash_container__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./fictions/dashboard/dash_container */ "./frontend/components/fictions/dashboard/dash_container.jsx");
 /* harmony import */ var _fictions_chapters_chapter_new_container__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./fictions/chapters/chapter_new_container */ "./frontend/components/fictions/chapters/chapter_new_container.jsx");
+/* harmony import */ var _fictions_chapters_chapter_edit_container__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./fictions/chapters/chapter_edit_container */ "./frontend/components/fictions/chapters/chapter_edit_container.jsx");
+
 
 
 
@@ -431,6 +433,10 @@ var App = function App() {
     exact: true,
     path: "/fiction/chapter/new/:storyId",
     component: _fictions_chapters_chapter_new_container__WEBPACK_IMPORTED_MODULE_15__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    exact: true,
+    path: "/fiction/:storyId/chapter/edit/:chapterNumber",
+    component: _fictions_chapters_chapter_edit_container__WEBPACK_IMPORTED_MODULE_16__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["AuthRoute"], {
     exact: true,
     path: "/profile/:userId",
@@ -443,6 +449,262 @@ var App = function App() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
+
+/***/ }),
+
+/***/ "./frontend/components/fictions/chapters/chapter_edit.jsx":
+/*!****************************************************************!*\
+  !*** ./frontend/components/fictions/chapters/chapter_edit.jsx ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var ChapterEdit = /*#__PURE__*/function (_React$Component) {
+  _inherits(ChapterEdit, _React$Component);
+
+  var _super = _createSuper(ChapterEdit);
+
+  function ChapterEdit(props) {
+    var _this;
+
+    _classCallCheck(this, ChapterEdit);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      content: "",
+      title: "",
+      pre_note: "",
+      post_note: "",
+      story_id: "",
+      creationErrors: 'false'
+    };
+    _this.createChapterForm = _this.createChapterForm.bind(_assertThisInitialized(_this));
+    _this.changeInp = _this.changeInp.bind(_assertThisInitialized(_this));
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.errorHandler = _this.errorHandler.bind(_assertThisInitialized(_this));
+    _this.setFalse = _this.setFalse.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(ChapterEdit, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      // debugger
+      this.setState({
+        content: this.props.chapter.content,
+        title: this.props.chapter.title,
+        pre_note: this.props.chapter.pre_note ? this.props.chapter.pre_note : "",
+        post_note: this.props.chapter.post_note ? this.props.chapter.post_note : "",
+        story_id: this.props.storyId
+      });
+    }
+  }, {
+    key: "changeInp",
+    value: function changeInp(type) {
+      var _this2 = this;
+
+      return function (event) {
+        event.preventDefault();
+        var value = event.target.value;
+
+        _this2.setState(_defineProperty({}, type, value));
+      };
+    }
+  }, {
+    key: "errorHandler",
+    value: function errorHandler() {
+      if (this.state.creationErrors === 'true') {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "storyCreationErrors"
+        }, "Please Fill Title and Content Fields");
+      }
+    }
+  }, {
+    key: "onSubmit",
+    value: function onSubmit(event) {
+      var _this3 = this;
+
+      event.preventDefault();
+
+      for (var key in this.state) {
+        if (this.state[key] === "" && (key === "title" || key === "content")) {
+          this.setState({
+            creationErrors: 'true'
+          });
+          this.state.creationErrors = 'true';
+        }
+      }
+
+      if (this.state.creationErrors === 'false') {
+        this.props.createChapter(this.state).then(function (res) {
+          // debugger
+          _this3.props.history.push("/fiction/".concat(_this3.props.storyId, "/chapters/").concat(res.chapter.chapter_number));
+        }); // console.log(this.state.creationErrors);
+        // console.log("Chapter Submitted");
+      }
+    }
+  }, {
+    key: "setFalse",
+    value: function setFalse() {
+      this.state.creationErrors = 'false';
+    }
+  }, {
+    key: "createChapterForm",
+    value: function createChapterForm() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "FirstChapterContainer chapCreationPadding"
+      }, this.errorHandler(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.onSubmit
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "titleInputsCreateFiction "
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "alignLabelsChapter",
+        htmlFor: "title"
+      }, "Chapter \xA0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        value: this.state.title,
+        onChange: this.changeInp("title"),
+        className: "inputForStoryCreation storyTitleinput",
+        type: "text",
+        placeholder: "Title of Chapter",
+        id: "title"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "cheeseBorder"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "titleInputsCreateFictionSnyp"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "alignLabelsChapter",
+        htmlFor: "preNote"
+      }, "Pre-chapter author note \xA0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        value: this.state.pre_note,
+        onChange: this.changeInp("pre_note"),
+        className: "inputForStoryCreationSnyp",
+        id: "preNote",
+        cols: "30",
+        rows: "10"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "titleInputsCreateFictionSnyp"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "alignLabelsChapter",
+        htmlFor: "content"
+      }, "Chapter Content \xA0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        value: this.state.content,
+        onChange: this.changeInp("content"),
+        className: "inputForStoryCreationSnyp",
+        id: "content",
+        cols: "30",
+        rows: "10"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "cheeseBorder"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "titleInputsCreateFictionSnyp"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "alignLabelsChapter",
+        htmlFor: "postNote"
+      }, "Post-chapter author note \xA0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        value: this.state.post_note,
+        onChange: this.changeInp("post_note"),
+        className: "inputForStoryCreationSnyp",
+        id: "postNote",
+        cols: "30",
+        rows: "10"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "cheeseBorder"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "chapterCreationSubContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "chapterCreationSubmit",
+        type: "submit",
+        value: "Save Changes"
+      }))));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "singleFictionShow"
+      }, this.createChapterForm(), this.setFalse()));
+    }
+  }]);
+
+  return ChapterEdit;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (ChapterEdit);
+
+/***/ }),
+
+/***/ "./frontend/components/fictions/chapters/chapter_edit_container.jsx":
+/*!**************************************************************************!*\
+  !*** ./frontend/components/fictions/chapters/chapter_edit_container.jsx ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_story_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../actions/story_actions */ "./frontend/actions/story_actions.js");
+/* harmony import */ var _chapter_edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./chapter_edit */ "./frontend/components/fictions/chapters/chapter_edit.jsx");
+
+
+
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  //storyId is really chapter iD
+  var ChapId = ownProps.match.params.chapterNumber;
+  var storyId = ownProps.match.params.storyId; // debugger;
+
+  return {
+    chapterNumber: ChapId,
+    storyId: storyId,
+    story: state.entities.stories[storyId],
+    chapter: state.entities.stories[storyId].chapters[ChapId]
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchStory: function fetchStory(storyId) {
+      return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_1__["getAnyStory"])(storyId));
+    },
+    editChapter: function editChapter(story) {
+      return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_1__["editChapter"])(story));
+    } // fetchChapter: (chapterId)=>dispatch(),
+
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_chapter_edit__WEBPACK_IMPORTED_MODULE_2__["default"]));
 
 /***/ }),
 
@@ -616,7 +878,7 @@ var ChapterNew = /*#__PURE__*/function (_React$Component) {
         className: "alignLabelsChapter",
         htmlFor: "postNote"
       }, "Post-chapter author note \xA0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
-        onChange: this.changeInp("pre_note"),
+        onChange: this.changeInp("post_note"),
         className: "inputForStoryCreationSnyp",
         id: "postNote",
         cols: "30",
@@ -634,7 +896,7 @@ var ChapterNew = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log("In create Chapter");
+      // console.log("In create Chapter")
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "singleFictionShow"
       }, this.createChapterForm(), this.setFalse()));
@@ -2000,9 +2262,14 @@ var TableOfContents = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(TableOfContents);
 
   function TableOfContents(props) {
+    var _this;
+
     _classCallCheck(this, TableOfContents);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.onEdit = _this.onEdit.bind(_assertThisInitialized(_this));
+    _this.onDelete = _this.onDelete.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(TableOfContents, [{
@@ -2023,6 +2290,22 @@ var TableOfContents = /*#__PURE__*/function (_React$Component) {
 
       return date;
     }
+  }, {
+    key: "onEdit",
+    value: function onEdit(chapter) {
+      var _this2 = this;
+
+      var myChap = chapter; // debugger;
+
+      return function (chapter) {
+        myChap;
+
+        _this2.props.history.push("/fiction/".concat(myChap.story_id, "/chapter/edit/").concat(myChap.chapter_number));
+      };
+    }
+  }, {
+    key: "onDelete",
+    value: function onDelete() {}
   }, {
     key: "render",
     value: function render() {
@@ -2073,12 +2356,15 @@ var TableOfContents = /*#__PURE__*/function (_React$Component) {
             className: "RemoveTextDec sansSerifChapterName chapterTitleStyle",
             to: "/fiction/".concat(myChapters[index].story_id, "/chapters/").concat(myChapters[index].chapter_number)
           }, myChapters[index].title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            className: "sansSerifChapterName chapterTitleStyle"
-          }, this.getDate(myChapters[index])), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, myChapters[index].content.split(" ").length), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            className: "dashIconContainer"
+            className: "sansSerifChapterName chapterTitleStyle dateMove"
+          }, this.getDate(myChapters[index])), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "dateMove"
+          }, myChapters[index].content.split(" ").length), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "dashIconContainer dateMove"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "editButton"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            onClick: this.onEdit(myChapters[index]),
             className: "fas fa-edit blueDash"
           })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "editButton"
@@ -2128,9 +2414,10 @@ var TableOfContents = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return TableOfContents;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // export default TableOfContents
 
-/* harmony default export */ __webpack_exports__["default"] = (TableOfContents);
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(TableOfContents));
 
 /***/ }),
 
@@ -4609,13 +4896,14 @@ var configureStore = function configureStore() {
 /*!****************************************!*\
   !*** ./frontend/util/chapter_util.jsx ***!
   \****************************************/
-/*! exports provided: createChapter, editChapter */
+/*! exports provided: createChapter, editChapter, getChapter */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createChapter", function() { return createChapter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editChapter", function() { return editChapter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getChapter", function() { return getChapter; });
 var createChapter = function createChapter(chapter) {
   // debugger
   return $.ajax({
@@ -4633,6 +4921,12 @@ var editChapter = function editChapter(chapter) {
     data: {
       chapter: chapter
     }
+  });
+};
+var getChapter = function getChapter(chapterId) {
+  return $.ajax({
+    method: 'patch',
+    url: "/api/chapters/".concat(chapterId)
   });
 };
 

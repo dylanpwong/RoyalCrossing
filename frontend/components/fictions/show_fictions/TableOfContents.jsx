@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 
 
 
@@ -7,6 +7,8 @@ import { NavLink } from 'react-router-dom';
 class TableOfContents extends React.Component{
     constructor(props){
         super(props)
+        this.onEdit=this.onEdit.bind(this);
+        this.onDelete=this.onDelete.bind(this);
     }
 
     getDate(chapter) {
@@ -24,6 +26,19 @@ class TableOfContents extends React.Component{
         // date += actualDateTime.getHours() + ":" + actualDateTime.getMinutes() + ":" + actualDateTime.getSeconds(); //actualDate.slice(11, 19);
 
         return date;
+    }
+
+    onEdit(chapter){
+        let myChap = chapter;
+        // debugger;
+        return (chapter)=>{
+            myChap;
+            this.props.history.push(`/fiction/${myChap.story_id}/chapter/edit/${myChap.chapter_number}`);
+
+        }
+    }
+    onDelete(){
+
     }
 
 
@@ -62,11 +77,11 @@ class TableOfContents extends React.Component{
                 chapterItems.push(
                     <div key={index + 1} className="chapterNameword ">
                         <NavLink className="RemoveTextDec sansSerifChapterName chapterTitleStyle" to={`/fiction/${myChapters[index].story_id}/chapters/${myChapters[index].chapter_number}`}>{myChapters[index].title}</NavLink>
-                        <div className="sansSerifChapterName chapterTitleStyle">{this.getDate(myChapters[index])}</div>
-                        <div>{myChapters[index].content.split(" ").length}</div>
-                        <div className='dashIconContainer'>
+                        <div className="sansSerifChapterName chapterTitleStyle dateMove">{this.getDate(myChapters[index])}</div>
+                        <div className="dateMove">{myChapters[index].content.split(" ").length}</div>
+                        <div className='dashIconContainer dateMove'>
                             <div className='editButton'>
-                            <i className="fas fa-edit blueDash"></i>
+                            <i onClick={this.onEdit(myChapters[index])}className="fas fa-edit blueDash"></i>
 
                             </div>
                             <div className="editButton">
@@ -121,4 +136,5 @@ class TableOfContents extends React.Component{
     }
 }
 
-export default TableOfContents
+// export default TableOfContents
+export default withRouter(TableOfContents)

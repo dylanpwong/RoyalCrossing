@@ -16,3 +16,10 @@ export const editChapter=(chapter)=>{
         data: {chapter}
     })
 }
+
+export const getChapter=(chapterId)=>{
+    return $.ajax({
+        method: 'patch',
+        url: `/api/chapters/${chapterId}`,
+    })
+}
