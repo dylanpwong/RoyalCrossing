@@ -11,15 +11,15 @@ export const createChapter=(chapter)=>{
 
 export const editChapter=(chapter)=>{
     return $.ajax({
-        method: 'patch',
-        url: `/api/chapters/${chapter.id}`,
+        method: 'GET',
+        url: `/api/chapters/${chapter.id}/edit`,
         data: {chapter}
     })
 }
 
 export const getChapter=(chapterId)=>{
     return $.ajax({
-        method: 'patch',
+        method: 'GET',
         url: `/api/chapters/${chapterId}`,
     })
 }

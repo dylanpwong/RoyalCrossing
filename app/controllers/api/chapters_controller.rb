@@ -30,16 +30,18 @@ class Api::ChaptersController < ApplicationController
 
     def edit
         @chapter = Chapter.find(params[:id]);
-        @chapter.content = params.chapter.content;
-        @chapter.title= params.chapter.title;
-        @chapter.pre_note = params.chapter.pre_note;
-        @chapter.post_note = params.chapter.post_note;
-
-        if(@chapter.save){
+        #debugger;
+        @chapter.content = params[:chapter][:content];
+        @chapter.title = params[:chapter][:title];
+        @chapter.pre_note = params[:chapter][:pre_note];
+        @chapter.post_note = params[:chapter][:post_note];
+        
+        #debugger;
+        if(@chapter.save)
             render 'api/chapters/show'
-        }else{
+        else
             render @chapter.errors.full_messages, status: 422
-        }
+        end
     end
 
     def destroy

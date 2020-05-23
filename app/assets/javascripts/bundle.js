@@ -501,6 +501,7 @@ var ChapterEdit = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
+      id: '',
       content: "",
       title: "",
       pre_note: "",
@@ -521,6 +522,7 @@ var ChapterEdit = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       // debugger
       this.setState({
+        id: this.props.chapter.id,
         content: this.props.chapter.content,
         title: this.props.chapter.title,
         pre_note: this.props.chapter.pre_note ? this.props.chapter.pre_note : "",
@@ -566,8 +568,8 @@ var ChapterEdit = /*#__PURE__*/function (_React$Component) {
       }
 
       if (this.state.creationErrors === 'false') {
-        this.props.createChapter(this.state).then(function (res) {
-          // debugger
+        this.props.editChapter(this.state).then(function (res) {
+          // debugger;
           _this3.props.history.push("/fiction/".concat(_this3.props.storyId, "/chapters/").concat(res.chapter.chapter_number));
         }); // console.log(this.state.creationErrors);
         // console.log("Chapter Submitted");
@@ -697,8 +699,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     fetchStory: function fetchStory(storyId) {
       return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_1__["getAnyStory"])(storyId));
     },
-    editChapter: function editChapter(story) {
-      return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_1__["editChapter"])(story));
+    editChapter: function editChapter(chapter) {
+      return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_1__["editChapter"])(chapter));
     } // fetchChapter: (chapterId)=>dispatch(),
 
   };
@@ -4916,8 +4918,8 @@ var createChapter = function createChapter(chapter) {
 };
 var editChapter = function editChapter(chapter) {
   return $.ajax({
-    method: 'patch',
-    url: "/api/chapters/".concat(chapter.id),
+    method: 'GET',
+    url: "/api/chapters/".concat(chapter.id, "/edit"),
     data: {
       chapter: chapter
     }
@@ -4925,7 +4927,7 @@ var editChapter = function editChapter(chapter) {
 };
 var getChapter = function getChapter(chapterId) {
   return $.ajax({
-    method: 'patch',
+    method: 'GET',
     url: "/api/chapters/".concat(chapterId)
   });
 };

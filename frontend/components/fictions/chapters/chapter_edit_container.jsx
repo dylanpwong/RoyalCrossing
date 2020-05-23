@@ -19,7 +19,7 @@ const mapStateToProps=(state,ownProps)=>{
 const mapDispatchToProps=(dispatch)=>{
     return ({
         fetchStory: (storyId) => dispatch(getAnyStory(storyId)),
-        editChapter: (story)=>dispatch(editChapter(story)),
+        editChapter: (chapter)=>dispatch(editChapter(chapter)),
         // fetchChapter: (chapterId)=>dispatch(),
     })
 }

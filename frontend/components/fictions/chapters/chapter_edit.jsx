@@ -6,6 +6,7 @@ class ChapterEdit extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            id: '',
             content: "",
             title: "",
             pre_note: "",
@@ -24,6 +25,7 @@ class ChapterEdit extends React.Component{
     componentDidMount(){
         // debugger
         this.setState({
+            id: this.props.chapter.id,
             content: this.props.chapter.content,
             title: this.props.chapter.title,
             pre_note: (this.props.chapter.pre_note) ? this.props.chapter.pre_note : "",
@@ -56,8 +58,8 @@ class ChapterEdit extends React.Component{
             }
         }
         if (this.state.creationErrors === 'false') {
-            this.props.createChapter(this.state).then((res) => {
-                // debugger
+            this.props.editChapter(this.state).then((res) => {
+                // debugger;
                 this.props.history.push(`/fiction/${this.props.storyId}/chapters/${res.chapter.chapter_number}`);
             })
             // console.log(this.state.creationErrors);
