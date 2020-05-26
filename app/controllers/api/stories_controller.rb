@@ -33,6 +33,20 @@ class Api::StoriesController < ApplicationController
         end
     end
 
+    def edit
+        @story = Story.find(params[:id]);
+        @story.title = params[:story][:title];
+        @story.synopsis = params[:story][:synopsis];
+        @story.genre_ids = params[:story][:genre_ids];
+        
+        if(@story.save)
+            render :show;
+        else
+            render json: @story.errors.full_messages, status: 422
+        end
+
+    end
+
 
 
 

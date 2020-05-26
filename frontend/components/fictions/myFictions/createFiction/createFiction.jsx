@@ -2,6 +2,7 @@
 
 import React from 'react';
 import CreateChapter from './createChapter'
+import { withRouter } from 'react-router-dom';
 // import { debug } from 'webpack';
 
 
@@ -10,6 +11,7 @@ class CreateFiction extends React.Component{
         super(props)
 
         this.state={
+            id:"",
             synopsis: "",
             storyTitle: "",
             chapterTitle: "",
@@ -33,12 +35,17 @@ class CreateFiction extends React.Component{
     onChangeCheck(type){
         if(type.target.checked){
             // const idx = this.state.genre_ids.indexOf(type.target.value)
-            this.state.genre_ids.push(type.target.value);
+            // this.state.genre_ids.push(type.target.value);
             
-            // this.setState({genre_ids: this.state.genre_ids});
+            this.setState({genre_ids: this.state.genre_ids.concat([type.target.value])});
         }else{
             // debugger
-            this.state.genre_ids.splice(this.state.genre_ids.indexOf(type.target),1);
+            let arrayCopy = this.state.genre_ids.slice();
+            // debugger
+            arrayCopy.splice(arrayCopy.indexOf(type.target.value),1);
+            // debugger;
+            this.setState({genre_ids: arrayCopy});
+            // this.state.genre_ids.splice(this.state.genre_ids.indexOf(type.target),1);
             // this.setState({ genre_ids: this.state.genre_ids });
         }
 
@@ -46,7 +53,7 @@ class CreateFiction extends React.Component{
     }
 
     onChangeCheck2(type){
-        
+
     }
 
     componentDidMount(){
@@ -55,10 +62,15 @@ class CreateFiction extends React.Component{
         }
         if(this.props.edit){
             // debugger;
+            let editIds=[];
+           for(const key in this.props.editStory.genres){
+               editIds.push(this.props.editStory.genres[key].id)
+           }
             this.setState({
+                id: this.props.editStory.id,
                 synopsis: this.props.editStory.synopsis,
                 storyTitle: this.props.editStory.title,
-                genre_ids: this.props.editStory.genres
+                genre_ids: editIds
             })
         }
     }
@@ -66,6 +78,7 @@ class CreateFiction extends React.Component{
     submitHandler(e){
         e.preventDefault();
         const data ={
+            id: this.state.id,
             title: this.state.storyTitle,
             synopsis: this.state.synopsis,
             author_id: this.props.author.id,
@@ -76,17 +89,18 @@ class CreateFiction extends React.Component{
             content: this.state.content,
 
         }
+        // debugger;
         if(this.state.synopsis==""){
             this.setState({errors: true});
         }else if(this.state.storyTitle==""){
             this.setState({ errors: true });
-        }else if(this.state.chapterTitle==""){
+        }else if(this.state.chapterTitle=="" &&!this.props.edit){
             this.setState({ errors: true });
-        }else if(this.state.content==""){
+        }else if(this.state.content=="" &&!this.props.edit){
             this.setState({ errors: true });
         }else if (this.state.genre_ids.length ==0){
             this.setState({ errors: true });
-        }else{
+        }else if(!this.props.edit){
             this.state.errors=false;
             this.props.createAStory(data).then((res)=>{
                 chapData.story_id = res.story.id;
@@ -95,6 +109,13 @@ class CreateFiction extends React.Component{
                         this.props.history.push('/')
                     })
             })
+        }else{
+            this.state.errors=false;
+            this.props.editStoryFunc(data).then((res)=>{
+                // debugger;
+                this.props.history.push(`/fiction/${res.story.id}`);
+            })
+            
         }
         // debugger
     }
@@ -156,9 +177,10 @@ class CreateFiction extends React.Component{
         }
     }
 
-    editChecked(name){
+    editChecked(id){
+        // debugger
         for(let i=0;i<this.state.genre_ids.length;i++){
-            if (this.state.genre_ids[i].name === name){
+            if (this.state.genre_ids[i] == id){
                 return true;
             }
         }
@@ -214,22 +236,22 @@ class CreateFiction extends React.Component{
 
                                     <div className="checkboxCreate">
                                         <label htmlFor="romance">{this.props.genres.romance.name}</label>
-                                        <input checked={this.editChecked('romance')}  onChange={this.onChangeCheck}type="checkbox" value={this.props.genres.romance.id} id="romance"/>
+                                        <input checked={this.editChecked(this.props.genres.romance.id)}  onChange={this.onChangeCheck}type="checkbox" value={this.props.genres.romance.id} id="romance"/>
                                     </div>
 
                                     <div className="checkboxCreate">
                                         <label htmlFor="horror">{this.props.genres.horror.name}</label>
-                                        <input checked={this.editChecked('horror')} onChange={this.onChangeCheck}type="checkbox" id="horror" value={this.props.genres.horror.id} />
+                                        <input checked={this.editChecked(this.props.genres.horror.id)} onChange={this.onChangeCheck}type="checkbox" id="horror" value={this.props.genres.horror.id} />
                                     </div>
 
                                     <div className="checkboxCreate">
                                         <label htmlFor="comedy">{this.props.genres.comedy.name}</label>
-                                        <input checked={this.editChecked('comedy')} onChange={this.onChangeCheck}type="checkbox" id="comedy" value={this.props.genres.comedy.id}/>
+                                        <input checked={this.editChecked(this.props.genres.comedy.id)} onChange={this.onChangeCheck}type="checkbox" id="comedy" value={this.props.genres.comedy.id}/>
                                     </div>
 
                                     <div className="checkboxCreate">
                                         <label htmlFor="action">{this.props.genres.action.name}</label>
-                                        <input checked={this.editChecked('action')} onChange={this.onChangeCheck}type="checkbox" id="action" value={this.props.genres.action.id} />
+                                        <input checked={this.editChecked(this.props.genres.action.id)} onChange={this.onChangeCheck}type="checkbox" id="action" value={this.props.genres.action.id} />
                                     </div>
 
                                 </div>
@@ -248,4 +270,5 @@ class CreateFiction extends React.Component{
     }
 }
 
-export default CreateFiction;
+// export default CreateFiction;
+export default withRouter(CreateFiction);

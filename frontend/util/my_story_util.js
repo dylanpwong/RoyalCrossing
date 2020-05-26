@@ -8,3 +8,11 @@ export const fetchMyStory =(userId)=>{
     })
 }
 
+export const editMyStory = (story)=>{
+    return $.ajax({
+        method: 'GET',
+        url: `/api/stories/${story.id}/edit`,
+        data: {story}
+    })
+}
+

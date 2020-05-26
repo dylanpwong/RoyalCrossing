@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import DashEdit from './dashEdit'
-import { getStory, fetchGenres } from '../../../actions/story_actions'
+import { getStory, fetchGenres, editStory } from '../../../actions/story_actions'
 
 
 const mapStatetoProps=(state,ownProps)=>{
@@ -16,6 +16,7 @@ const mapDispatchToProps = (dispatch)=>{
     return({
         fetchStory: (storyId)=>{dispatch(getStory(storyId))},
         getGenres: () => dispatch(fetchGenres()),
+        editStory: (story)=>dispatch(editStory(story))
     })
 }
 

@@ -51,6 +51,10 @@ const removeChapter =(data)=>{
     })
 }
 
+export const editStory=(data)=>dispatch=>{
+    return my_story_util.editMyStory(data).then((res)=>dispatch(receiveStory(res)));
+}
+
 export const editChapter=(data)=>dispatch=>{
     return chapter_util.editChapter(data).then((res)=>dispatch(receiveChapter(res)));
 }

@@ -29,7 +29,7 @@ class DashEdit extends React.Component{
         return(
             <>
             {this.editHeader()}
-            <CreateFiction edit={true}author={this.props.story.author} genres={this.props.genres} editStory={this.props.story}/>
+            <CreateFiction  getGenres={this.props.getGenres} editStoryFunc={this.props.editStory}edit={true}author={this.props.story.author} genres={this.props.genres} editStory={this.props.story}/>
             </>
         )
     }

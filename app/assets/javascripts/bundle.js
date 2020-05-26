@@ -217,7 +217,7 @@ var demoLogin = function demoLogin() {
 /*!*******************************************!*\
   !*** ./frontend/actions/story_actions.js ***!
   \*******************************************/
-/*! exports provided: RECEIVE_STORY, RECEIVE_STORIES, DELETE_STORY, RECEIVE_GENRES, RECEIVE_CHAPTER, receiveStory, receiveStories, deleteStory, receiveGenres, editChapter, deleteChapter, createChapter, fetchGenres, createAStory, getAnyStory, getStory, getStories, getMyStories */
+/*! exports provided: RECEIVE_STORY, RECEIVE_STORIES, DELETE_STORY, RECEIVE_GENRES, RECEIVE_CHAPTER, receiveStory, receiveStories, deleteStory, receiveGenres, editStory, editChapter, deleteChapter, createChapter, fetchGenres, createAStory, getAnyStory, getStory, getStories, getMyStories */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -231,6 +231,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveStories", function() { return receiveStories; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteStory", function() { return deleteStory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveGenres", function() { return receiveGenres; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editStory", function() { return editStory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editChapter", function() { return editChapter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteChapter", function() { return deleteChapter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createChapter", function() { return createChapter; });
@@ -292,6 +293,13 @@ var removeChapter = function removeChapter(data) {
   };
 };
 
+var editStory = function editStory(data) {
+  return function (dispatch) {
+    return _util_my_story_util__WEBPACK_IMPORTED_MODULE_1__["editMyStory"](data).then(function (res) {
+      return dispatch(receiveStory(res));
+    });
+  };
+};
 var editChapter = function editChapter(data) {
   return function (dispatch) {
     return _util_chapter_util__WEBPACK_IMPORTED_MODULE_3__["editChapter"](data).then(function (res) {
@@ -1424,6 +1432,8 @@ var DashEdit = /*#__PURE__*/function (_React$Component) {
     key: "editComponent",
     value: function editComponent() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, this.editHeader(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_myFictions_createFiction_createFiction__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        getGenres: this.props.getGenres,
+        editStoryFunc: this.props.editStory,
         edit: true,
         author: this.props.story.author,
         genres: this.props.genres,
@@ -1485,6 +1495,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     getGenres: function getGenres() {
       return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_3__["fetchGenres"])());
+    },
+    editStory: function editStory(story) {
+      return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_3__["editStory"])(story));
     }
   };
 };
@@ -1854,6 +1867,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _createChapter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./createChapter */ "./frontend/components/fictions/myFictions/createFiction/createChapter.jsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -1879,6 +1893,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
+
  // import { debug } from 'webpack';
 
 var CreateFiction = /*#__PURE__*/function (_React$Component) {
@@ -1893,6 +1908,7 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
+      id: "",
       synopsis: "",
       storyTitle: "",
       chapterTitle: "",
@@ -1922,10 +1938,20 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
     value: function onChangeCheck(type) {
       if (type.target.checked) {
         // const idx = this.state.genre_ids.indexOf(type.target.value)
-        this.state.genre_ids.push(type.target.value); // this.setState({genre_ids: this.state.genre_ids});
+        // this.state.genre_ids.push(type.target.value);
+        this.setState({
+          genre_ids: this.state.genre_ids.concat([type.target.value])
+        });
       } else {
         // debugger
-        this.state.genre_ids.splice(this.state.genre_ids.indexOf(type.target), 1); // this.setState({ genre_ids: this.state.genre_ids });
+        var arrayCopy = this.state.genre_ids.slice(); // debugger
+
+        arrayCopy.splice(arrayCopy.indexOf(type.target.value), 1); // debugger;
+
+        this.setState({
+          genre_ids: arrayCopy
+        }); // this.state.genre_ids.splice(this.state.genre_ids.indexOf(type.target),1);
+        // this.setState({ genre_ids: this.state.genre_ids });
       } // debugger
 
     }
@@ -1941,10 +1967,17 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
 
       if (this.props.edit) {
         // debugger;
+        var editIds = [];
+
+        for (var key in this.props.editStory.genres) {
+          editIds.push(this.props.editStory.genres[key].id);
+        }
+
         this.setState({
+          id: this.props.editStory.id,
           synopsis: this.props.editStory.synopsis,
           storyTitle: this.props.editStory.title,
-          genre_ids: this.props.editStory.genres
+          genre_ids: editIds
         });
       }
     }
@@ -1955,6 +1988,7 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
 
       e.preventDefault();
       var data = {
+        id: this.state.id,
         title: this.state.storyTitle,
         synopsis: this.state.synopsis,
         author_id: this.props.author.id,
@@ -1963,7 +1997,7 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
       var chapData = {
         title: this.state.chapterTitle,
         content: this.state.content
-      };
+      }; // debugger;
 
       if (this.state.synopsis == "") {
         this.setState({
@@ -1973,11 +2007,11 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
         this.setState({
           errors: true
         });
-      } else if (this.state.chapterTitle == "") {
+      } else if (this.state.chapterTitle == "" && !this.props.edit) {
         this.setState({
           errors: true
         });
-      } else if (this.state.content == "") {
+      } else if (this.state.content == "" && !this.props.edit) {
         this.setState({
           errors: true
         });
@@ -1985,7 +2019,7 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
         this.setState({
           errors: true
         });
-      } else {
+      } else if (!this.props.edit) {
         this.state.errors = false;
         this.props.createAStory(data).then(function (res) {
           chapData.story_id = res.story.id;
@@ -1994,6 +2028,12 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
             // debugger;
             _this3.props.history.push('/');
           });
+        });
+      } else {
+        this.state.errors = false;
+        this.props.editStoryFunc(data).then(function (res) {
+          // debugger;
+          _this3.props.history.push("/fiction/".concat(res.story.id));
         });
       } // debugger
 
@@ -2047,9 +2087,10 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "editChecked",
-    value: function editChecked(name) {
+    value: function editChecked(id) {
+      // debugger
       for (var i = 0; i < this.state.genre_ids.length; i++) {
-        if (this.state.genre_ids[i].name === name) {
+        if (this.state.genre_ids[i] == id) {
           return true;
         }
       }
@@ -2116,7 +2157,7 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "romance"
       }, this.props.genres.romance.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        checked: this.editChecked('romance'),
+        checked: this.editChecked(this.props.genres.romance.id),
         onChange: this.onChangeCheck,
         type: "checkbox",
         value: this.props.genres.romance.id,
@@ -2126,7 +2167,7 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "horror"
       }, this.props.genres.horror.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        checked: this.editChecked('horror'),
+        checked: this.editChecked(this.props.genres.horror.id),
         onChange: this.onChangeCheck,
         type: "checkbox",
         id: "horror",
@@ -2136,7 +2177,7 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "comedy"
       }, this.props.genres.comedy.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        checked: this.editChecked('comedy'),
+        checked: this.editChecked(this.props.genres.comedy.id),
         onChange: this.onChangeCheck,
         type: "checkbox",
         id: "comedy",
@@ -2146,7 +2187,7 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "action"
       }, this.props.genres.action.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        checked: this.editChecked('action'),
+        checked: this.editChecked(this.props.genres.action.id),
         onChange: this.onChangeCheck,
         type: "checkbox",
         id: "action",
@@ -2162,9 +2203,10 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return CreateFiction;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); // export default CreateFiction;
 
-/* harmony default export */ __webpack_exports__["default"] = (CreateFiction);
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(CreateFiction));
 
 /***/ }),
 
@@ -5337,17 +5379,27 @@ var deleteChapter = function deleteChapter(chapterId) {
 /*!****************************************!*\
   !*** ./frontend/util/my_story_util.js ***!
   \****************************************/
-/*! exports provided: fetchMyStory */
+/*! exports provided: fetchMyStory, editMyStory */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchMyStory", function() { return fetchMyStory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editMyStory", function() { return editMyStory; });
 // /users/stories /: id
 var fetchMyStory = function fetchMyStory(userId) {
   return $.ajax({
     method: 'GET',
     url: "/api/users/".concat(userId, "/stories")
+  });
+};
+var editMyStory = function editMyStory(story) {
+  return $.ajax({
+    method: 'GET',
+    url: "/api/stories/".concat(story.id, "/edit"),
+    data: {
+      story: story
+    }
   });
 };
 
