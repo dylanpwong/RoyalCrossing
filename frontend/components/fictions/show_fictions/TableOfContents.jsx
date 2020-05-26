@@ -9,6 +9,7 @@ class TableOfContents extends React.Component{
         super(props)
         this.onEdit=this.onEdit.bind(this);
         this.onDelete=this.onDelete.bind(this);
+
     }
 
     getDate(chapter) {
@@ -37,8 +38,16 @@ class TableOfContents extends React.Component{
 
         }
     }
-    onDelete(){
+    onDelete(chapter) {
 
+        return()=>{
+            chapter;
+            // let storyId = chapter.storyId;
+            // debugger;
+            this.props.deleteChapter(chapter.id).then((res) => {
+                this.props.history.push(`/my/fiction/${chapter.story_id}`);
+            })
+        }
     }
 
 
@@ -85,7 +94,7 @@ class TableOfContents extends React.Component{
 
                             </div>
                             <div className="editButton">
-                                <i className="fas fa-trash-alt redDash "></i>
+                                <i onClick={this.onDelete(myChapters[index])} className="fas fa-trash-alt redDash "></i>
                             </div>
                         </div>
                     </div>

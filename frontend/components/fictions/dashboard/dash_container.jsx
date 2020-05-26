@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import dash from "./dash"
-import { getStory, getAnyStory } from "../../../actions/story_actions"
+import { getStory, getAnyStory, deleteChapter } from "../../../actions/story_actions"
 
 
 
@@ -14,7 +14,8 @@ const mapStateToProps = (state,ownProps)=>{
 
 const mapDispatchToProps=(dispatch)=>{
     return ({
-        fetchStory: (storyId) => dispatch(getAnyStory(storyId))
+        fetchStory: (storyId) => dispatch(getAnyStory(storyId)),
+        deleteChapter: (chapterId)=> dispatch(deleteChapter(chapterId))
     })
 }
 

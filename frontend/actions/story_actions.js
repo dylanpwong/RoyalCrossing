@@ -44,10 +44,20 @@ const receiveChapter=(data)=>{
         chapter: data
     })
 }
+const removeChapter =(data)=>{
+    return({
+        type: "REMOVE_CHAPTER",
+        chapterId : data
+    })
+}
 
 export const editChapter=(data)=>dispatch=>{
     return chapter_util.editChapter(data).then((res)=>dispatch(receiveChapter(res)));
 }
+export const deleteChapter=(chapterId)=>dispatch=>{
+    // return chapter_util.deleteChapter(chapterId).then((res)=>dispatch(removeChapter(res)));
+    return chapter_util.deleteChapter(chapterId).then((res) => dispatch(receiveStory(res)));
+}   
 
 export const createChapter=(data)=>dispatch=>{
     return chapter_util.createChapter(data).then((res)=>dispatch(receiveChapter(res)))

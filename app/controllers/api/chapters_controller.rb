@@ -45,6 +45,10 @@ class Api::ChaptersController < ApplicationController
     end
 
     def destroy
+        @chapter = Chapter.find(params[:id]);
+        @chapter.destroy;
+        @story = Story.find(@chapter.story_id);
+        render '/api/stories/show';
     end
 
 

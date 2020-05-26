@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import { getStory, getAnyStory, editChapter } from "../../../actions/story_actions"
+import { getStory, getAnyStory, editChapter, deleteChapter } from "../../../actions/story_actions"
 import ChapterEdit from "./chapter_edit";
 
 const mapStateToProps=(state,ownProps)=>{
@@ -20,6 +20,7 @@ const mapDispatchToProps=(dispatch)=>{
     return ({
         fetchStory: (storyId) => dispatch(getAnyStory(storyId)),
         editChapter: (chapter)=>dispatch(editChapter(chapter)),
+        deleteChapter: (chapterId)=> dispatch(deleteChapter(chapterId))
         // fetchChapter: (chapterId)=>dispatch(),
     })
 }

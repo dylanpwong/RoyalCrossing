@@ -217,7 +217,7 @@ var demoLogin = function demoLogin() {
 /*!*******************************************!*\
   !*** ./frontend/actions/story_actions.js ***!
   \*******************************************/
-/*! exports provided: RECEIVE_STORY, RECEIVE_STORIES, DELETE_STORY, RECEIVE_GENRES, RECEIVE_CHAPTER, receiveStory, receiveStories, deleteStory, receiveGenres, editChapter, createChapter, fetchGenres, createAStory, getAnyStory, getStory, getStories, getMyStories */
+/*! exports provided: RECEIVE_STORY, RECEIVE_STORIES, DELETE_STORY, RECEIVE_GENRES, RECEIVE_CHAPTER, receiveStory, receiveStories, deleteStory, receiveGenres, editChapter, deleteChapter, createChapter, fetchGenres, createAStory, getAnyStory, getStory, getStories, getMyStories */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -232,6 +232,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteStory", function() { return deleteStory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveGenres", function() { return receiveGenres; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editChapter", function() { return editChapter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteChapter", function() { return deleteChapter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createChapter", function() { return createChapter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchGenres", function() { return fetchGenres; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createAStory", function() { return createAStory; });
@@ -284,10 +285,25 @@ var receiveChapter = function receiveChapter(data) {
   };
 };
 
+var removeChapter = function removeChapter(data) {
+  return {
+    type: "REMOVE_CHAPTER",
+    chapterId: data
+  };
+};
+
 var editChapter = function editChapter(data) {
   return function (dispatch) {
     return _util_chapter_util__WEBPACK_IMPORTED_MODULE_3__["editChapter"](data).then(function (res) {
       return dispatch(receiveChapter(res));
+    });
+  };
+};
+var deleteChapter = function deleteChapter(chapterId) {
+  return function (dispatch) {
+    // return chapter_util.deleteChapter(chapterId).then((res)=>dispatch(removeChapter(res)));
+    return _util_chapter_util__WEBPACK_IMPORTED_MODULE_3__["deleteChapter"](chapterId).then(function (res) {
+      return dispatch(receiveStory(res));
     });
   };
 };
@@ -371,6 +387,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fictions_dashboard_dash_container__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./fictions/dashboard/dash_container */ "./frontend/components/fictions/dashboard/dash_container.jsx");
 /* harmony import */ var _fictions_chapters_chapter_new_container__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./fictions/chapters/chapter_new_container */ "./frontend/components/fictions/chapters/chapter_new_container.jsx");
 /* harmony import */ var _fictions_chapters_chapter_edit_container__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./fictions/chapters/chapter_edit_container */ "./frontend/components/fictions/chapters/chapter_edit_container.jsx");
+/* harmony import */ var _fictions_dashboard_dashEdit_container__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./fictions/dashboard/dashEdit_container */ "./frontend/components/fictions/dashboard/dashEdit_container.jsx");
+
 
 
 
@@ -433,6 +451,10 @@ var App = function App() {
     exact: true,
     path: "/fiction/chapter/new/:storyId",
     component: _fictions_chapters_chapter_new_container__WEBPACK_IMPORTED_MODULE_15__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    exact: true,
+    path: "/my/fiction/:storyId/edit",
+    component: _fictions_dashboard_dashEdit_container__WEBPACK_IMPORTED_MODULE_17__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     exact: true,
     path: "/fiction/:storyId/chapter/edit/:chapterNumber",
@@ -514,6 +536,7 @@ var ChapterEdit = /*#__PURE__*/function (_React$Component) {
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
     _this.errorHandler = _this.errorHandler.bind(_assertThisInitialized(_this));
     _this.setFalse = _this.setFalse.bind(_assertThisInitialized(_this));
+    _this.onDelete = _this.onDelete.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -581,6 +604,20 @@ var ChapterEdit = /*#__PURE__*/function (_React$Component) {
       this.state.creationErrors = 'false';
     }
   }, {
+    key: "onCancel",
+    value: function onCancel() {
+      this.props.history.push("/my/fiction/".concat(this.props.storyId));
+    }
+  }, {
+    key: "onDelete",
+    value: function onDelete() {
+      var _this4 = this;
+
+      this.props.deleteChapter(this.props.chapterId).then(function (res) {
+        _this4.props.history.push("/my/fiction/".concat(_this4.props.storyId));
+      });
+    }
+  }, {
     key: "createChapterForm",
     value: function createChapterForm() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -643,7 +680,10 @@ var ChapterEdit = /*#__PURE__*/function (_React$Component) {
         className: "cheeseBorder"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "chapterCreationSubContainer"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.onCancel.bind(this),
+        className: "cancelButton"
+      }, "Cancel"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "chapterCreationSubmit",
         type: "submit",
         value: "Save Changes"
@@ -701,6 +741,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     editChapter: function editChapter(chapter) {
       return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_1__["editChapter"])(chapter));
+    },
+    deleteChapter: function deleteChapter(chapterId) {
+      return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_1__["deleteChapter"])(chapterId));
     } // fetchChapter: (chapterId)=>dispatch(),
 
   };
@@ -1202,6 +1245,7 @@ var dash = /*#__PURE__*/function (_React$Component) {
     _this.dashNav = _this.dashNav.bind(_assertThisInitialized(_this));
     _this.followersAndFavorites = _this.followersAndFavorites.bind(_assertThisInitialized(_this));
     _this.dashChapters = _this.dashChapters.bind(_assertThisInitialized(_this));
+    _this.toEditStory = _this.toEditStory.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -1210,6 +1254,17 @@ var dash = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       this.props.fetchStory(this.props.storyId);
     }
+  }, {
+    key: "toDash",
+    value: function toDash() {}
+  }, {
+    key: "toEditStory",
+    value: function toEditStory() {
+      this.props.history.push("/my/fiction/".concat(this.props.storyId, "/edit"));
+    }
+  }, {
+    key: "toChapters",
+    value: function toChapters() {}
   }, {
     key: "dashNav",
     value: function dashNav() {
@@ -1220,6 +1275,7 @@ var dash = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-tachometer-alt"
       }), "Dashboard"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onClick: this.toEditStory,
         className: "dashNavBlock"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-edit"
@@ -1266,6 +1322,7 @@ var dash = /*#__PURE__*/function (_React$Component) {
           className: "fas fa-file-alt"
         }), "\xA0Latest Chapters"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_show_fictions_TableOfContents__WEBPACK_IMPORTED_MODULE_2__["default"], {
           dash: "true",
+          deleteChapter: this.props.deleteChapter,
           chapters: this.props.story.chapters
         }));
       }
@@ -1288,6 +1345,265 @@ var dash = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (dash);
+
+/***/ }),
+
+/***/ "./frontend/components/fictions/dashboard/dashEdit.jsx":
+/*!*************************************************************!*\
+  !*** ./frontend/components/fictions/dashboard/dashEdit.jsx ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _dashNav__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dashNav */ "./frontend/components/fictions/dashboard/dashNav.jsx");
+/* harmony import */ var _myFictions_createFiction_createFiction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../myFictions/createFiction/createFiction */ "./frontend/components/fictions/myFictions/createFiction/createFiction.jsx");
+/* harmony import */ var _myFictions_createFiction_createFiction_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../myFictions/createFiction/createFiction_container */ "./frontend/components/fictions/myFictions/createFiction/createFiction_container.jsx");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+var DashEdit = /*#__PURE__*/function (_React$Component) {
+  _inherits(DashEdit, _React$Component);
+
+  var _super = _createSuper(DashEdit);
+
+  function DashEdit(props) {
+    var _this;
+
+    _classCallCheck(this, DashEdit);
+
+    _this = _super.call(this, props);
+    _this.editComponent = _this.editComponent.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(DashEdit, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchStory(this.props.storyId);
+      this.props.getGenres();
+    }
+  }, {
+    key: "editHeader",
+    value: function editHeader() {
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "editHeader"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-edit"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "EDIT"));
+    }
+  }, {
+    key: "editComponent",
+    value: function editComponent() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, this.editHeader(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_myFictions_createFiction_createFiction__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        edit: true,
+        author: this.props.story.author,
+        genres: this.props.genres,
+        editStory: this.props.story
+      }));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      // debugger;
+      if (this.props.story == null) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "singleFictionShow paddingIn"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dashNav__WEBPACK_IMPORTED_MODULE_1__["default"], null), this.editComponent()));
+      }
+    }
+  }]);
+
+  return DashEdit;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (DashEdit);
+
+/***/ }),
+
+/***/ "./frontend/components/fictions/dashboard/dashEdit_container.jsx":
+/*!***********************************************************************!*\
+  !*** ./frontend/components/fictions/dashboard/dashEdit_container.jsx ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _dashEdit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dashEdit */ "./frontend/components/fictions/dashboard/dashEdit.jsx");
+/* harmony import */ var _actions_story_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/story_actions */ "./frontend/actions/story_actions.js");
+
+
+
+
+
+var mapStatetoProps = function mapStatetoProps(state, ownProps) {
+  return {
+    storyId: ownProps.match.params.storyId,
+    story: state.entities.stories[ownProps.match.params.storyId],
+    genres: state.entities.genres
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchStory: function fetchStory(storyId) {
+      dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_3__["getStory"])(storyId));
+    },
+    getGenres: function getGenres() {
+      return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_3__["fetchGenres"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStatetoProps, mapDispatchToProps)(_dashEdit__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/fictions/dashboard/dashNav.jsx":
+/*!************************************************************!*\
+  !*** ./frontend/components/fictions/dashboard/dashNav.jsx ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var DashNav = /*#__PURE__*/function (_React$Component) {
+  _inherits(DashNav, _React$Component);
+
+  var _super = _createSuper(DashNav);
+
+  function DashNav(props) {
+    _classCallCheck(this, DashNav);
+
+    return _super.call(this, props);
+  }
+
+  _createClass(DashNav, [{
+    key: "toDash",
+    value: function toDash() {}
+  }, {
+    key: "toEditStory",
+    value: function toEditStory() {
+      this.props.history.push("/my/fiction/".concat(this.props.storyId, "/edit"));
+    }
+  }, {
+    key: "toChapters",
+    value: function toChapters() {}
+  }, {
+    key: "dashNav",
+    value: function dashNav() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dashNavContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dashNavBlock"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-tachometer-alt"
+      }), "Dashboard"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onClick: this.toEditStory,
+        className: "dashNavBlock"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-edit"
+      }), "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "dashNavBlock"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-file-alt"
+      }), "Chapters"));
+    }
+  }, {
+    key: "followersAndFavorites",
+    value: function followersAndFavorites() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "secondNavContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "secondNavHeader"
+      }, "FOLLOWERS", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "secondNavContentContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "iconContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-users"
+      })), "\xA0USERS")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "secondNavHeader"
+      }, "FAVORITES", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "secondNavContentContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "iconContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-star"
+      })), "\xA0USERS")));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.dashNav.call(this));
+    }
+  }]);
+
+  return DashNav;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (DashNav);
 
 /***/ }),
 
@@ -1427,6 +1743,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchStory: function fetchStory(storyId) {
       return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_2__["getAnyStory"])(storyId));
+    },
+    deleteChapter: function deleteChapter(chapterId) {
+      return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_2__["deleteChapter"])(chapterId));
     }
   };
 };
@@ -1584,6 +1903,7 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
     _this.submitHandler = _this.submitHandler.bind(_assertThisInitialized(_this));
     _this.onChangeCheck = _this.onChangeCheck.bind(_assertThisInitialized(_this));
     _this.showErrors = _this.showErrors.bind(_assertThisInitialized(_this));
+    _this.editChecked = _this.editChecked.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -1602,17 +1922,31 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
     value: function onChangeCheck(type) {
       if (type.target.checked) {
         // const idx = this.state.genre_ids.indexOf(type.target.value)
-        this.state.genre_ids.push(type.target.value);
+        this.state.genre_ids.push(type.target.value); // this.setState({genre_ids: this.state.genre_ids});
       } else {
         // debugger
-        this.state.genre_ids.splice(this.state.genre_ids.indexOf(type.target), 1);
+        this.state.genre_ids.splice(this.state.genre_ids.indexOf(type.target), 1); // this.setState({ genre_ids: this.state.genre_ids });
       } // debugger
 
     }
   }, {
+    key: "onChangeCheck2",
+    value: function onChangeCheck2(type) {}
+  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.getGenres();
+      if (Object.values(this.props.genres).length === 0) {
+        this.props.getGenres();
+      }
+
+      if (this.props.edit) {
+        // debugger;
+        this.setState({
+          synopsis: this.props.editStory.synopsis,
+          storyTitle: this.props.editStory.title,
+          genre_ids: this.props.editStory.genres
+        });
+      }
     }
   }, {
     key: "submitHandler",
@@ -1679,6 +2013,50 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
 
     }
   }, {
+    key: "chooseHeader",
+    value: function chooseHeader() {
+      if (this.props.edit) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "editHeader"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-edit"
+        }), "\xA0 EDIT"));
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-book"
+        }), " \xA0 SUBMIT YOUR FICTION");
+      }
+    }
+  }, {
+    key: "chooseDesc",
+    value: function chooseDesc() {
+      if (!this.props.edit) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "CreateFictionReadme"
+        }, "To Submit your Fiction please fill out the input fields below!");
+      }
+    }
+  }, {
+    key: "createChapter",
+    value: function createChapter() {
+      if (!this.props.edit) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_createChapter__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          onChangeInp: this.onChangeInp.bind(this)
+        }));
+      }
+    }
+  }, {
+    key: "editChecked",
+    value: function editChecked(name) {
+      for (var i = 0; i < this.state.genre_ids.length; i++) {
+        if (this.state.genre_ids[i].name === name) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+  }, {
     key: "render",
     value: function render() {
       // debugger
@@ -1694,11 +2072,7 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
         className: "createContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "SubFicHeader"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-book"
-      }), " \xA0 SUBMIT YOUR FICTION"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "CreateFictionReadme"
-      }, "To Submit your Fiction please fill out the input fields below!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.chooseHeader.call(this)), this.chooseDesc.call(this), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "theFictionCreate"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "storyCreationErrors"
@@ -1742,6 +2116,7 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "romance"
       }, this.props.genres.romance.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        checked: this.editChecked('romance'),
         onChange: this.onChangeCheck,
         type: "checkbox",
         value: this.props.genres.romance.id,
@@ -1751,6 +2126,7 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "horror"
       }, this.props.genres.horror.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        checked: this.editChecked('horror'),
         onChange: this.onChangeCheck,
         type: "checkbox",
         id: "horror",
@@ -1760,6 +2136,7 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "comedy"
       }, this.props.genres.comedy.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        checked: this.editChecked('comedy'),
         onChange: this.onChangeCheck,
         type: "checkbox",
         id: "comedy",
@@ -1769,13 +2146,12 @@ var CreateFiction = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "action"
       }, this.props.genres.action.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        checked: this.editChecked('action'),
         onChange: this.onChangeCheck,
         type: "checkbox",
         id: "action",
         value: this.props.genres.action.id
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_createChapter__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        onChangeInp: this.onChangeInp.bind(this)
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }))), this.createChapter.call(this), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "submitContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "submitForStory",
@@ -2307,7 +2683,18 @@ var TableOfContents = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "onDelete",
-    value: function onDelete() {}
+    value: function onDelete(chapter) {
+      var _this3 = this;
+
+      return function () {
+        chapter; // let storyId = chapter.storyId;
+        // debugger;
+
+        _this3.props.deleteChapter(chapter.id).then(function (res) {
+          _this3.props.history.push("/my/fiction/".concat(chapter.story_id));
+        });
+      };
+    }
   }, {
     key: "render",
     value: function render() {
@@ -2371,6 +2758,7 @@ var TableOfContents = /*#__PURE__*/function (_React$Component) {
           })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "editButton"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            onClick: this.onDelete(myChapters[index]),
             className: "fas fa-trash-alt redDash "
           })))));
         }
@@ -4824,6 +5212,10 @@ var StoryReducer = function StoryReducer() {
       newState[action.chapter.story_id].chapters = _defineProperty({}, action.chapter.chapter_number, action.chapter);
       return newState;
 
+    case 'REMOVE_CHAPTER':
+      // let newState = Object.assign({},storyState);
+      break;
+
     default:
       return storyState;
   }
@@ -4898,7 +5290,7 @@ var configureStore = function configureStore() {
 /*!****************************************!*\
   !*** ./frontend/util/chapter_util.jsx ***!
   \****************************************/
-/*! exports provided: createChapter, editChapter, getChapter */
+/*! exports provided: createChapter, editChapter, getChapter, deleteChapter */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4906,6 +5298,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createChapter", function() { return createChapter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editChapter", function() { return editChapter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getChapter", function() { return getChapter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteChapter", function() { return deleteChapter; });
 var createChapter = function createChapter(chapter) {
   // debugger
   return $.ajax({
@@ -4928,6 +5321,12 @@ var editChapter = function editChapter(chapter) {
 var getChapter = function getChapter(chapterId) {
   return $.ajax({
     method: 'GET',
+    url: "/api/chapters/".concat(chapterId)
+  });
+};
+var deleteChapter = function deleteChapter(chapterId) {
+  return $.ajax({
+    method: 'DELETE',
     url: "/api/chapters/".concat(chapterId)
   });
 };

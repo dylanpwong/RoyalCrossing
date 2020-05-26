@@ -23,3 +23,10 @@ export const getChapter=(chapterId)=>{
         url: `/api/chapters/${chapterId}`,
     })
 }
+
+export const deleteChapter=(chapterId)=>{
+    return $.ajax({
+        method:'DELETE',
+        url: `/api/chapters/${chapterId}`
+    })
+}

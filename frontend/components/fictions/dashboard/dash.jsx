@@ -13,10 +13,23 @@ class dash extends React.Component{
         this.dashNav=this.dashNav.bind(this);
         this.followersAndFavorites=this.followersAndFavorites.bind(this);
         this.dashChapters=this.dashChapters.bind(this);
+        this.toEditStory = this.toEditStory.bind(this);
     }
 
     componentDidMount(){
         this.props.fetchStory(this.props.storyId);
+    }
+
+    toDash(){
+
+    }
+
+    toEditStory(){
+        this.props.history.push(`/my/fiction/${this.props.storyId}/edit`);
+    }
+
+    toChapters(){
+
     }
 
     dashNav(){
@@ -26,7 +39,7 @@ class dash extends React.Component{
                     <i className="fas fa-tachometer-alt"></i>
                     Dashboard
                 </div>
-                <div className="dashNavBlock">
+                <div onClick={this.toEditStory} className="dashNavBlock">
                     <i className="fas fa-edit"></i>
                     Edit
                 </div>
@@ -82,7 +95,7 @@ class dash extends React.Component{
                         <i className="fas fa-file-alt"></i>
                         &nbsp;Latest Chapters
                     </div>
-                    <TableOfContents dash="true" chapters={this.props.story.chapters} />
+                    <TableOfContents dash="true" deleteChapter={this.props.deleteChapter} chapters={this.props.story.chapters} />
                 </div>
             )
         }

@@ -662,6 +662,7 @@ background-color: #337AB7;
     height: 3em;
     border: 1px solid black;
     box-sizing: border-box;
+    cursor: pointer;
 }
 .paddingIn{
     padding-left: 1em;
@@ -797,4 +798,15 @@ background-color: #337AB7;
 }
 .chapCreationPadding{
     padding-bottom: 2em;
+}
+.cancelButton{
+    color: #fff;
+    font-family: sans-serif;
+    background-color: #e43a45;
+    font-size: .5em;
+    margin-right: 1em;
+}
+
+.editHeader{
+    
 }

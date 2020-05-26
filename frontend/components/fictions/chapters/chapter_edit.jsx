@@ -20,6 +20,7 @@ class ChapterEdit extends React.Component{
         this.onSubmit = this.onSubmit.bind(this);
         this.errorHandler = this.errorHandler.bind(this);
         this.setFalse = this.setFalse.bind(this);
+        this.onDelete = this.onDelete.bind(this);
     }
 
     componentDidMount(){
@@ -70,6 +71,15 @@ class ChapterEdit extends React.Component{
     setFalse() {
         this.state.creationErrors = 'false';
     }
+
+    onCancel(){
+        this.props.history.push(`/my/fiction/${this.props.storyId}`)
+    }
+    onDelete(){
+        this.props.deleteChapter(this.props.chapterId).then((res)=>{
+            this.props.history.push(`/my/fiction/${this.props.storyId}`);
+        })
+    }
     createChapterForm() {
         return (
 
@@ -107,6 +117,7 @@ class ChapterEdit extends React.Component{
 
                     {/* </form> */}
                     <div className="chapterCreationSubContainer">
+                        <button onClick={this.onCancel.bind(this)}className="cancelButton">Cancel</button>
                         <input className="chapterCreationSubmit" type="submit" value="Save Changes" />
 
                     </div>

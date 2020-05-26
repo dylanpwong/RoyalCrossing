@@ -20,6 +20,7 @@ class CreateFiction extends React.Component{
         this.submitHandler = this.submitHandler.bind(this);
         this.onChangeCheck = this.onChangeCheck.bind(this);
         this.showErrors = this.showErrors.bind(this);
+        this.editChecked =this.editChecked.bind(this);
     }
 
     onChangeInp(type){ 
@@ -32,17 +33,34 @@ class CreateFiction extends React.Component{
     onChangeCheck(type){
         if(type.target.checked){
             // const idx = this.state.genre_ids.indexOf(type.target.value)
-            this.state.genre_ids.push(type.target.value)
+            this.state.genre_ids.push(type.target.value);
+            
+            // this.setState({genre_ids: this.state.genre_ids});
         }else{
             // debugger
-            this.state.genre_ids.splice(this.state.genre_ids.indexOf(type.target),1)
+            this.state.genre_ids.splice(this.state.genre_ids.indexOf(type.target),1);
+            // this.setState({ genre_ids: this.state.genre_ids });
         }
 
         // debugger
     }
 
+    onChangeCheck2(type){
+        
+    }
+
     componentDidMount(){
-        this.props.getGenres();
+        if (Object.values(this.props.genres).length === 0) {
+            this.props.getGenres();
+        }
+        if(this.props.edit){
+            // debugger;
+            this.setState({
+                synopsis: this.props.editStory.synopsis,
+                storyTitle: this.props.editStory.title,
+                genre_ids: this.props.editStory.genres
+            })
+        }
     }
 
     submitHandler(e){
@@ -98,6 +116,56 @@ class CreateFiction extends React.Component{
         
     }
 
+    chooseHeader(){
+        if(this.props.edit){
+            return(
+                <>
+                    <div className='editHeader'>
+                        <i className="fas fa-edit"></i>
+                            &nbsp;
+                            EDIT
+                    </div>
+                </>
+            )
+        }else{
+
+            return(
+                <>
+                    <i className="fas fa-book"></i> &nbsp; SUBMIT YOUR FICTION
+                </>
+            )
+        }
+    }
+    chooseDesc(){
+        if(!this.props.edit){
+            return(
+                <div className="CreateFictionReadme">
+                    To Submit your Fiction please fill out the input fields below!
+                </div>
+            )
+        }
+    }
+
+    createChapter(){
+        if(!this.props.edit){
+            return(
+                <>
+                    <CreateChapter onChangeInp={this.onChangeInp.bind(this)} />
+                </>
+            )
+        }
+    }
+
+    editChecked(name){
+        for(let i=0;i<this.state.genre_ids.length;i++){
+            if (this.state.genre_ids[i].name === name){
+                return true;
+            }
+        }
+        return false;
+        
+    }
+
 
 
     render(){
@@ -111,12 +179,14 @@ class CreateFiction extends React.Component{
                 <div id="scrollForStory"className="createWrapper">
                     <div className="createContainer">
                         <div className="SubFicHeader">
-                            <i className="fas fa-book"></i> &nbsp; SUBMIT YOUR FICTION
+                            {/* <i className="fas fa-book"></i> &nbsp; SUBMIT YOUR FICTION */}
+                            {this.chooseHeader.call(this)}
                         </div>
                         
-                        <div className="CreateFictionReadme">
+                        {/* <div className="CreateFictionReadme">
                                 To Submit your Fiction please fill out the input fields below!
-                        </div>
+                        </div> */}
+                        {this.chooseDesc.call(this)}
 
                         <div className='theFictionCreate'>
                             <div className="storyCreationErrors">{this.showErrors()}</div>
@@ -144,27 +214,27 @@ class CreateFiction extends React.Component{
 
                                     <div className="checkboxCreate">
                                         <label htmlFor="romance">{this.props.genres.romance.name}</label>
-                                        <input onChange={this.onChangeCheck}type="checkbox" value={this.props.genres.romance.id} id="romance"/>
+                                        <input checked={this.editChecked('romance')}  onChange={this.onChangeCheck}type="checkbox" value={this.props.genres.romance.id} id="romance"/>
                                     </div>
 
                                     <div className="checkboxCreate">
                                         <label htmlFor="horror">{this.props.genres.horror.name}</label>
-                                        <input onChange={this.onChangeCheck}type="checkbox" id="horror" value={this.props.genres.horror.id} />
+                                        <input checked={this.editChecked('horror')} onChange={this.onChangeCheck}type="checkbox" id="horror" value={this.props.genres.horror.id} />
                                     </div>
 
                                     <div className="checkboxCreate">
                                         <label htmlFor="comedy">{this.props.genres.comedy.name}</label>
-                                        <input onChange={this.onChangeCheck}type="checkbox" id="comedy" value={this.props.genres.comedy.id}/>
+                                        <input checked={this.editChecked('comedy')} onChange={this.onChangeCheck}type="checkbox" id="comedy" value={this.props.genres.comedy.id}/>
                                     </div>
 
                                     <div className="checkboxCreate">
                                         <label htmlFor="action">{this.props.genres.action.name}</label>
-                                        <input onChange={this.onChangeCheck}type="checkbox" id="action" value={this.props.genres.action.id} />
+                                        <input checked={this.editChecked('action')} onChange={this.onChangeCheck}type="checkbox" id="action" value={this.props.genres.action.id} />
                                     </div>
 
                                 </div>
-
-                                <CreateChapter onChangeInp={this.onChangeInp.bind(this)}/>
+                                {this.createChapter.call(this)}
+                                {/* <CreateChapter onChangeInp={this.onChangeInp.bind(this)}/> */}
                                 <div className="submitContainer">
                                     <input className="submitForStory" type="submit" value="Submit"/>
                                 </div>
