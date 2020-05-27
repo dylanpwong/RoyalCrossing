@@ -779,9 +779,9 @@ background-color: #337AB7;
     /* display: flex; */
 }
 .preNoteContainer{
-    padding-right: 3em;
-    padding-left:3em;
-    display: flex;
+    /* padding-right: 3em;
+    padding-left:3em; */
+    /* display: flex; */
 }
 .chapterCreationSubmit{
     color: white;
@@ -809,4 +809,15 @@ background-color: #337AB7;
 
 .editHeader{
     
+}
+.chaptersSpacer{
+    display:flex;
+    justify-content: space-between;
+    padding-top:.5em;
+}
+.newChapterContainer{
+    cursor: pointer;
+    padding: .2em;
+    border-radius: 2em;
+    border: 1px solid black;
 }

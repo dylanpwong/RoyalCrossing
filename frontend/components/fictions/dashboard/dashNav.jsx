@@ -1,25 +1,29 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 
 class DashNav extends React.Component{
     constructor(props){
         super(props);
+        this.toEditStory=this.toEditStory.bind(this);
+        this.toDash=this.toDash.bind(this);
+        this.toChapters=this.toChapters.bind(this);
     }
 
     toDash() {
-
+        this.props.history.push(`/my/fiction/${this.props.story.id}`);
     }
     toEditStory() {
-        this.props.history.push(`/my/fiction/${this.props.storyId}/edit`);
+        this.props.history.push(`/my/fiction/${this.props.story.id}/edit`);
     }
     toChapters() {
-
+        this.props.history.push(`/my/fiction/${$this.props.storyId}/chapters`);
     }
 
     dashNav() {
         return (
             <div className="dashNavContainer">
-                <div className="dashNavBlock">
+                <div className="dashNavBlock" onClick={this.toDash}>
                     <i className="fas fa-tachometer-alt"></i>
                     Dashboard
                 </div>
@@ -75,4 +79,5 @@ class DashNav extends React.Component{
     }
 }
 
-export default DashNav;
+export default withRouter(DashNav);
+// withRouter

@@ -5,12 +5,27 @@ import { withRouter } from 'react-router-dom';
 class ChaptersShow extends React.Component{
     constructor(props){
         super(props)
-        this.toFictionPage = this.toFictionPage.bind(this)
+        this.toFictionPage = this.toFictionPage.bind(this);
+        this.toPrevChapter=this.toPrevChapter.bind(this);
+        this.toNextChapter=this.toNextChapter.bind(this);
     }
 
 
     componentDidMount() {
         this.props.fetchStory(this.props.storyId)
+    }
+    toPrevChapter(){
+        let prevNum = this.props.chapter.chapter_number - 1;
+        if(this.props.story.chapters[prevNum]){
+            this.props.history.push(`/fiction/${this.props.storyId}/chapters/${prevNum}`);
+        }
+    }
+    toNextChapter(){
+        let nextNum =this.props.chapter.chapter_number + 1;
+        // debugger;
+        if (this.props.story.chapters[nextNum]) {
+            this.props.history.push(`/fiction/${this.props.storyId}/chapters/${nextNum}`);
+        }
     }
 
     preNote(){
@@ -59,8 +74,8 @@ class ChaptersShow extends React.Component{
 
                     <div className="chapterContentContainer">
                         <div className="NextChaptersContainer">{/** */}
-                            <button className="prevNextButtonStyle"><i className="fas fa-less-than"></i><i className="fas fa-less-than"></i> Previous Chapter</button>
-                            <button className="prevNextButtonStyle">Next Chapter<i className="fas fa-greater-than"></i><i className="fas fa-greater-than"></i> </button>
+                            <button onClick={this.toPrevChapter}className="prevNextButtonStyle"><i className="fas fa-less-than"></i><i className="fas fa-less-than"></i> Previous Chapter</button>
+                            <button onClick={this.toNextChapter}className="prevNextButtonStyle">Next Chapter<i className="fas fa-greater-than"></i><i className="fas fa-greater-than"></i> </button>
                         </div>
 
                         {this.preNote.bind(this)()}
@@ -73,9 +88,9 @@ class ChaptersShow extends React.Component{
                         {this.postNote.bind(this)()}
 
                         <div className="NextChaptersContainerBottom">{/** */}
-                            <button className="prevNextButtonStyle2"> Previous Chapter</button>
+                            <button onClick={this.toPrevChapter}className="prevNextButtonStyle2"> Previous Chapter</button>
                             <button onClick={this.toFictionPage}className="fictionIndexButton2">Fiction Index</button>
-                            <button className="prevNextButtonStyle2">Next Chapter</button>
+                            <button onClick={this.toNextChapter}className="prevNextButtonStyle2">Next Chapter</button>
                         </div>
                     </div>
                 </div>

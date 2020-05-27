@@ -396,6 +396,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fictions_chapters_chapter_new_container__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./fictions/chapters/chapter_new_container */ "./frontend/components/fictions/chapters/chapter_new_container.jsx");
 /* harmony import */ var _fictions_chapters_chapter_edit_container__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./fictions/chapters/chapter_edit_container */ "./frontend/components/fictions/chapters/chapter_edit_container.jsx");
 /* harmony import */ var _fictions_dashboard_dashEdit_container__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./fictions/dashboard/dashEdit_container */ "./frontend/components/fictions/dashboard/dashEdit_container.jsx");
+/* harmony import */ var _fictions_dashboard_dashChapter_conatiner__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./fictions/dashboard/dashChapter_conatiner */ "./frontend/components/fictions/dashboard/dashChapter_conatiner.jsx");
+
 
 
 
@@ -467,6 +469,10 @@ var App = function App() {
     exact: true,
     path: "/fiction/:storyId/chapter/edit/:chapterNumber",
     component: _fictions_chapters_chapter_edit_container__WEBPACK_IMPORTED_MODULE_16__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    exact: true,
+    path: "/my/fiction/:storyId/chapters",
+    component: _fictions_dashboard_dashChapter_conatiner__WEBPACK_IMPORTED_MODULE_18__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_6__["AuthRoute"], {
     exact: true,
     path: "/profile/:userId",
@@ -1095,6 +1101,8 @@ var ChaptersShow = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.toFictionPage = _this.toFictionPage.bind(_assertThisInitialized(_this));
+    _this.toPrevChapter = _this.toPrevChapter.bind(_assertThisInitialized(_this));
+    _this.toNextChapter = _this.toNextChapter.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -1102,6 +1110,24 @@ var ChaptersShow = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchStory(this.props.storyId);
+    }
+  }, {
+    key: "toPrevChapter",
+    value: function toPrevChapter() {
+      var prevNum = this.props.chapter.chapter_number - 1;
+
+      if (this.props.story.chapters[prevNum]) {
+        this.props.history.push("/fiction/".concat(this.props.storyId, "/chapters/").concat(prevNum));
+      }
+    }
+  }, {
+    key: "toNextChapter",
+    value: function toNextChapter() {
+      var nextNum = this.props.chapter.chapter_number + 1; // debugger;
+
+      if (this.props.story.chapters[nextNum]) {
+        this.props.history.push("/fiction/".concat(this.props.storyId, "/chapters/").concat(nextNum));
+      }
     }
   }, {
     key: "preNote",
@@ -1167,12 +1193,14 @@ var ChaptersShow = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "NextChaptersContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.toPrevChapter,
         className: "prevNextButtonStyle"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-less-than"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-less-than"
       }), " Previous Chapter"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.toNextChapter,
         className: "prevNextButtonStyle"
       }, "Next Chapter", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-greater-than"
@@ -1183,11 +1211,13 @@ var ChaptersShow = /*#__PURE__*/function (_React$Component) {
       }, this.props.chapter.content), this.postNote.bind(this)(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "NextChaptersContainerBottom"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.toPrevChapter,
         className: "prevNextButtonStyle2"
       }, " Previous Chapter"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.toFictionPage,
         className: "fictionIndexButton2"
       }, "Fiction Index"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.toNextChapter,
         className: "prevNextButtonStyle2"
       }, "Next Chapter")))));
     }
@@ -1254,6 +1284,7 @@ var dash = /*#__PURE__*/function (_React$Component) {
     _this.followersAndFavorites = _this.followersAndFavorites.bind(_assertThisInitialized(_this));
     _this.dashChapters = _this.dashChapters.bind(_assertThisInitialized(_this));
     _this.toEditStory = _this.toEditStory.bind(_assertThisInitialized(_this));
+    _this.toChapters = _this.toChapters.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -1272,7 +1303,9 @@ var dash = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "toChapters",
-    value: function toChapters() {}
+    value: function toChapters() {
+      this.props.history.push("/my/fiction/".concat(this.props.storyId, "/chapters"));
+    }
   }, {
     key: "dashNav",
     value: function dashNav() {
@@ -1288,6 +1321,7 @@ var dash = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-edit"
       }), "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onClick: this.toChapters,
         className: "dashNavBlock"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-file-alt"
@@ -1328,7 +1362,7 @@ var dash = /*#__PURE__*/function (_React$Component) {
           className: "latestChapters"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "fas fa-file-alt"
-        }), "\xA0Latest Chapters"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_show_fictions_TableOfContents__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        }), "\xA0Chapters"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_show_fictions_TableOfContents__WEBPACK_IMPORTED_MODULE_2__["default"], {
           dash: "true",
           deleteChapter: this.props.deleteChapter,
           chapters: this.props.story.chapters
@@ -1353,6 +1387,159 @@ var dash = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (dash);
+
+/***/ }),
+
+/***/ "./frontend/components/fictions/dashboard/dashChapter.jsx":
+/*!****************************************************************!*\
+  !*** ./frontend/components/fictions/dashboard/dashChapter.jsx ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _dashNav__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dashNav */ "./frontend/components/fictions/dashboard/dashNav.jsx");
+/* harmony import */ var _show_fictions_TableOfContents__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../show_fictions/TableOfContents */ "./frontend/components/fictions/show_fictions/TableOfContents.jsx");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+var DashChapter = /*#__PURE__*/function (_React$Component) {
+  _inherits(DashChapter, _React$Component);
+
+  var _super = _createSuper(DashChapter);
+
+  function DashChapter(props) {
+    var _this;
+
+    _classCallCheck(this, DashChapter);
+
+    _this = _super.call(this, props);
+    _this.dashChapters = _this.dashChapters.bind(_assertThisInitialized(_this));
+    _this.createChapter = _this.createChapter.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(DashChapter, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchStory(this.props.storyId);
+    }
+  }, {
+    key: "createChapter",
+    value: function createChapter() {
+      this.props.history.push("/fiction/chapter/new/".concat(this.props.storyId));
+    }
+  }, {
+    key: "dashChapters",
+    value: function dashChapters() {
+      if (!this.props.story) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "chaptersContainer"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "latestChapters chaptersSpacer"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-file-alt"
+        }), "\xA0Chapters"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          onClick: this.createChapter,
+          className: "newChapterContainer"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-plus"
+        }), "New Chapter")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_show_fictions_TableOfContents__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          dash: "true",
+          deleteChapter: this.props.deleteChapter,
+          chapters: this.props.story.chapters
+        }));
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (!this.props.story) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
+      } else {
+        // debugger
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "singleFictionShow paddingIn"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dashNav__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          story: this.props.story
+        }), this.dashChapters()));
+      }
+    }
+  }]);
+
+  return DashChapter;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (DashChapter);
+
+/***/ }),
+
+/***/ "./frontend/components/fictions/dashboard/dashChapter_conatiner.jsx":
+/*!**************************************************************************!*\
+  !*** ./frontend/components/fictions/dashboard/dashChapter_conatiner.jsx ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _dashChapter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dashChapter */ "./frontend/components/fictions/dashboard/dashChapter.jsx");
+/* harmony import */ var _actions_story_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/story_actions */ "./frontend/actions/story_actions.js");
+
+
+
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    story: state.entities.stories[ownProps.match.params.storyId],
+    storyId: ownProps.match.params.storyId
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchStory: function fetchStory(storyId) {
+      return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_2__["getStory"])(storyId));
+    },
+    deleteChapter: function deleteChapter(chapterId) {
+      return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_2__["deleteChapter"])(chapterId));
+    },
+    newChapter: function newChapter(chapter) {
+      return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_2__["createChapter"])(chapter));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_dashChapter__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 /***/ }),
 
@@ -1449,7 +1636,9 @@ var DashEdit = /*#__PURE__*/function (_React$Component) {
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "singleFictionShow paddingIn"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dashNav__WEBPACK_IMPORTED_MODULE_1__["default"], null), this.editComponent()));
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dashNav__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          story: this.props.story
+        }), this.editComponent()));
       }
     }
   }]);
@@ -1517,6 +1706,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1541,35 +1731,47 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var DashNav = /*#__PURE__*/function (_React$Component) {
   _inherits(DashNav, _React$Component);
 
   var _super = _createSuper(DashNav);
 
   function DashNav(props) {
+    var _this;
+
     _classCallCheck(this, DashNav);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.toEditStory = _this.toEditStory.bind(_assertThisInitialized(_this));
+    _this.toDash = _this.toDash.bind(_assertThisInitialized(_this));
+    _this.toChapters = _this.toChapters.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(DashNav, [{
     key: "toDash",
-    value: function toDash() {}
+    value: function toDash() {
+      this.props.history.push("/my/fiction/".concat(this.props.story.id));
+    }
   }, {
     key: "toEditStory",
     value: function toEditStory() {
-      this.props.history.push("/my/fiction/".concat(this.props.storyId, "/edit"));
+      this.props.history.push("/my/fiction/".concat(this.props.story.id, "/edit"));
     }
   }, {
     key: "toChapters",
-    value: function toChapters() {}
+    value: function toChapters() {
+      this.props.history.push("/my/fiction/".concat($this.props.storyId, "/chapters"));
+    }
   }, {
     key: "dashNav",
     value: function dashNav() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "dashNavContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "dashNavBlock"
+        className: "dashNavBlock",
+        onClick: this.toDash
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-tachometer-alt"
       }), "Dashboard"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1616,7 +1818,7 @@ var DashNav = /*#__PURE__*/function (_React$Component) {
   return DashNav;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (DashNav);
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(DashNav)); // withRouter
 
 /***/ }),
 

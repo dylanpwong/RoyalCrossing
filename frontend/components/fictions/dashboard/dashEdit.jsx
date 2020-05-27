@@ -47,7 +47,7 @@ class DashEdit extends React.Component{
             return(
                 <>
                 <div className="singleFictionShow paddingIn">
-                    <DashNav/>
+                    <DashNav story={this.props.story}/>
                     {this.editComponent()}
                 </div>
                 </>

@@ -17,6 +17,7 @@ import dash_container from './fictions/dashboard/dash_container';
 import chapter_new_container from './fictions/chapters/chapter_new_container';
 import chapter_edit_container from './fictions/chapters/chapter_edit_container';
 import dashEdit_container from './fictions/dashboard/dashEdit_container';
+import dashChapter_container from './fictions/dashboard/dashChapter_conatiner';
 
 const App = ()=>{
     return(
@@ -43,6 +44,7 @@ const App = ()=>{
                 <Route exact path="/fiction/chapter/new/:storyId" component={chapter_new_container}/>
                 <Route exact path='/my/fiction/:storyId/edit' component ={dashEdit_container}/>
                 <Route exact path='/fiction/:storyId/chapter/edit/:chapterNumber' component={chapter_edit_container}/>
+                <Route exact path='/my/fiction/:storyId/chapters' component={dashChapter_container}/>
                 <AuthRoute exact path="/profile/:userId" component={UserShowContainer}/>
                 <AuthRoute exact path="/my/fictions" component={myFictions_container}/>
                 {/* <Route path="/profile/:userId" component={UserShowContainer}/> */}
