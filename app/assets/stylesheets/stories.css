@@ -821,3 +821,9 @@ background-color: #337AB7;
     border-radius: 2em;
     border: 1px solid black;
 }
+.titleExtender{
+    width: 8em;
+}
+.wordWidth{
+    width: 2em;
+}

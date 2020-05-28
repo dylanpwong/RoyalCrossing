@@ -49,6 +49,13 @@ class TableOfContents extends React.Component{
             })
         }
     }
+    titleExtender(title){
+        return(
+            <div className="titleExtender">
+                {title}
+            </div>
+        )
+    }
 
 
     render(){
@@ -85,9 +92,9 @@ class TableOfContents extends React.Component{
                 }
                 chapterItems.push(
                     <div key={index + 1} className="chapterNameword ">
-                        <NavLink className="RemoveTextDec sansSerifChapterName chapterTitleStyle" to={`/fiction/${myChapters[index].story_id}/chapters/${myChapters[index].chapter_number}`}>{myChapters[index].title}</NavLink>
+                        <NavLink className="RemoveTextDec sansSerifChapterName chapterTitleStyle" to={`/fiction/${myChapters[index].story_id}/chapters/${myChapters[index].chapter_number}`}>{this.titleExtender(myChapters[index].title)}</NavLink>
                         <div className="sansSerifChapterName chapterTitleStyle dateMove">{this.getDate(myChapters[index])}</div>
-                        <div className="dateMove">{myChapters[index].content.split(" ").length}</div>
+                        <div className="dateMove wordWidth">{myChapters[index].content.split(" ").length}</div>
                         <div className='dashIconContainer dateMove'>
                             <div className='editButton'>
                             <i onClick={this.onEdit(myChapters[index])}className="fas fa-edit blueDash"></i>

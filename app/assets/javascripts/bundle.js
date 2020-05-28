@@ -1762,7 +1762,8 @@ var DashNav = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "toChapters",
     value: function toChapters() {
-      this.props.history.push("/my/fiction/".concat($this.props.storyId, "/chapters"));
+      // debugger
+      this.props.history.push("/my/fiction/".concat(this.props.story.id, "/chapters"));
     }
   }, {
     key: "dashNav",
@@ -1780,6 +1781,7 @@ var DashNav = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-edit"
       }), "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onClick: this.toChapters,
         className: "dashNavBlock"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-file-alt"
@@ -2940,6 +2942,13 @@ var TableOfContents = /*#__PURE__*/function (_React$Component) {
       };
     }
   }, {
+    key: "titleExtender",
+    value: function titleExtender(title) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "titleExtender"
+      }, title);
+    }
+  }, {
     key: "render",
     value: function render() {
       var myChapters;
@@ -2988,10 +2997,10 @@ var TableOfContents = /*#__PURE__*/function (_React$Component) {
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
             className: "RemoveTextDec sansSerifChapterName chapterTitleStyle",
             to: "/fiction/".concat(myChapters[index].story_id, "/chapters/").concat(myChapters[index].chapter_number)
-          }, myChapters[index].title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          }, this.titleExtender(myChapters[index].title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "sansSerifChapterName chapterTitleStyle dateMove"
           }, this.getDate(myChapters[index])), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            className: "dateMove"
+            className: "dateMove wordWidth"
           }, myChapters[index].content.split(" ").length), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "dashIconContainer dateMove"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
