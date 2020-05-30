@@ -7,6 +7,7 @@
 #  user_id  :integer
 #
 class Follows_table < ApplicationRecord
+    validates :user_id, uniqueness: {scope: :story_id}
     
     belongs_to :user,
     primary_key: :id,

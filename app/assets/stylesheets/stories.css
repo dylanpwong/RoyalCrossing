@@ -300,8 +300,8 @@ border: 1px solid #67809F;
     font-size: 16px;
 }
 .AuthorBox{
-    width: 30%;
-    height: 40%;
+    /* width: 30%;
+    height: 40%; */
     box-sizing: border-box;
     background-color: white;
     padding: 15px 15px;
@@ -826,4 +826,25 @@ background-color: #337AB7;
 }
 .wordWidth{
     width: 2em;
+}
+.rightSideFictionBox{
+    height:40%;
+    width:30%;
+}
+.folFavbox{
+    margin-left: 15px;
+}
+.FollowBox{
+    margin-top: 15px;
+    background-color: white;;
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.FollowBox:hover{
+    background-color: lightgray;
+}
+.grey{
+    color: grey;
 }

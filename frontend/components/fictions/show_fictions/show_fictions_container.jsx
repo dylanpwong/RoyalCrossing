@@ -1,6 +1,7 @@
 import { connect } from "react-redux"
 import ShowFiction from "./show_fictions"
 import { getStory, getAnyStory } from "../../../actions/story_actions"
+import { addFollow } from "../../../actions/user_actions"
 
 
 
@@ -15,7 +16,8 @@ const mapStateToProps = (state,ownProps)=>{
 
 const mapDispatchToProps = (dispatch)=>{
     return({
-        fetchStory: (storyId)=> dispatch(getAnyStory(storyId))
+        fetchStory: (storyId)=> dispatch(getAnyStory(storyId)),
+        addFollows: (data)=>dispatch(addFollow(data))
     })
 }
 

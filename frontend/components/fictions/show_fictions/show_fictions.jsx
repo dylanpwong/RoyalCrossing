@@ -3,6 +3,7 @@ import React from 'react';
 import TableOfContents from './TableOfContents';
 import { getStories } from '../../../actions/story_actions';
 import ShowAuthorBox from './show_author_box';
+import Follow_favBox from './follow_favBox';
 
 
 class ShowFiction extends React.Component{
@@ -53,9 +54,16 @@ class ShowFiction extends React.Component{
                             <TableOfContents chapters = {this.props.story.chapters}/>
                         </div>
                     </div>
-                    <div className='AuthorBox'> {/*right Side */}
-                        <ShowAuthorBox author={this.props.story.author}/>
+
+                    <div className='rightSideFictionBox'>
+                        <Follow_favBox story={this.props.story} addFollows={this.props.addFollows}/>
+                        <div className='AuthorBox'> {/*right Side */}
+                            <ShowAuthorBox author={this.props.story.author}/>
+                        </div>
+
                     </div>
+
+                    
                 </div>
             </div>
         )

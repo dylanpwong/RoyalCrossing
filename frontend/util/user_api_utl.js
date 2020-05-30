@@ -20,3 +20,10 @@ export const getUser=(userId)=>{
         url:`/api/users/${userId}`
     })
 }
+
+export const addFollow=(data)=>{
+    return $.ajax({
+        method: 'GET',
+        url: `/api/users/${data.userId}/story/${data.storyId}`
+    })
+}

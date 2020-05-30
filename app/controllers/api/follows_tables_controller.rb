@@ -1,14 +1,14 @@
-class Api::GenresController < ApplicationController
+class Api::FollowsTablesController < ApplicationController
 
 
 
     def add_follows
-        @follows = Follows_table.new(follows_params)
-        if(@follows.save){
-
-        }else{
+        @follows = Follows_table.new({story_id: params[:story_id],user_id: params[:id]})
+        if(true)
+            
+        else
             render json: @follows.errors.full_messages, status: 422
-        }
+        end
     end
 
     def remove_follows

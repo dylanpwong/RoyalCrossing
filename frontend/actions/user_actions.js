@@ -14,3 +14,7 @@ export const getUser=(userId)=>(dispatch)=>{
        
         dispatch(receiveUser(res))}))
 }
+
+export const addFollow=(data)=>(dispatch)=>{
+    return (users_util.addFollow(data).then)
+}
