@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_15_141144) do
+ActiveRecord::Schema.define(version: 2020_05_28_224652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,13 @@ ActiveRecord::Schema.define(version: 2020_04_15_141144) do
     t.integer "chapter_number"
     t.index ["chapter_number"], name: "index_chapters_on_chapter_number"
     t.index ["story_id"], name: "index_chapters_on_story_id"
+  end
+
+  create_table "follows_tables", force: :cascade do |t|
+    t.integer "story_id", null: false
+    t.integer "user_id"
+    t.index ["story_id"], name: "index_follows_tables_on_story_id"
+    t.index ["user_id"], name: "index_follows_tables_on_user_id"
   end
 
   create_table "genres", force: :cascade do |t|

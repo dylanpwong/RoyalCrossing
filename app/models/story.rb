@@ -35,4 +35,9 @@ class Story < ApplicationRecord
     through: :genre_joins,
     source: :genre
 
+    has_many :follows,
+    primary_key: :id,
+    foreign_key: :story_id,
+    class_name: :Follows_table
+
 end

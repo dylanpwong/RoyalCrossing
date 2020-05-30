@@ -36,3 +36,4 @@ There are many variations of passages of Lorem Ipsum available, but the majority
 preNote= "Thanks for stopping by"
 postNote="Thanks for Reading"
 chapter1 = Chapter.create(title: "The Travel", content: content1,pre_note: preNote,post_note: postNote,story_id: story1.id,chapter_number: 1)
+follow1= Follows_table.create(story_id: story1.id,user_id: user1.id)

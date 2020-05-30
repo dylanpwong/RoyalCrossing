@@ -368,6 +368,37 @@ var getMyStories = function getMyStories(userId) {
 
 /***/ }),
 
+/***/ "./frontend/actions/user_actions.js":
+/*!******************************************!*\
+  !*** ./frontend/actions/user_actions.js ***!
+  \******************************************/
+/*! exports provided: receiveUser, getUser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUser", function() { return receiveUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUser", function() { return getUser; });
+/* harmony import */ var _session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _util_user_api_utl__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/user_api_utl */ "./frontend/util/user_api_utl.js");
+
+
+var receiveUser = function receiveUser(user) {
+  return {
+    type: _session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"],
+    user: user
+  };
+};
+var getUser = function getUser(userId) {
+  return function (dispatch) {
+    return _util_user_api_utl__WEBPACK_IMPORTED_MODULE_1__["getUser"](userId).then(function (res) {
+      dispatch(receiveUser(res));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/components/app.jsx":
 /*!*************************************!*\
   !*** ./frontend/components/app.jsx ***!
@@ -5205,20 +5236,37 @@ var UsersShow = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(UsersShow);
 
   function UsersShow(props) {
+    var _this;
+
     _classCallCheck(this, UsersShow);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.state = {
+      render1: 'false'
+    };
+    return _this;
   }
 
   _createClass(UsersShow, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.getUser(this.props.userId);
+      this.setState({
+        render1: 'true'
+      }); // debugger;
+    }
+  }, {
     key: "render",
     value: function render() {
-      // debugger
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: "UsersShowSection"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_personal_info__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        user: this.props.user
-      })));
+      if (this.state.render1 === 'false') {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "UsersShowSection"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_personal_info__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          user: this.props.user
+        })));
+      }
     }
   }]);
 
@@ -5240,18 +5288,25 @@ var UsersShow = /*#__PURE__*/function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _users_show__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./users_show */ "./frontend/components/users_show/users_show.jsx");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
+
 
 
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   // debugger
   return {
+    userId: ownProps.match.params.userId,
     user: state.entities.users[ownProps.match.params.userId]
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    getUser: function getUser(userId) {
+      dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_2__["getUser"])(userId));
+    }
+  };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_users_show__WEBPACK_IMPORTED_MODULE_1__["default"]));
@@ -5775,6 +5830,39 @@ var fetchAStory = function fetchAStory(storyId) {
   return $.ajax({
     method: 'GET',
     url: "/api/stories/".concat(storyId)
+  });
+};
+
+/***/ }),
+
+/***/ "./frontend/util/user_api_utl.js":
+/*!***************************************!*\
+  !*** ./frontend/util/user_api_utl.js ***!
+  \***************************************/
+/*! exports provided: getUser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUser", function() { return getUser; });
+var receiveUsers = function receiveUsers(users) {
+  return $.ajax({
+    method: "GET",
+    users: users
+  });
+};
+
+var receiveUser = function receiveUser(user) {
+  return {
+    method: "GET",
+    user: user
+  };
+};
+
+var getUser = function getUser(userId) {
+  return $.ajax({
+    method: 'GET',
+    url: "/api/users/".concat(userId)
   });
 };
 

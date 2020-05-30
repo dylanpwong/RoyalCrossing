@@ -47,6 +47,14 @@ class Api::StoriesController < ApplicationController
 
     end
 
+    def add_follows
+
+        # @follows = Follows_table.new()
+    end
+
+    def remove_follows
+    end
+
 
 
 
