@@ -372,7 +372,7 @@ var getMyStories = function getMyStories(userId) {
 /*!******************************************!*\
   !*** ./frontend/actions/user_actions.js ***!
   \******************************************/
-/*! exports provided: receiveUser, getUser, addFollow */
+/*! exports provided: receiveUser, getUser, addFollow, removeFollow */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -380,6 +380,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUser", function() { return receiveUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUser", function() { return getUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addFollow", function() { return addFollow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeFollow", function() { return removeFollow; });
 /* harmony import */ var _session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _util_user_api_utl__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/user_api_utl */ "./frontend/util/user_api_utl.js");
 
@@ -399,7 +400,16 @@ var getUser = function getUser(userId) {
 };
 var addFollow = function addFollow(data) {
   return function (dispatch) {
-    return _util_user_api_utl__WEBPACK_IMPORTED_MODULE_1__["addFollow"](data).then;
+    return _util_user_api_utl__WEBPACK_IMPORTED_MODULE_1__["addFollow"](data).then(function (res) {
+      return dispatch(receiveUser(res));
+    });
+  };
+};
+var removeFollow = function removeFollow(data) {
+  return function (dispatch) {
+    return _util_user_api_utl__WEBPACK_IMPORTED_MODULE_1__["removeFollow"](data).then(function (res) {
+      return dispatch(receiveUser(res));
+    });
   };
 };
 
@@ -3148,6 +3158,11 @@ var Follow_favBox = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.addFollow = _this.addFollow.bind(_assertThisInitialized(_this));
+    _this.followButton = _this.followButton.bind(_assertThisInitialized(_this));
+    _this.removeFollow = _this.removeFollow.bind(_assertThisInitialized(_this));
+    _this.state = {
+      followed: props.user.follows && props.user.follows[props.story.id] ? 'true' : 'false'
+    };
     return _this;
   }
 
@@ -3156,22 +3171,59 @@ var Follow_favBox = /*#__PURE__*/function (_React$Component) {
     value: function addFollow() {
       var data = {
         storyId: this.props.story.id,
-        userId: this.props.story.author.id
+        userId: this.props.currentId
+      }; // debugger;
+
+      if (!data.userId) {
+        this.props.history.push('/account/login');
+      } else {
+        this.props.addFollows(data); // window.location.reload();
+        // console.log("Followed!");
+
+        this.setState({
+          followed: 'true'
+        });
+      }
+    }
+  }, {
+    key: "removeFollow",
+    value: function removeFollow() {
+      var follow = this.props.user.follows[this.props.story.id].followId;
+      var data = {
+        followId: follow,
+        userId: this.props.user.id
       };
-      this.props.addFollows(data);
-      console.log("Followed!");
+      this.props.removeFollow(data);
+      this.setState({
+        followed: 'false'
+      });
+    }
+  }, {
+    key: "followButton",
+    value: function followButton() {
+      // debugger
+      if (this.state.followed === 'true') {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          onClick: this.removeFollow,
+          className: "FollowBox followed"
+        }, "Unfollow!", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-bookmark black"
+        }));
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          onClick: this.addFollow,
+          className: "FollowBox"
+        }, "Follow!", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-bookmark grey"
+        }));
+      }
     }
   }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "folFavbox"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        onClick: this.addFollow,
-        className: "FollowBox"
-      }, "Follow!", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-bookmark grey"
-      })));
+      }, this.followButton());
     }
   }]);
 
@@ -3310,21 +3362,36 @@ var ShowFiction = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(ShowFiction);
 
   function ShowFiction(props) {
+    var _this;
+
     _classCallCheck(this, ShowFiction);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.state = {
+      render1: 'true'
+    };
+    return _this;
   }
 
   _createClass(ShowFiction, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchStory(this.props.storyId);
+      var _this2 = this;
+
+      this.props.fetchStory(this.props.storyId).then(function (res) {
+        _this2.props.getUser(_this2.props.currentId).then(function (res2) {
+          _this2.setState({
+            render1: 'false'
+          });
+        });
+      }); // this.state.render1
     }
   }, {
     key: "render",
     value: function render() {
       //debugger
-      if (Object.values(this.props.stories).length == 0) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null); //    debugger
+      // if(Object.values(this.props.stories).length == 0 ) return(<></>)
+      if (this.state.render1 == 'true') return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null); //    debugger
 
       var genresList = this.props.story.genres.map(function (ele) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
@@ -3332,7 +3399,8 @@ var ShowFiction = /*#__PURE__*/function (_React$Component) {
           key: ele.id
         }, ele.name);
       });
-      var genres = genresList.length > 4 ? genresList.slice(0, 5) : genresList;
+      var genres = genresList.length > 4 ? genresList.slice(0, 5) : genresList; //    debugger
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "singleFictionShow"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3368,6 +3436,9 @@ var ShowFiction = /*#__PURE__*/function (_React$Component) {
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "rightSideFictionBox"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_follow_favBox__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        removeFollow: this.props.removeFollow,
+        user: this.props.user,
+        currentId: this.props.currentId,
         story: this.props.story,
         addFollows: this.props.addFollows
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3404,8 +3475,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-  // debugger
+  //    debugger
   return {
+    currentId: state.session.id,
+    user: state.entities.users[state.session.id],
     storyId: ownProps.match.params.storyId,
     stories: state.entities.stories,
     story: state.entities.stories[ownProps.match.params.storyId]
@@ -3419,6 +3492,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     addFollows: function addFollows(data) {
       return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["addFollow"])(data));
+    },
+    getUser: function getUser(data) {
+      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["getUser"])(data));
+    },
+    removeFollow: function removeFollow(data) {
+      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["removeFollow"])(data));
     }
   };
 };
@@ -5938,13 +6017,14 @@ var fetchAStory = function fetchAStory(storyId) {
 /*!***************************************!*\
   !*** ./frontend/util/user_api_utl.js ***!
   \***************************************/
-/*! exports provided: getUser, addFollow */
+/*! exports provided: getUser, addFollow, removeFollow */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUser", function() { return getUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addFollow", function() { return addFollow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeFollow", function() { return removeFollow; });
 var receiveUsers = function receiveUsers(users) {
   return $.ajax({
     method: "GET",
@@ -5969,6 +6049,17 @@ var addFollow = function addFollow(data) {
   return $.ajax({
     method: 'GET',
     url: "/api/users/".concat(data.userId, "/story/").concat(data.storyId)
+  });
+};
+var removeFollow = function removeFollow(data) {
+  return $.ajax({
+    method: 'DELETE',
+    url: "/api/users/follows/".concat(data.followId),
+    data: {
+      follows: {
+        user_id: data.userId
+      }
+    }
   });
 };
 

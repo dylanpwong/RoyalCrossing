@@ -848,3 +848,12 @@ background-color: #337AB7;
 .grey{
     color: grey;
 }
+.black{
+    color:black;
+}
+.followed{
+    background-color: #67809f;
+}
+.followed:hover{
+    background-color: #81a1c9;
+}

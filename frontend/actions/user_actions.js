@@ -16,5 +16,9 @@ export const getUser=(userId)=>(dispatch)=>{
 }
 
 export const addFollow=(data)=>(dispatch)=>{
-    return (users_util.addFollow(data).then)
+    return (users_util.addFollow(data).then((res)=>dispatch(receiveUser(res))))
+}
+
+export const removeFollow=(data)=>dispatch=>{
+    return (users_util.removeFollow(data).then((res)=>dispatch(receiveUser(res))))
 }

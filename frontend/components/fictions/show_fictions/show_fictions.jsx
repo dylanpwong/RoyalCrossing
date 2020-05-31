@@ -9,22 +9,34 @@ import Follow_favBox from './follow_favBox';
 class ShowFiction extends React.Component{
     constructor(props){
         super(props);
+        this.state={
+            render1: 'true'
+        }
     }
 
 
     componentDidMount(){
-        this.props.fetchStory(this.props.storyId)
+        this.props.fetchStory(this.props.storyId).then((res)=>{
+            this.props.getUser(this.props.currentId).then((res2)=>{
+
+                this.setState({render1: 'false'});
+            });
+
+        });
+        // this.state.render1
     }
 
 
     render(){
         //debugger
-        if(Object.values(this.props.stories).length == 0 ) return(<></>)
+        // if(Object.values(this.props.stories).length == 0 ) return(<></>)
+        if(this.state.render1 == 'true') return(<></>)
     //    debugger
        const genresList = this.props.story.genres.map((ele)=>{
            return <li className="RemoveListStyle genreItem"key={ele.id}>{ele.name}</li>;
        })
        const genres = (genresList.length>4)? genresList.slice(0,5) : genresList;
+    //    debugger
         return(
             <div className='singleFictionShow'>
                 <div className='fictionHeader'> {/**fic header */}
@@ -56,7 +68,7 @@ class ShowFiction extends React.Component{
                     </div>
 
                     <div className='rightSideFictionBox'>
-                        <Follow_favBox story={this.props.story} addFollows={this.props.addFollows}/>
+                        <Follow_favBox removeFollow={this.props.removeFollow}user={this.props.user}currentId={this.props.currentId}story={this.props.story} addFollows={this.props.addFollows}/>
                         <div className='AuthorBox'> {/*right Side */}
                             <ShowAuthorBox author={this.props.story.author}/>
                         </div>

@@ -27,3 +27,11 @@ export const addFollow=(data)=>{
         url: `/api/users/${data.userId}/story/${data.storyId}`
     })
 }
+
+export const removeFollow=(data)=>{
+    return $.ajax({
+        method: 'DELETE',
+        url: `/api/users/follows/${data.followId}`,
+        data: {follows: {user_id: data.userId}}
+    })
+}
