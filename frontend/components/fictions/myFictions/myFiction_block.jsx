@@ -24,8 +24,8 @@ class MyFictionBlock extends React.Component{
         this.props.history.push(`/fiction/chapter/new/${this.props.story.id}`)
     }
 
-
     render(){
+        let followers= (this.props.story.followers)? Object.values(this.props.story.followers).length : 0;
         // debugger
         return(
             <>
@@ -38,7 +38,7 @@ class MyFictionBlock extends React.Component{
 
                         <div> {/* the favorites/follows/ratings comments view*/}
                             <div className="followersFavoritesAmount"> 
-                                <div className='numberFollow'>{Object.values(this.props.story.followers).length}</div> {/*placeHolder*/}
+                                <div className='numberFollow'>{followers}</div> {/*placeHolder*/}
                                 <div className='FollowersStyle'>FOLLOWERS</div>
                             </div>
                         </div>

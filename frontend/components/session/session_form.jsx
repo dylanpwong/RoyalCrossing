@@ -73,7 +73,7 @@ class SessionForm extends React.Component{
 
                         <div className='formLabelInputs'>
                         <label  className="loginLabels" htmlFor="password">Password:</label>
-                        <input className='loginInputs'onChange={this.handleOnChange("password")} type="text" value={this.state.password}/>
+                        <input className='loginInputs'onChange={this.handleOnChange("password")} type="password" value={this.state.password}/>
                         </div>
 
                         <input type="submit" value="Sign in"/>

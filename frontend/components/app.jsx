@@ -24,7 +24,7 @@ const App = ()=>{
         <>
             <div className='AppHolder'>
             <div className="topContainer">{/* the top container */}
-            <h1><NavLink className="userNav fantasyStyle" to="/"> Royal Crossing</NavLink></h1>
+            <h1><NavLink className="userNav2 fantasyStyle" to="/"> Royal Crossing</NavLink></h1>
             <TopNav > {/* user Menu Nav, the top right dropdown*/}
                 <Route   path="/" component={HomeContainer}/>
             </TopNav>

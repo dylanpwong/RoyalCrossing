@@ -178,6 +178,7 @@ body{
 .loginLabels{
     color: #707070;
     font-size: 16px;
+    border-radius: .2em;
 }
 
 .formcontainer select{
@@ -254,11 +255,22 @@ body{
 }
 
 .formcontainer form > .loginInputs{
-    width: 100%
+    width: 100%;
+}
+.loginInputs{
+    width: 100%;
+    font-size: 2rem;
+    border: 1px solid black;
+    border-radius: .2em;
 }
 
 .userNav{
     text-decoration: none;
+    color: #aaafb7;
+    /* margin-left:1.2em; */
+}
+.userNav2{
+      text-decoration: none;
     color: #aaafb7;
     margin-left:1.2em;
 }

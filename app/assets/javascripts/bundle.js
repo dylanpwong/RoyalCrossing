@@ -479,7 +479,7 @@ var App = function App() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "topContainer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-    className: "userNav fantasyStyle",
+    className: "userNav2 fantasyStyle",
     to: "/"
   }, " Royal Crossing")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_top_nav__WEBPACK_IMPORTED_MODULE_4__["default"], null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/",
@@ -2662,7 +2662,8 @@ var MyFictionBlock = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      // debugger
+      var followers = this.props.story.followers ? Object.values(this.props.story.followers).length : 0; // debugger
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "fictionBlockContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2678,7 +2679,7 @@ var MyFictionBlock = /*#__PURE__*/function (_React$Component) {
         className: "followersFavoritesAmount"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "numberFollow"
-      }, Object.values(this.props.story.followers).length), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, followers), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "FollowersStyle"
       }, "FOLLOWERS"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "fictionShowButtons"
@@ -4037,13 +4038,14 @@ var RecentFiction = /*#__PURE__*/function (_React$Component) {
           story: ele
         });
       });
+      var length = StoryBlocks.length > 5 ? StoryBlocks.length - 5 : 0;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "storiesIndexWrapper"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "RecentNovels"
       }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-clock"
-      }), "\xA0LATEST STORIES"), StoryBlocks.reverse().slice(StoryBlocks.length - 5));
+      }), "\xA0LATEST STORIES"), StoryBlocks.reverse().slice(length));
     }
   }]);
 
@@ -4730,7 +4732,7 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
       }, "Password:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "loginInputs",
         onChange: this.handleOnChange("password"),
-        type: "text",
+        type: "password",
         value: this.state.password
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",

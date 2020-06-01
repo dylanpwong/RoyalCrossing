@@ -11,6 +11,7 @@ Story.destroy_all
 Genre.destroy_all
 Genres_join.destroy_all
 Chapter.destroy_all
+Follows_table.destroy_all
 
 password = BCrypt::Password.create("123456")
 user1 = User.create(username: :demouser,email: "demo@gmail.com",password_digest: password,gender: :male,location: "NY")

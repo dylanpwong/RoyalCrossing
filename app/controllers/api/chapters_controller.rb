@@ -19,7 +19,8 @@ class Api::ChaptersController < ApplicationController
             myStory = Story.find(params[:chapter][:story_id])
             #debugger
             #chapter bug here
-            @chapter.chapter_number = myStory.chapters.length + 1
+            
+            @chapter.chapter_number = myStory.chapters.length
              @chapter.save
             render 'api/chapters/show'
         else
