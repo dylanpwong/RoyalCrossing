@@ -12,6 +12,7 @@ const StoryReducer = (storyState={},action)=>{
             return Object.assign({},storyState,{[action.story.id]: action.story});
 
         case RECEIVE_MY_STORIES:
+            
             return Object.assign({},action.stories);
 
         case RECEIVE_CHAPTER:

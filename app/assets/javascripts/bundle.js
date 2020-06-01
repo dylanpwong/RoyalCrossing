@@ -2676,7 +2676,11 @@ var MyFictionBlock = /*#__PURE__*/function (_React$Component) {
         className: "fictionTitle"
       }, this.props.story.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "followersFavoritesAmount"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "10"), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "favorites"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "numberFollow"
+      }, Object.values(this.props.story.followers).length), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "FollowersStyle"
+      }, "FOLLOWERS"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "fictionShowButtons"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.toStoryShow,
@@ -2770,7 +2774,7 @@ var MyFictions = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.props.getMyStories(this.props.currentId).then(function (res) {
-        //debugger
+        // debugger
         _this2.setState({
           stories: Object.values(res.stories)
         });
@@ -3717,6 +3721,7 @@ var Home = /*#__PURE__*/function (_React$Component) {
     };
     _this.handleClickMenu = _this.handleClickMenu.bind(_assertThisInitialized(_this));
     _this.handleMyProfile = _this.handleMyProfile.bind(_assertThisInitialized(_this));
+    _this.handleMyFictions = _this.handleMyFictions.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -3739,6 +3744,12 @@ var Home = /*#__PURE__*/function (_React$Component) {
     value: function handleMyProfile(e) {
       e.preventDefault();
       this.props.history.push("/profile/".concat(this.props.currentUser.id));
+    }
+  }, {
+    key: "handleMyFictions",
+    value: function handleMyFictions(e) {
+      e.preventDefault();
+      this.props.history.push('/my/fictions');
     }
   }, {
     key: "render",
@@ -3764,6 +3775,7 @@ var Home = /*#__PURE__*/function (_React$Component) {
           className: "userdropText"
         }, "My Profile")))));
         hoverItems.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          onClick: this.handleMyFictions,
           className: "userLiContainer userHover",
           key: 2
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
@@ -4031,7 +4043,7 @@ var RecentFiction = /*#__PURE__*/function (_React$Component) {
         className: "RecentNovels"
       }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-clock"
-      }), "\xA0LATEST STORIES"), StoryBlocks);
+      }), "\xA0LATEST STORIES"), StoryBlocks.reverse().slice(StoryBlocks.length - 5));
     }
   }]);
 
@@ -4350,9 +4362,13 @@ var NavElement = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(NavElement);
 
   function NavElement(props) {
+    var _this;
+
     _classCallCheck(this, NavElement);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.icon = _this.icon.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(NavElement, [{
@@ -4372,13 +4388,30 @@ var NavElement = /*#__PURE__*/function (_React$Component) {
       }
     }
   }, {
+    key: "icon",
+    value: function icon() {
+      switch (this.props.content) {
+        case 'Read':
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "fas fa-book"
+          });
+
+        case 'Write':
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "fas fa-pen"
+          });
+
+        default:
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       //debugger
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         onClick: this.clickAction.bind(this),
         className: "RemoveBullets navEle"
-      }, this.props.content));
+      }, this.icon(), "\xA0", this.props.content));
     }
   }]);
 

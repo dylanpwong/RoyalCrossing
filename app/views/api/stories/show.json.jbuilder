@@ -31,5 +31,12 @@
  end
 
 end
+json.followers do @story.followed_users.each do |user|
+            json.set! user.id do
+                  json.extract! user,:id
+            end
+           
+        end
+   end
 
 

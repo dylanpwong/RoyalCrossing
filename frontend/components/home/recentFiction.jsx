@@ -24,7 +24,7 @@ class RecentFiction extends React.Component {
         return(
             <div className="storiesIndexWrapper">
                 <div className="RecentNovels"> <i className="fas fa-clock"></i>&nbsp;LATEST STORIES</div>
-                {StoryBlocks}
+                {StoryBlocks.reverse().slice(StoryBlocks.length-5)}
             </div>
         )
     }

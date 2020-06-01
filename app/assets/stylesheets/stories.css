@@ -857,3 +857,11 @@ background-color: #337AB7;
 .followed:hover{
     background-color: #81a1c9;
 }
+.FollowersStyle{
+    color: #E26A6A;
+    font: sans-serif ;
+}
+.numberFollow{
+    color: #5E7388;
+    font: sans-serif;
+}

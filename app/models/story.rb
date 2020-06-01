@@ -40,4 +40,8 @@ class Story < ApplicationRecord
     foreign_key: :story_id,
     class_name: :Follows_table
 
+    has_many :followed_users,
+    through: :follows,
+    source: :user
+
 end

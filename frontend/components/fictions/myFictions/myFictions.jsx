@@ -23,7 +23,7 @@ class MyFictions extends React.Component{
 
     componentDidMount(){
         this.props.getMyStories(this.props.currentId).then((res)=>{
-            //debugger
+            // debugger
             this.setState({stories: Object.values(res.stories)})
         })
     }

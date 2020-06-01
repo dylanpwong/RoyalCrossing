@@ -38,8 +38,8 @@ class MyFictionBlock extends React.Component{
 
                         <div> {/* the favorites/follows/ratings comments view*/}
                             <div className="followersFavoritesAmount"> 
-                                <div>10</div> {/*placeHolder*/}
-                                <div>favorites</div>
+                                <div className='numberFollow'>{Object.values(this.props.story.followers).length}</div> {/*placeHolder*/}
+                                <div className='FollowersStyle'>FOLLOWERS</div>
                             </div>
                         </div>
 
