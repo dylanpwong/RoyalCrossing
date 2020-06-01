@@ -217,7 +217,7 @@ var demoLogin = function demoLogin() {
 /*!*******************************************!*\
   !*** ./frontend/actions/story_actions.js ***!
   \*******************************************/
-/*! exports provided: RECEIVE_STORY, RECEIVE_STORIES, DELETE_STORY, RECEIVE_GENRES, RECEIVE_CHAPTER, receiveStory, receiveStories, deleteStory, receiveGenres, editStory, editChapter, deleteChapter, createChapter, fetchGenres, createAStory, getAnyStory, getStory, getStories, getMyStories */
+/*! exports provided: RECEIVE_STORY, RECEIVE_STORIES, DELETE_STORY, RECEIVE_GENRES, RECEIVE_CHAPTER, RECEIVE_MY_STORIES, receiveStory, receiveMyStories, receiveStories, deleteStory, receiveGenres, editStory, editChapter, deleteChapter, createChapter, fetchGenres, createAStory, getAnyStory, getStory, getStories, getMyStories */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -227,7 +227,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_STORY", function() { return DELETE_STORY; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_GENRES", function() { return RECEIVE_GENRES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_CHAPTER", function() { return RECEIVE_CHAPTER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_MY_STORIES", function() { return RECEIVE_MY_STORIES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveStory", function() { return receiveStory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveMyStories", function() { return receiveMyStories; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveStories", function() { return receiveStories; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteStory", function() { return deleteStory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveGenres", function() { return receiveGenres; });
@@ -254,11 +256,18 @@ var RECEIVE_STORIES = "RECEIVE_STORIES";
 var DELETE_STORY = "DELETE_STORY";
 var RECEIVE_GENRES = "RECEIVE_GENRES";
 var RECEIVE_CHAPTER = "RECEIVE_CHAPTER";
+var RECEIVE_MY_STORIES = 'RECEIVE_MY_STORIES';
 var receiveStory = function receiveStory(story) {
   //debugger
   return {
     type: RECEIVE_STORY,
     story: story
+  };
+};
+var receiveMyStories = function receiveMyStories(stories) {
+  return {
+    type: RECEIVE_MY_STORIES,
+    stories: stories
   };
 };
 var receiveStories = function receiveStories(stories) {
@@ -361,7 +370,7 @@ var getStories = function getStories() {
 var getMyStories = function getMyStories(userId) {
   return function (dispatch) {
     return _util_my_story_util__WEBPACK_IMPORTED_MODULE_1__["fetchMyStory"](userId).then(function (res) {
-      return dispatch(receiveStories(res));
+      return dispatch(receiveMyStories(res));
     });
   };
 };
@@ -394,7 +403,7 @@ var receiveUser = function receiveUser(user) {
 var getUser = function getUser(userId) {
   return function (dispatch) {
     return _util_user_api_utl__WEBPACK_IMPORTED_MODULE_1__["getUser"](userId).then(function (res) {
-      dispatch(receiveUser(res));
+      return dispatch(receiveUser(res));
     });
   };
 };
@@ -3122,6 +3131,7 @@ var TableOfContents = /*#__PURE__*/function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3146,6 +3156,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var Follow_favBox = /*#__PURE__*/function (_React$Component) {
   _inherits(Follow_favBox, _React$Component);
 
@@ -3161,7 +3172,7 @@ var Follow_favBox = /*#__PURE__*/function (_React$Component) {
     _this.followButton = _this.followButton.bind(_assertThisInitialized(_this));
     _this.removeFollow = _this.removeFollow.bind(_assertThisInitialized(_this));
     _this.state = {
-      followed: props.user.follows && props.user.follows[props.story.id] ? 'true' : 'false'
+      followed: props.user && props.user.follows && props.user.follows[props.story.id] ? 'true' : 'false'
     };
     return _this;
   }
@@ -3174,7 +3185,7 @@ var Follow_favBox = /*#__PURE__*/function (_React$Component) {
         userId: this.props.currentId
       }; // debugger;
 
-      if (!data.userId) {
+      if (!this.props.user) {
         this.props.history.push('/account/login');
       } else {
         this.props.addFollows(data); // window.location.reload();
@@ -3230,7 +3241,7 @@ var Follow_favBox = /*#__PURE__*/function (_React$Component) {
   return Follow_favBox;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Follow_favBox);
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Follow_favBox));
 
 /***/ }),
 
@@ -3379,11 +3390,17 @@ var ShowFiction = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       this.props.fetchStory(this.props.storyId).then(function (res) {
-        _this2.props.getUser(_this2.props.currentId).then(function (res2) {
+        if (_this2.props.currentId) {
+          _this2.props.getUser(_this2.props.currentId).then(function (res2) {
+            _this2.setState({
+              render1: 'false'
+            });
+          });
+        } else {
           _this2.setState({
             render1: 'false'
           });
-        });
+        }
       }); // this.state.render1
     }
   }, {
@@ -5066,6 +5083,7 @@ var PersonalInfo = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "pseronal information"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_show_splash__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        stories: this.props.stories,
         user: this.props.user
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "table-sidebarContainer"
@@ -5239,6 +5257,7 @@ var UserShowSplash = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "profileTmp"
       }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_splash_stat__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        stories: this.props.stories,
         user: this.props.user
       }))));
     }
@@ -5357,12 +5376,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var SplashStat = function SplashStat(props) {
-  var user = props.user;
+  var user = props.user; // debugger
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "userStatsContainer"
-  }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "5"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Favorites")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, user.follows ? Object.values(props.user.follows).length : 0), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Follows")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "profileName"
-  }, user.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Fictions")));
+  }, user.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, Object.values(props.stories).length), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Fictions")));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (SplashStat);
@@ -5420,7 +5440,7 @@ var UsersShow = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      render1: 'false'
+      render1: 'true'
     };
     return _this;
   }
@@ -5428,20 +5448,30 @@ var UsersShow = /*#__PURE__*/function (_React$Component) {
   _createClass(UsersShow, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.getUser(this.props.userId);
-      this.setState({
-        render1: 'true'
-      }); // debugger;
+      var _this2 = this;
+
+      this.props.fetchUser(this.props.user.id).then(function (res) {
+        _this2.props.fetchMyStories(_this2.props.user.id).then(function (res) {
+          _this2.setState({
+            render1: 'false'
+          });
+        });
+      }); // this.props.fetchUser(this.props.user.id).then((res)=>{
+      //     this.setState({render1: 'false'});
+      // });
+      // debugger;
     }
   }, {
     key: "render",
     value: function render() {
-      if (this.state.render1 === 'false') {
+      if (this.state.render1 === 'true') {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
       } else {
+        // debugger
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "UsersShowSection"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_personal_info__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          stories: this.props.stories,
           user: this.props.user
         })));
       }
@@ -5467,6 +5497,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _users_show__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./users_show */ "./frontend/components/users_show/users_show.jsx");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
+/* harmony import */ var _actions_story_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/story_actions */ "./frontend/actions/story_actions.js");
+
 
 
 
@@ -5475,14 +5507,18 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   // debugger
   return {
     userId: ownProps.match.params.userId,
-    user: state.entities.users[ownProps.match.params.userId]
+    user: state.entities.users[ownProps.match.params.userId],
+    stories: state.entities.stories
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    getUser: function getUser(userId) {
-      dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_2__["getUser"])(userId));
+    fetchUser: function fetchUser(userId) {
+      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_2__["getUser"])(userId));
+    },
+    fetchMyStories: function fetchMyStories(userId) {
+      return dispatch(Object(_actions_story_actions__WEBPACK_IMPORTED_MODULE_3__["getMyStories"])(userId));
     }
   };
 };
@@ -5691,6 +5727,9 @@ var StoryReducer = function StoryReducer() {
 
     case _actions_story_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_STORY"]:
       return Object.assign({}, storyState, _defineProperty({}, action.story.id, action.story));
+
+    case _actions_story_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_MY_STORIES"]:
+      return Object.assign({}, action.stories);
 
     case _actions_story_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CHAPTER"]:
       var newState = Object.assign({}, storyState); // debugger

@@ -5,14 +5,15 @@ import React from 'react'
 
 const SplashStat=(props)=>{
     const user = props.user;
+    // debugger
     return(
         <div className="userStatsContainer"> {/*contains the stat*/}
             <div>
                 <div>
-                    5
+                    {user.follows? Object.values(props.user.follows).length : 0}
                 </div>
                 <div>
-                    Favorites
+                    Follows
                 </div>
             </div>
 
@@ -22,7 +23,7 @@ const SplashStat=(props)=>{
 
             <div>
                 <div>
-                    1
+                    {Object.values(props.stories).length}
                 </div>
                 <div>
                     Fictions

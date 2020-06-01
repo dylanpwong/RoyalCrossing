@@ -7,6 +7,7 @@ export const RECEIVE_STORIES = "RECEIVE_STORIES";
 export const DELETE_STORY = "DELETE_STORY";
 export const RECEIVE_GENRES = "RECEIVE_GENRES"
 export const RECEIVE_CHAPTER = "RECEIVE_CHAPTER";
+export const RECEIVE_MY_STORIES ='RECEIVE_MY_STORIES';
 
 
 export const receiveStory= (story)=>{
@@ -15,6 +16,13 @@ export const receiveStory= (story)=>{
     return({
         type: RECEIVE_STORY,
         story: story
+    })
+}
+
+export const receiveMyStories=(stories)=>{
+    return({
+        type: RECEIVE_MY_STORIES,
+        stories: stories
     })
 }
 
@@ -92,5 +100,5 @@ export const getStories = ()=>dispatch=>{
 
 
 export const getMyStories = (userId)=>dispatch=>{
-    return my_story_util.fetchMyStory(userId).then((res)=>dispatch(receiveStories(res)))
+    return my_story_util.fetchMyStory(userId).then((res)=>dispatch(receiveMyStories(res)))
 }

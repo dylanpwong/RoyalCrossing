@@ -16,11 +16,16 @@ class ShowFiction extends React.Component{
 
 
     componentDidMount(){
+        
         this.props.fetchStory(this.props.storyId).then((res)=>{
-            this.props.getUser(this.props.currentId).then((res2)=>{
-
-                this.setState({render1: 'false'});
-            });
+            if(this.props.currentId){
+                this.props.getUser(this.props.currentId).then((res2)=>{
+    
+                    this.setState({render1: 'false'});
+                });
+            }else{
+                this.setState({ render1: 'false' });
+            }
 
         });
         // this.state.render1

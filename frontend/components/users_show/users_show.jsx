@@ -12,31 +12,43 @@ class UsersShow extends React.Component{
         super(props)
 
         this.state={
-            render1: 'false'
+            render1: 'true'
         }
     }
 
     componentDidMount(){
-        this.props.getUser(this.props.userId);
-        this.setState({render1: 'true'});
+       
+
+    this.props.fetchUser(this.props.user.id).then((res)=>{
+        this.props.fetchMyStories(this.props.user.id).then((res)=>{
+            this.setState({render1: 'false'});
+
+        })
+    })
+    
+        // this.props.fetchUser(this.props.user.id).then((res)=>{
+          
+            
+        //     this.setState({render1: 'false'});
+        // });
         // debugger;
     }
 
 
     render(){
-        if(this.state.render1 ==='false'){
+        if(this.state.render1 ==='true'){
             return(
                 <>
                 </>
             )
         }
         else{
-
+            // debugger
             return(
                 <>
                 <section className="UsersShowSection">{/*the Entire use show*/}
             
-                    <PersonalInfo user={this.props.user}/>
+                    <PersonalInfo stories={this.props.stories}user={this.props.user}/>
                
                 </section>
                 </>

@@ -16,7 +16,7 @@ class PersonalInfo extends React.Component{
         return(
             <>
                 <div className="pseronal information">
-                    <UserShowSplash user={this.props.user}/>
+                    <UserShowSplash stories={this.props.stories}user={this.props.user}/>
                     <div className="table-sidebarContainer">
                         <UserSidebar/>
                         <Table user={this.props.user}/>

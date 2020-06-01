@@ -1,4 +1,4 @@
-import { RECEIVE_STORY, RECEIVE_STORIES, RECEIVE_CHAPTER } from "../actions/story_actions"
+import { RECEIVE_STORY, RECEIVE_STORIES, RECEIVE_CHAPTER, RECEIVE_MY_STORIES } from "../actions/story_actions"
 
 
 
@@ -10,6 +10,9 @@ const StoryReducer = (storyState={},action)=>{
 
         case RECEIVE_STORY:
             return Object.assign({},storyState,{[action.story.id]: action.story});
+
+        case RECEIVE_MY_STORIES:
+            return Object.assign({},action.stories);
 
         case RECEIVE_CHAPTER:
             let newState = Object.assign({},storyState);

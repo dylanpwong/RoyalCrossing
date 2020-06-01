@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 
 class Follow_favBox extends React.Component{
@@ -9,7 +10,7 @@ class Follow_favBox extends React.Component{
         this.followButton=this.followButton.bind(this);
         this.removeFollow=this.removeFollow.bind(this);
         this.state={
-            followed: (props.user.follows && props.user.follows[props.story.id]) ? 'true' : 'false'
+            followed: (props.user && props.user.follows && props.user.follows[props.story.id]) ? 'true' : 'false'
         }
     }
 
@@ -19,7 +20,7 @@ class Follow_favBox extends React.Component{
             userId: this.props.currentId
         }
         // debugger;
-        if(!data.userId){
+        if(!this.props.user){
             this.props.history.push('/account/login');
         }else{
             this.props.addFollows(data);
@@ -68,4 +69,4 @@ class Follow_favBox extends React.Component{
     }
 }
 
-export default Follow_favBox;
+export default withRouter(Follow_favBox);

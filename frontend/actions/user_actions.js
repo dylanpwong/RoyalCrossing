@@ -10,9 +10,7 @@ export const receiveUser=(user)=>{
 }
 
 export const getUser=(userId)=>(dispatch)=>{
-    return (users_util.getUser(userId).then((res)=>{
-       
-        dispatch(receiveUser(res))}))
+    return users_util.getUser(userId).then((res)=> dispatch(receiveUser(res)));
 }
 
 export const addFollow=(data)=>(dispatch)=>{

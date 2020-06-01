@@ -18,7 +18,7 @@ class UserShowSplash extends React.Component{
             <div className="userSplashContainer">
                 <div className="profileTmp"></div> {/*Profile background Picture*/}
                 <div> {/* profile stats container*/}
-                    <SplashStat user={this.props.user}/>
+                    <SplashStat stories={this.props.stories}user={this.props.user}/>
                 </div>
             </div>
             </>
