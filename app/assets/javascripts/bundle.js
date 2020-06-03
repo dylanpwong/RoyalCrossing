@@ -3574,9 +3574,16 @@ var Footer = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(Footer);
 
   function Footer(props) {
+    var _this;
+
     _classCallCheck(this, Footer);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.state = {
+      clicked: null
+    };
+    _this.clicker = _this.clicker.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(Footer, [{
@@ -3586,31 +3593,74 @@ var Footer = /*#__PURE__*/function (_React$Component) {
         className: "about"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "About Me"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "aboutText"
-      }, " Hello, thanks for visiting, I am Dylan Wong A software developer in NewYork. Please checkout my Personal Site!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      }, " Hello, thanks for visiting, I am Dylan Wong A software developer in NewYork. Please checkout my \xA0 ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         target: "_blank",
         className: "white",
         href: "https://dylanpwong.github.io/"
-      }, "Personal Site"));
+      }, "Personal Site")));
     }
   }, {
     key: "Contact",
     value: function Contact() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: " contact"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Contact Me!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Email: dylanpwong"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Phone 848-826-5416"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "about"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Contact Me!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "contact"
+      }, "Email: dylanpwong@gmail.com"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "contact"
+      }, "Phone 848-826-5416"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "white",
         target: "_blank",
         href: "https://github.com/dylanpwong"
       }, "GitHub!"));
     }
   }, {
-    key: "render",
-    value: function render() {
+    key: "slider",
+    value: function slider() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "smallFooter"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        onClick: this.clicker,
+        className: "fas fa-arrow-circle-up white"
+      }));
+    }
+  }, {
+    key: "sliderOpen",
+    value: function sliderOpen() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "footer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "footerContent"
-      }, this.AboutMe(), this.Contact()));
+      }, this.AboutMe(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        onClick: this.clicker,
+        className: "fas fa-arrow-circle-down white middleF"
+      }), this.Contact()));
+    }
+  }, {
+    key: "clicker",
+    value: function clicker() {
+      // switch(this.state.clicked){
+      //     case 'false':
+      //         this.setState({clicked: 'true'});
+      //         break;
+      //     case 'true':
+      //         this.setState({clicked: 'false'});
+      //         break;
+      //     default:
+      //         break;
+      // }
+      this.setState({
+        clicked: !this.state.clicked
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (!this.state.clicked) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, this.slider.call(this));
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, this.sliderOpen.call(this));
+      }
     }
   }]);
 
