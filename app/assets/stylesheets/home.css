@@ -6,9 +6,10 @@
     flex-direction: column;
     padding: 10px 15px;
     position: relative;
-    top: 5%;
     overflow: scroll;
     left: -.5%;
+    /* top: 5%; */
+    margin-top: 3.2em;
 }
 .carouselContainer{
     margin-top: 15px;

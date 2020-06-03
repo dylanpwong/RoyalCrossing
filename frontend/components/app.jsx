@@ -18,6 +18,7 @@ import chapter_new_container from './fictions/chapters/chapter_new_container';
 import chapter_edit_container from './fictions/chapters/chapter_edit_container';
 import dashEdit_container from './fictions/dashboard/dashEdit_container';
 import dashChapter_container from './fictions/dashboard/dashChapter_conatiner';
+import footer_container from './footer/footer_container';
 
 const App = ()=>{
     return(
@@ -30,11 +31,18 @@ const App = ()=>{
             </TopNav>
             </div>
 
+            {/* <div className="flexFooter"> */}
             <div className='BackgroundFixed'></div>
+            {/* <Route path='/' component={footer_container} />  */}
+            {/* </div> */}
             {/* <section className="mainNav"></section> the main nav */}
             {/* <MainNav/> */}
+            
+
+            
             <div className='BelowHeader'>
                 <Route path="/" component={MainNav}/>
+            {/* <div className="flexFooter"> */}
                 <div className="mainContentwrapper">{/*wraps main content on page*/}
                 <Route exact path ="/" component={home_page_container}/>
                 <Route exact path="/fiction/:storyId" component={show_fictions_container}/>
@@ -49,9 +57,14 @@ const App = ()=>{
                 <AuthRoute exact path="/profile/:userId" component={UserShowContainer}/>
                 <AuthRoute exact path="/my/fictions" component={myFictions_container}/>
                 {/* <Route path="/profile/:userId" component={UserShowContainer}/> */}
-                </div>  
+                {/* <Route path='/' component={footer_container}/>  */}
+                </div> 
+                        {/* <Route path='/' component={footer_container} /> */}
             </div>
+                    <Route path='/' component={footer_container} /> 
             </div>
+            {/* </div> */}
+            {/* <Route path='/' component={footer_container} />  */}
         </> 
     )
 }
