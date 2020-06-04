@@ -51,6 +51,7 @@ class UsersShow extends React.Component{
                     <PersonalInfo stories={this.props.stories}user={this.props.user}/>
                
                 </section>
+                
                 </>
             )
         }

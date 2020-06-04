@@ -27,6 +27,17 @@ class MyFictions extends React.Component{
             // debugger
             this.setState({stories: Object.values(res.stories)})
         })
+        let myFicHeight=document.getElementById("myFictionsShow");
+        // debugger
+        let height = document.documentElement.scrollHeight;
+        let backgroundEle = document.getElementById('background');
+        backgroundEle.setAttribute('style', `height: ${height}px`);
+    }
+    componentDidUpdate(){
+        let myFicHeight = document.getElementById("myFictionsShow").offsetHeight;
+        // let height = document.documentElement.scrollHeight;
+        let backgroundEle = document.getElementById('background');
+        backgroundEle.setAttribute('style', `height: ${myFicHeight}px`);
     }
 
     newStoryHandler(){
@@ -66,7 +77,7 @@ class MyFictions extends React.Component{
         })
         return(
             <>
-                <div className="fictionsShowContainer">{/*outer Show fiction page */}
+                <div id="myFictionsShow"className="fictionsShowContainer">{/*outer Show fiction page */}
 
                     <div className="fictionsShowbar">{/* sidebar stuffs*/}
                         <FictionsShowbar/>

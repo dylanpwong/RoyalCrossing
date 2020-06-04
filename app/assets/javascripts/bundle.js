@@ -2904,6 +2904,19 @@ var MyFictions = /*#__PURE__*/function (_React$Component) {
           stories: Object.values(res.stories)
         });
       });
+      var myFicHeight = document.getElementById("myFictionsShow"); // debugger
+
+      var height = document.documentElement.scrollHeight;
+      var backgroundEle = document.getElementById('background');
+      backgroundEle.setAttribute('style', "height: ".concat(height, "px"));
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      var myFicHeight = document.getElementById("myFictionsShow").offsetHeight; // let height = document.documentElement.scrollHeight;
+
+      var backgroundEle = document.getElementById('background');
+      backgroundEle.setAttribute('style', "height: ".concat(myFicHeight, "px"));
     }
   }, {
     key: "newStoryHandler",
@@ -2948,6 +2961,7 @@ var MyFictions = /*#__PURE__*/function (_React$Component) {
         });
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "myFictionsShow",
         className: "fictionsShowContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "fictionsShowbar"
