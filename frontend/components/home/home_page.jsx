@@ -10,6 +10,12 @@ class HomePage extends React.Component{
     constructor(props){
         super(props);
     }
+    componentDidMount(){
+        let height = document.documentElement.scrollHeight;
+        let backgroundEle = document.getElementById('background');
+        backgroundEle.setAttribute('style', `height: ${height}px`);
+        // console.log(`height: ${height}`)
+    }
 
     render(){
         return(
@@ -30,7 +36,7 @@ class HomePage extends React.Component{
                 </div>
             </div>
             
-            {/* <Route path='/' component={footer_container} />  */}
+            <Route path='/' component={footer_container} /> 
             </>
         )
     }

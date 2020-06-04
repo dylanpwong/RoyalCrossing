@@ -3,7 +3,7 @@
     position: relative;
     z-index: 2;
     height: 25%;
-    margin-top:-1.8em;
+    /* margin-top:-1.8em; */
     /* top:1%; */
     /* margin-top: 3.2em; */
     /* right: 5%; */
@@ -14,7 +14,7 @@
     position: relative;
     z-index:2;
     /* margin-top:-1.8em; */
-    bottom: 0;
+    /* bottom: 0; */
     height:5%;
     display:flex;
     justify-content: center;

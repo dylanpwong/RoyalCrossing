@@ -6,13 +6,30 @@ class Footer extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            clicked: null
+            clicked: null,
+            small: 'true'
         }
         this.clicker=this.clicker.bind(this);
         this.sliderWithScroller=this.sliderWithScroller.bind(this);
     }
+    componentDidMount(){
+        let height = document.documentElement.scrollHeight;
+        let backgroundEle = document.getElementById('background');
+        backgroundEle.setAttribute('style', `height: ${height}px`);
+        // console.log(`height: ${height}`)
+    }
     componentDidUpdate(){
-        window.scrollTo(0, document.body.scrollHeight);
+        if(this.state.small==='false'){
+            window.scrollTo(0, document.body.scrollHeight);
+            let height = document.documentElement.scrollHeight;
+            let backgroundEle = document.getElementById('background');
+            backgroundEle.setAttribute('style', `height: ${height}px`);
+        }else{
+            let height = document.documentElement.scrollHeight *.80;
+            let backgroundEle = document.getElementById('background');
+            backgroundEle.setAttribute('style', `height: ${height}px`);
+        }
+        
     }
 
     AboutMe(){
@@ -37,6 +54,7 @@ class Footer extends React.Component{
         )
     }
     slider(){
+        this.state.small='true';
         return(
             <div className='smallFooter'>
                 <i onClick={this.sliderWithScroller}className="fas fa-arrow-circle-up white"></i>
@@ -48,6 +66,7 @@ class Footer extends React.Component{
         // this.scoller();
     }
     sliderOpen(){
+        this.state.small='false';
         return(
             <div className='footer'>
 
@@ -61,8 +80,8 @@ class Footer extends React.Component{
     }
     scoller(){
         // window.scrollTo(0,document.body.scrollHeight);
-        window.scrollTo(0, 919);
-        console.log('scrolled');
+        window.scrollTo(0, document.body.scrollHeight);
+        // console.log('scrolled');
     }
     clicker(){
         // switch(this.state.clicked){

@@ -3,6 +3,7 @@
 import React from 'react';
 import CreateChapter from './createChapter'
 import { withRouter } from 'react-router-dom';
+import BackgroundFixer from '../../../backgroundFixer';
 // import { debug } from 'webpack';
 
 
@@ -89,6 +90,7 @@ class CreateFiction extends React.Component{
             content: this.state.content,
 
         }
+        // <BackgroundFixer/>
         // debugger;
         if(this.state.synopsis==""){
             this.setState({errors: true});
@@ -117,6 +119,7 @@ class CreateFiction extends React.Component{
             })
             
         }
+        // return <BackgroundFixer/>
         // debugger
     }
     showErrors(){

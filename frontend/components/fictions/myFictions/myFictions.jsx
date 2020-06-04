@@ -1,7 +1,8 @@
 import React from 'react'
 import MyFictionBlock from './myFiction_block';
 import FictionsShowbar from './fictionsShowbar';
-
+import { Route } from 'react-router-dom';
+import footer_container from '../../footer/footer_container';
 
 class MyFictions extends React.Component{
     constructor(props){
@@ -82,6 +83,8 @@ class MyFictions extends React.Component{
                     </div>
 
                 </div>
+                
+                <Route path='/' component={footer_container} /> 
             </>
         )
     }

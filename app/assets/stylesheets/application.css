@@ -359,11 +359,13 @@ body{
  background-image: url('https://images.unsplash.com/photo-1571757767119-68b8dbed8c97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80');
     background-position: center;
    background-size: cover;
-   height: 100vh;
+   /* height: 100vh; */
+   height: 100%;
     width: 100%;
     position: absolute;
     top: 10%;
     z-index: -1;
+    /* max-height: 120vh !important; */
     /* max-width: 94.5%; */
 }
 .BelowHeader{
