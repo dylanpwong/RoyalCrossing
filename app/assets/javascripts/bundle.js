@@ -3583,10 +3583,16 @@ var Footer = /*#__PURE__*/function (_React$Component) {
       clicked: null
     };
     _this.clicker = _this.clicker.bind(_assertThisInitialized(_this));
+    _this.sliderWithScroller = _this.sliderWithScroller.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Footer, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+  }, {
     key: "AboutMe",
     value: function AboutMe() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3620,9 +3626,14 @@ var Footer = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "smallFooter"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        onClick: this.clicker,
+        onClick: this.sliderWithScroller,
         className: "fas fa-arrow-circle-up white"
       }));
+    }
+  }, {
+    key: "sliderWithScroller",
+    value: function sliderWithScroller() {
+      this.clicker(); // this.scoller();
     }
   }, {
     key: "sliderOpen",
@@ -3637,6 +3648,13 @@ var Footer = /*#__PURE__*/function (_React$Component) {
       }), this.Contact()));
     }
   }, {
+    key: "scoller",
+    value: function scoller() {
+      // window.scrollTo(0,document.body.scrollHeight);
+      window.scrollTo(0, 919);
+      console.log('scrolled');
+    }
+  }, {
     key: "clicker",
     value: function clicker() {
       // switch(this.state.clicked){
@@ -3649,6 +3667,7 @@ var Footer = /*#__PURE__*/function (_React$Component) {
       //     default:
       //         break;
       // }
+      // window.scrollTo(0, document.body.scrollHeight);
       this.setState({
         clicked: !this.state.clicked
       });
@@ -4558,6 +4577,9 @@ var NavElement = /*#__PURE__*/function (_React$Component) {
           }
 
           break;
+
+        case 'Read':
+          this.props.history.push('/');
 
         default:
       }

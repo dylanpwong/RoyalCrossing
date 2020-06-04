@@ -9,6 +9,10 @@ class Footer extends React.Component{
             clicked: null
         }
         this.clicker=this.clicker.bind(this);
+        this.sliderWithScroller=this.sliderWithScroller.bind(this);
+    }
+    componentDidUpdate(){
+        window.scrollTo(0, document.body.scrollHeight);
     }
 
     AboutMe(){
@@ -35,9 +39,13 @@ class Footer extends React.Component{
     slider(){
         return(
             <div className='smallFooter'>
-                <i onClick={this.clicker}className="fas fa-arrow-circle-up white"></i>
+                <i onClick={this.sliderWithScroller}className="fas fa-arrow-circle-up white"></i>
             </div>
         )
+    }
+    sliderWithScroller(){
+        this.clicker();
+        // this.scoller();
     }
     sliderOpen(){
         return(
@@ -51,6 +59,11 @@ class Footer extends React.Component{
             </div>
         )
     }
+    scoller(){
+        // window.scrollTo(0,document.body.scrollHeight);
+        window.scrollTo(0, 919);
+        console.log('scrolled');
+    }
     clicker(){
         // switch(this.state.clicked){
         //     case 'false':
@@ -62,7 +75,8 @@ class Footer extends React.Component{
         //     default:
         //         break;
         // }
-        this.setState({clicked: !this.state.clicked})
+        // window.scrollTo(0, document.body.scrollHeight);
+        this.setState({clicked: !this.state.clicked});
     }
 
     render(){

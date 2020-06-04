@@ -17,6 +17,8 @@ class NavElement extends React.Component{
                     this.props.history.push('/account/login')
                 }
                 break;
+            case 'Read':
+                this.props.history.push('/');
             default:
                 
         }

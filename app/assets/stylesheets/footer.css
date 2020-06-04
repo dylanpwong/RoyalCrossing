@@ -13,8 +13,9 @@
     background-color: #48525e;
     position: relative;
     z-index:2;
-    margin-top:-1.8em;
-    height: 3%;
+    /* margin-top:-1.8em; */
+    bottom: 0;
+    height:5%;
     display:flex;
     justify-content: center;
     align-items: center;
