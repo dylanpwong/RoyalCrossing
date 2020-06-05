@@ -1,6 +1,8 @@
 import React from 'react'
 import PersonalInfo from './personal_info'
 import UserSidebar from './user_sidebar'
+import { Route } from 'react-router-dom'
+import footer_container from '../footer/footer_container';
 
 
 
@@ -51,7 +53,7 @@ class UsersShow extends React.Component{
                     <PersonalInfo stories={this.props.stories}user={this.props.user}/>
                
                 </section>
-                
+                    <Route path='/' component={footer_container} /> 
                 </>
             )
         }
