@@ -1502,6 +1502,8 @@ var dash = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "followersAndFavorites",
     value: function followersAndFavorites() {
+      // debugger;
+      var numFollowers = this.props.story ? Object.values(this.props.story.followers).length : 0;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "secondNavContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1512,7 +1514,9 @@ var dash = /*#__PURE__*/function (_React$Component) {
         className: "iconContainer"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-users"
-      })), "\xA0USERS")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), "\xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "numberContainer"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "USERS"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, numFollowers)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "secondNavHeader"
       }, "FAVORITES", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "secondNavContentContainer"

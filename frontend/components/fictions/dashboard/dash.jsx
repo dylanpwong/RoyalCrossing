@@ -53,6 +53,8 @@ class dash extends React.Component{
     }
 
     followersAndFavorites(){
+        // debugger;
+        let numFollowers = (this.props.story)? Object.values(this.props.story.followers).length:0;
         return(
 
         <div className="secondNavContainer">
@@ -63,8 +65,17 @@ class dash extends React.Component{
                     <i className="fas fa-users"></i>
 
                     </div>
-                    &nbsp;USERS
-                    {/*get the followers*/}
+                    &nbsp;
+                        <div className='numberContainer'>
+                            <div>
+                            USERS
+
+                            </div>
+                            <div>
+                            {numFollowers}
+
+                            </div>
+                        </div>
                 </div>
             </div>
              <div className="secondNavHeader">

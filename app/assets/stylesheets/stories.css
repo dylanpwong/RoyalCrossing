@@ -865,3 +865,9 @@ background-color: #337AB7;
     color: #5E7388;
     font: sans-serif;
 }
+.numberContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
