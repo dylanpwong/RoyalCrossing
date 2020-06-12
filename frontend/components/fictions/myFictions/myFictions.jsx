@@ -27,17 +27,17 @@ class MyFictions extends React.Component{
             // debugger
             this.setState({stories: Object.values(res.stories)})
         })
-        let myFicHeight=document.getElementById("myFictionsShow");
-        // debugger
-        let height = document.documentElement.scrollHeight;
-        let backgroundEle = document.getElementById('background');
-        backgroundEle.setAttribute('style', `height: ${height}px`);
+        // let myFicHeight=document.getElementById("myFictionsShow");
+        // // debugger
+        // let height = document.documentElement.scrollHeight;
+        // let backgroundEle = document.getElementById('background');
+        // backgroundEle.setAttribute('style', `height: ${height}px`);
     }
     componentDidUpdate(){
-        let myFicHeight = document.getElementById("myFictionsShow").offsetHeight;
-        // let height = document.documentElement.scrollHeight;
-        let backgroundEle = document.getElementById('background');
-        backgroundEle.setAttribute('style', `height: ${myFicHeight}px`);
+        // let myFicHeight = document.getElementById("myFictionsShow").offsetHeight;
+        // // let height = document.documentElement.scrollHeight;
+        // let backgroundEle = document.getElementById('background');
+        // backgroundEle.setAttribute('style', `height: ${myFicHeight}px`);
     }
 
     newStoryHandler(){
@@ -95,7 +95,7 @@ class MyFictions extends React.Component{
 
                 </div>
                 
-                <Route path='/' component={footer_container} /> 
+                {/* <Route path='/' component={footer_container} />  */}
             </>
         )
     }

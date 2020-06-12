@@ -10,6 +10,7 @@ __link__: https://royalcrossing.herokuapp.com/#/
 1. User Sign Up and Sign In
 1. Create Stories
 1. View Stories
+1. Edit Stories
 1. View Chapters
 1. Show Users profile page
 

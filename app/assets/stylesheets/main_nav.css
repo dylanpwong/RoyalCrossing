@@ -3,12 +3,13 @@
     padding-left: 15px;
     margin: 0px auto;
     display: flex;
-    position: absolute;
+    /* position: absolute; */
     background-color: #444D58;
     width: 98%;
-    height: 51px;
+    /* height: 51px; */
+    height:3.5em;
     z-index: 2;
-    top: 10%;
+    /* top: 10%; */
     /* vertical-align: middle; */
 }
 

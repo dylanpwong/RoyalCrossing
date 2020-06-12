@@ -34,12 +34,12 @@ button{
     background-color: #eff3f8;
     width: 100%;
     /* min-height: 90%; */
-    height: 90%;
+    /* height: 90%; */
     display: flex;
     padding: 10px 15px;
     position: relative;
-    top: 5%;
-    overflow: scroll;
+    /* top: 5%; */
+    /* overflow: scroll; */
     left: -.5%;
     
 }

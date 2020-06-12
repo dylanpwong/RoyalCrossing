@@ -24,17 +24,17 @@ import BackgroundFixer from './backgroundFixer';
 class App extends React.Component{
     
     componentDidMount(){
-        let height = document.documentElement.scrollHeight; 
-        let backgroundEle = document.getElementById('background');
-        backgroundEle.setAttribute('style',`height: ${height}px`);
-        console.log(`height: ${height}`)
+        // let height = document.documentElement.scrollHeight; 
+        // let backgroundEle = document.getElementById('background');
+        // backgroundEle.setAttribute('style',`height: ${height}px`);
+        // console.log(`height: ${height}`)
 
     }
     render(){
 
         return(
             <>
-                <div className='AppHolder'>
+                <div className='AppHolder flexFooter'>
                 <div className="topContainer">{/* the top container */}
                 <h1><NavLink className="userNav2 fantasyStyle" to="/"> Royal Crossing</NavLink></h1>
                 <TopNav > {/* user Menu Nav, the top right dropdown*/}
@@ -43,7 +43,7 @@ class App extends React.Component{
                 </div>
     
                 {/* <div className="flexFooter"> */}
-                <div id="background" className='BackgroundFixed'></div>
+                {/* <div id="background" className='BackgroundFixed'></div> */}
                 {/* <Route path='/' component={footer_container} />  */}
                 {/* </div> */}
                 {/* <section className="mainNav"></section> the main nav */}
@@ -72,7 +72,7 @@ class App extends React.Component{
                     </div> 
                             {/* <Route path='/' component={footer_container} /> */}
                 </div>
-                        {/* <Route path='/' component={footer_container} />  */}
+                        <Route path='/' component={footer_container} /> 
                 </div>
                 {/* </div> */}
                 {/* <Route path='/' component={footer_container} />  */}

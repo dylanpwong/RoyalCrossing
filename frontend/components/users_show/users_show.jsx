@@ -53,7 +53,7 @@ class UsersShow extends React.Component{
                     <PersonalInfo stories={this.props.stories}user={this.props.user}/>
                
                 </section>
-                    <Route path='/' component={footer_container} /> 
+                    {/* <Route path='/' component={footer_container} />  */}
                 </>
             )
         }

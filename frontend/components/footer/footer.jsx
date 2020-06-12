@@ -13,9 +13,9 @@ class Footer extends React.Component{
         this.sliderWithScroller=this.sliderWithScroller.bind(this);
     }
     componentDidMount(){
-        let height = document.documentElement.scrollHeight;
-        let backgroundEle = document.getElementById('background');
-        backgroundEle.setAttribute('style', `height: ${height}px`);
+        // let height = document.documentElement.scrollHeight;
+        // let backgroundEle = document.getElementById('background');
+        // backgroundEle.setAttribute('style', `height: ${height}px`);
         // console.log(`height: ${height}`)
     }
     componentDidUpdate(){
