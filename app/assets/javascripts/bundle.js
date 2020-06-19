@@ -3535,7 +3535,7 @@ var ShowFiction = /*#__PURE__*/function (_React$Component) {
 
       this.props.fetchStory(this.props.storyId).then(function (res) {
         if (_this2.props.currentId) {
-          _this2.props.getUser(_this2.props.currentId).then(function (res2) {
+          _this2.props.getUser(_this2.props.story.author.id).then(function (res2) {
             _this2.setState({
               render1: 'false'
             });

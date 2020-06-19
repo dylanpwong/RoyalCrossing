@@ -19,8 +19,8 @@ class ShowFiction extends React.Component{
         
         this.props.fetchStory(this.props.storyId).then((res)=>{
             if(this.props.currentId){
-                this.props.getUser(this.props.currentId).then((res2)=>{
-    
+                this.props.getUser(this.props.story.author.id).then((res2)=>{
+                        
                     this.setState({render1: 'false'});
                 });
             }else{
