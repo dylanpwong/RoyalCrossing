@@ -42,8 +42,6 @@ class TableOfContents extends React.Component{
 
         return()=>{
             chapter;
-            // let storyId = chapter.storyId;
-            // debugger;
             this.props.deleteChapter(chapter.id).then((res) => {
                 this.props.history.push(`/my/fiction/${chapter.story_id}`);
             })
