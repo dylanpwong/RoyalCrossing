@@ -17,6 +17,7 @@ class SessionFormSignup extends React.Component {
         }
 
         this.handleOnSubmit = this.handleOnSubmit.bind(this);
+        this.blankErrors = this.blankErrors.bind(this);
     }
 
     handleOnChange(type) {
@@ -25,10 +26,32 @@ class SessionFormSignup extends React.Component {
             //debugger
         }
     }
+    blankErrors(){
+        if(this.state.username != ""){
+            if(this.state.email !=""){
+                if(this.state.password !=""){
+                    if(this.state.passwordAgain !=""){
+                        return true;   
+                    }else{
+                        this.setState({errors: 'Please re-enter password'})
+                    }
+                }else{
+                    this.setState({errors: 'Password cant be blank'})
+                }
+            }else{
+                this.setState({errors: 'Email can not be blank'})
+            }
+        }else{
+            this.setState({errors: 'Username can not be blank'});
+        }
+
+        return false;
+    }
 
     handleOnSubmit(e) {
         e.preventDefault();
         //debugger
+        if(!this.blankErrors()) return false;
         if(this.state.errors !== "") this.state.errors = "";
         if(this.state.password === this.state.passwordAgain){
             if (this.state.email.includes('@'))

@@ -5273,6 +5273,7 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
       errors: ""
     };
     _this.handleOnSubmit = _this.handleOnSubmit.bind(_assertThisInitialized(_this));
+    _this.blankErrors = _this.blankErrors.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -5287,12 +5288,44 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
       };
     }
   }, {
+    key: "blankErrors",
+    value: function blankErrors() {
+      if (this.state.username != "") {
+        if (this.state.email != "") {
+          if (this.state.password != "") {
+            if (this.state.passwordAgain != "") {
+              return true;
+            } else {
+              this.setState({
+                errors: 'Please re-enter password'
+              });
+            }
+          } else {
+            this.setState({
+              errors: 'Password cant be blank'
+            });
+          }
+        } else {
+          this.setState({
+            errors: 'Email can not be blank'
+          });
+        }
+      } else {
+        this.setState({
+          errors: 'Username can not be blank'
+        });
+      }
+
+      return false;
+    }
+  }, {
     key: "handleOnSubmit",
     value: function handleOnSubmit(e) {
       var _this3 = this;
 
       e.preventDefault(); //debugger
 
+      if (!this.blankErrors()) return false;
       if (this.state.errors !== "") this.state.errors = "";
 
       if (this.state.password === this.state.passwordAgain) {
