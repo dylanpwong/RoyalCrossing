@@ -3133,8 +3133,7 @@ var TableOfContents = /*#__PURE__*/function (_React$Component) {
       var _this3 = this;
 
       return function () {
-        chapter; // let storyId = chapter.storyId;
-        // debugger;
+        chapter;
 
         _this3.props.deleteChapter(chapter.id).then(function (res) {
           _this3.props.history.push("/my/fiction/".concat(chapter.story_id));
@@ -5297,12 +5296,18 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
       if (this.state.errors !== "") this.state.errors = "";
 
       if (this.state.password === this.state.passwordAgain) {
-        this.props.processForm(this.state).then(function (res) {
-          // debugger
-          _this3.props.history.push('/');
-        }, function (error) {// debugger
-          // console.log(errors.error)
-        });
+        if (this.state.email.includes('@')) {
+          this.props.processForm(this.state).then(function (res) {
+            // debugger
+            _this3.props.history.push('/');
+          }, function (error) {// debugger
+            // console.log(errors.error)
+          });
+        } else {
+          this.setState({
+            errors: "Must have a valid Email"
+          });
+        }
       } else {
         this.setState({
           errors: "Passwords Must Match"

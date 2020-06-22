@@ -31,6 +31,8 @@ class SessionFormSignup extends React.Component {
         //debugger
         if(this.state.errors !== "") this.state.errors = "";
         if(this.state.password === this.state.passwordAgain){
+            if (this.state.email.includes('@'))
+            {
                 this.props.processForm(this.state).then((res) => {
                     // debugger
                     this.props.history.push('/');
@@ -38,6 +40,10 @@ class SessionFormSignup extends React.Component {
                     // debugger
                     // console.log(errors.error)
                 });
+
+            }else{
+                this.setState({errors: "Must have a valid Email"})
+            }
         }else{
             this.setState({errors: "Passwords Must Match"})
         }
