@@ -13,7 +13,11 @@ class SessionFormSignup extends React.Component {
             gender: "Male",
             birth: "",
             passwordAgain: "",
-            errors: ""
+            errors: "",
+            userErrors:"",
+            passErrors:"",
+            emailErrors:"",
+            rePassErrors:"",
         }
 
         this.handleOnSubmit = this.handleOnSubmit.bind(this);
@@ -33,16 +37,20 @@ class SessionFormSignup extends React.Component {
                     if(this.state.passwordAgain !=""){
                         return true;   
                     }else{
-                        this.setState({errors: 'Please re-enter password'})
+                        this.setState({errors: 'Please re-enter password'});
+                        this.setState({passErrors: 'Please re-enter password'});
                     }
                 }else{
-                    this.setState({errors: 'Password cant be blank'})
+                    this.setState({errors: 'Password can not be blank'});
+                    this.setState({passErrors: 'Password can not be blank'});
                 }
             }else{
-                this.setState({errors: 'Email can not be blank'})
+                this.setState({errors: 'Email can not be blank'});
+                this.setState({emailErrors: 'Email can not be blank'});
             }
         }else{
             this.setState({errors: 'Username can not be blank'});
+            this.setState({userErrors: 'Username can not be blank'});
         }
 
         return false;

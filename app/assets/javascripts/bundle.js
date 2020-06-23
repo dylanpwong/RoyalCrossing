@@ -5270,7 +5270,11 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
       gender: "Male",
       birth: "",
       passwordAgain: "",
-      errors: ""
+      errors: "",
+      userErrors: "",
+      passErrors: "",
+      emailErrors: "",
+      rePassErrors: ""
     };
     _this.handleOnSubmit = _this.handleOnSubmit.bind(_assertThisInitialized(_this));
     _this.blankErrors = _this.blankErrors.bind(_assertThisInitialized(_this));
@@ -5299,20 +5303,32 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
               this.setState({
                 errors: 'Please re-enter password'
               });
+              this.setState({
+                passErrors: 'Please re-enter password'
+              });
             }
           } else {
             this.setState({
-              errors: 'Password cant be blank'
+              errors: 'Password can not be blank'
+            });
+            this.setState({
+              passErrors: 'Password can not be blank'
             });
           }
         } else {
           this.setState({
             errors: 'Email can not be blank'
           });
+          this.setState({
+            emailErrors: 'Email can not be blank'
+          });
         }
       } else {
         this.setState({
           errors: 'Username can not be blank'
+        });
+        this.setState({
+          userErrors: 'Username can not be blank'
         });
       }
 
