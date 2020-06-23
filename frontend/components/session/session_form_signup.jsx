@@ -31,29 +31,39 @@ class SessionFormSignup extends React.Component {
         }
     }
     blankErrors(){
+        let bool = true;
         if(this.state.username != ""){
-            if(this.state.email !=""){
-                if(this.state.password !=""){
-                    if(this.state.passwordAgain !=""){
-                        return true;   
-                    }else{
-                        this.setState({errors: 'Please re-enter password'});
-                        this.setState({passErrors: 'Please re-enter password'});
-                    }
-                }else{
-                    this.setState({errors: 'Password can not be blank'});
-                    this.setState({passErrors: 'Password can not be blank'});
-                }
-            }else{
-                this.setState({errors: 'Email can not be blank'});
-                this.setState({emailErrors: 'Email can not be blank'});
-            }
+            this.setState({userErrors: " "})
         }else{
             this.setState({errors: 'Username can not be blank'});
             this.setState({userErrors: 'Username can not be blank'});
+            bool =false;
+        }
+        ////
+        if(this.state.email !=""){
+            this.setState({emailErrors: " "})
+        }else{
+            this.setState({errors: 'Email can not be blank'});
+            this.setState({emailErrors: 'Email can not be blank'});
+            bool = false;
+        }
+        //////
+        if(this.state.password !=""){
+            this.setState({passErrors: " "})
+        }else{
+            this.setState({errors: 'Password can not be blank'});
+            this.setState({passErrors: 'Password can not be blank'});
+            bool = false;
+        }
+        ////
+        if(this.state.passwordAgain !=""){   
+        }else{
+            this.setState({errors: 'Please re-enter password'});
+            this.setState({rePassErrors: 'Please re-enter password'});
+            bool = false;
         }
 
-        return false;
+        return bool;
     }
 
     handleOnSubmit(e) {
@@ -118,27 +128,31 @@ class SessionFormSignup extends React.Component {
                 <div className="formcontainer">
                     <div className="errorsLogin">
                         <h1 className="errorMsg">{this.props.errors[0]}</h1>
-                        <h1 className='passwordsError'>{this.state.errors}</h1>
+                        {/* <h1 className='passwordsError'>{this.state.errors}</h1> */}
                     </div>
                     <form onSubmit={this.handleOnSubmit}>
                         <div className="formLabelInputs"> 
                             <label className="loginLabels"htmlFor="username">Username:</label>
                             <input  onChange={this.handleOnChange("username")} type="text" id="username" value={this.state.username}/>
+                            <h1 className='customErrors'>{this.state.userErrors}</h1>
                         </div>
 
                         <div className="formLabelInputs"> 
                             <label  className="loginLabels" htmlFor="email">Email Address:</label>
                             <input onChange={this.handleOnChange("email")} id="email" type="text" value={this.state.email} />
+                            <h1 className='customErrors'>{this.state.emailErrors}</h1>
                         </div>
 
                         <div className="pass-connector">
                             <label  className="loginLabels" htmlFor="password">Password:</label>
                             <input id="password" onChange={this.handleOnChange("password")} type="password" value={this.state.password} />
+                            <h1 className='customErrors'>{this.state.passErrors}</h1>
                         </div>
 
                         <div className="pass-connector">
                             <label className='passAgain loginLabels' htmlFor="passwordAgain">Password again:</label>
                             <input className='passAgain'onChange={this.handleOnChange("passwordAgain")} type="password" value={this.state.passwordAgain} />
+                            <h1 className='customErrors'>{this.state.rePassErrors}</h1>
                         </div>
                         <br/>
 

@@ -5294,35 +5294,12 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "blankErrors",
     value: function blankErrors() {
+      var bool = true;
+
       if (this.state.username != "") {
-        if (this.state.email != "") {
-          if (this.state.password != "") {
-            if (this.state.passwordAgain != "") {
-              return true;
-            } else {
-              this.setState({
-                errors: 'Please re-enter password'
-              });
-              this.setState({
-                passErrors: 'Please re-enter password'
-              });
-            }
-          } else {
-            this.setState({
-              errors: 'Password can not be blank'
-            });
-            this.setState({
-              passErrors: 'Password can not be blank'
-            });
-          }
-        } else {
-          this.setState({
-            errors: 'Email can not be blank'
-          });
-          this.setState({
-            emailErrors: 'Email can not be blank'
-          });
-        }
+        this.setState({
+          userErrors: " "
+        });
       } else {
         this.setState({
           errors: 'Username can not be blank'
@@ -5330,9 +5307,51 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
         this.setState({
           userErrors: 'Username can not be blank'
         });
+        bool = false;
+      } ////
+
+
+      if (this.state.email != "") {
+        this.setState({
+          emailErrors: " "
+        });
+      } else {
+        this.setState({
+          errors: 'Email can not be blank'
+        });
+        this.setState({
+          emailErrors: 'Email can not be blank'
+        });
+        bool = false;
+      } //////
+
+
+      if (this.state.password != "") {
+        this.setState({
+          passErrors: " "
+        });
+      } else {
+        this.setState({
+          errors: 'Password can not be blank'
+        });
+        this.setState({
+          passErrors: 'Password can not be blank'
+        });
+        bool = false;
+      } ////
+
+
+      if (this.state.passwordAgain != "") {} else {
+        this.setState({
+          errors: 'Please re-enter password'
+        });
+        this.setState({
+          rePassErrors: 'Please re-enter password'
+        });
+        bool = false;
       }
 
-      return false;
+      return bool;
     }
   }, {
     key: "handleOnSubmit",
@@ -5413,9 +5432,7 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
         className: "errorsLogin"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "errorMsg"
-      }, this.props.errors[0]), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
-        className: "passwordsError"
-      }, this.state.errors)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      }, this.props.errors[0])), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleOnSubmit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "formLabelInputs"
@@ -5427,7 +5444,9 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
         type: "text",
         id: "username",
         value: this.state.username
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+        className: "customErrors"
+      }, this.state.userErrors)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "formLabelInputs"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "loginLabels",
@@ -5437,7 +5456,9 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
         id: "email",
         type: "text",
         value: this.state.email
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+        className: "customErrors"
+      }, this.state.emailErrors)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "pass-connector"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "loginLabels",
@@ -5447,7 +5468,9 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
         onChange: this.handleOnChange("password"),
         type: "password",
         value: this.state.password
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+        className: "customErrors"
+      }, this.state.passErrors)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "pass-connector"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "passAgain loginLabels",
@@ -5457,7 +5480,9 @@ var SessionFormSignup = /*#__PURE__*/function (_React$Component) {
         onChange: this.handleOnChange("passwordAgain"),
         type: "password",
         value: this.state.passwordAgain
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+        className: "customErrors"
+      }, this.state.rePassErrors)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "pass-connector"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "loginLabels",
