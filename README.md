@@ -17,6 +17,7 @@ __link__: https://royalcrossing.herokuapp.com/#/
 1. Show Users profile page
 
 ## User Sign Up and Sign In
+Signing up and Signing in both have similiar features, both make a request to the back end and either create a new user in the database or search for a current user. Where it differes slightly is where the errors are formed.
 
 ## Showing A story
 The Show Story feature shows the story page  along with a the chapters table index. This component utilizes the associations, set up in the rails backened. It fetches the selected story from the backend along with all the chapters, by utlizing ComponentDIdMount after the initial render of nothing
