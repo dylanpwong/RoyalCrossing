@@ -20,9 +20,9 @@ class UsersShow extends React.Component{
 
     componentDidMount(){
        
-
-    this.props.fetchUser(this.props.user.id).then((res)=>{
-        this.props.fetchMyStories(this.props.user.id).then((res)=>{
+// debugger;
+    this.props.fetchUser(this.props.userId).then((res)=>{
+        this.props.fetchMyStories(this.props.userId).then((res)=>{
             this.setState({render1: 'false'});
 
         })

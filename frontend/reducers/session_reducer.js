@@ -1,4 +1,4 @@
-import { RECEIVE_CURRENT_USER, LOGOUT_USER } from "../actions/session_actions";
+import { RECEIVE_CURRENT_USER, LOGOUT_USER, RECEIVE_LOGIN_USER } from "../actions/session_actions";
 
 
 
@@ -9,7 +9,7 @@ const sessionReducer=(state=nullSession,action)=>{
     Object.freeze(state);
     switch(action.type){
 
-        case RECEIVE_CURRENT_USER:
+        case RECEIVE_LOGIN_USER:
             action.user.lastActive = new Date;
             return {id: action.user.id,lastActive: action.user.lastActive}
 

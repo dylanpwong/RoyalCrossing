@@ -13,6 +13,14 @@ class Home extends React.Component{
         this.handleMyFictions=this.handleMyFictions.bind(this)
     }
 
+    componentDidMount(){
+        if(this.props.currentUserId){
+            this.props.fetchUser(this.props.currentUserId)
+        }else{
+            
+        }
+    }
+
     handleLogout(e){
         this.props.logout();
     }

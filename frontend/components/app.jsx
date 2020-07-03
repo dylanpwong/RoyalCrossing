@@ -65,7 +65,8 @@ class App extends React.Component{
                     <Route exact path='/fiction/:storyId/chapter/edit/:chapterNumber' component={chapter_edit_container}/>
                     <Route exact path='/my/fiction/:storyId/chapters' component={dashChapter_container}/>
                     
-                    <AuthRoute exact path="/profile/:userId" component={UserShowContainer}/>
+                    {/* <AuthRoute exact path="/profile/:userId" component={UserShowContainer}/> */}
+                    <Route exact path='/profile/:userId' component={UserShowContainer}/>
                     <AuthRoute exact path="/my/fictions" component={myFictions_container}/>
                     {/* <Route path="/profile/:userId" component={UserShowContainer}/> */}
                     {/* <Route path='/' component={footer_container}/>  */}
